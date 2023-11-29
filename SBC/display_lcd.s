@@ -2,20 +2,6 @@
 // ============================================================BLOCO DE FUNÇÕES BASE=================================================================== //
 // ==================================================================================================================================================== //
 
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    ------------------------------------------------
-    Setando os pinos que vão para o display como saída 
-    ------------------------------------------------
-*/
-
-
-
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    ------------------------------------------------
-    Setando os pinos que vão para o display como entrada 
-    ------------------------------------------------
-    Esta macro só serve para auxiliar na leitura do busyflag
-*/
 
 
 
@@ -255,29 +241,33 @@
     MOV R2, #7 @ Informa qual o bit vou ler primeiro. Aqui estou vendo se o o bit 7 (da dir para esq) é 1 ou 0
     BL mascaraBit @ O valor vai estar em R0
     @ # Informo que é o pino db7 no reg R3
-    @ INSERIR AQUI
+    ldr R3, =\db7 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg R4
-    @ INSERIR AQUI
+    mov r4, r0
     BL setStatePinGPIO
 
     MOV R2, #6
     BL mascaraBit
     @ # Informo que é o pino db6
-    @ INSERIR AQUI
+    ldr R3, =\db6 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
-    @ INSERIR AQUI
+    mov r4, r0
     BL setStatePinGPIO
 
     MOV R2, #5
     BL mascaraBit
     @ # Informo que é o pino db5
+    ldr R3, =\db5 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
+    mov r4, r0
     BL setStatePinGPIO
 
     MOV R2, #4
     BL mascaraBit
     @ # Informo que é o pino db4
+    ldr R3, =\db4 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
+    mov r4, r0
     BL setStatePinGPIO
 
     enableDisplay
@@ -286,25 +276,33 @@
     MOV R2, #3
     BL mascaraBit
     @ # Informo que é o pino db7
+    ldr R3, =\db7 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
+    mov r4, r0
     BL setStatePinGPIO
 
     MOV R2, #2
     BL mascaraBit
     @ # Informo que é o pino db6
+    ldr R3, =\db6 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
+    mov r4, r0
     BL setStatePinGPIO
 
     MOV R2, #1
     BL mascaraBit
     @ # Informo que é o pino db5
+    ldr R3, =\db5 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
+    mov r4, r0
     BL setStatePinGPIO @ Faz a mudança de estado do pino
 
     MOV R2, #0
     BL mascaraBit
     @ # Informo que é o pino db4
+    ldr R3, =\db4 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
+    mov r4, r0
     BL setStatePinGPIO
 
     enableDisplay

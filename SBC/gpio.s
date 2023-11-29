@@ -82,7 +82,7 @@
 
     mov r0, #0b111 		@ Registrador a ser usado como máscara
     lsl r0, r3 			@ Desloca para a posicao da máscara (Onde os 3 bits do pino estarão)
-    bic r1, r0 			@ Limpa os bits
+    bic r1, r0 			@ Limpa os bits 000(input)
 
     str r1, [r8, r2] 		@ Salva novamente no endereço
 .endm
@@ -119,6 +119,18 @@ setStatePinGPIO:
     str r7, [r8, r6]    @Carrega a configuração
     bl
 
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ------------------------------------------------
+    Setando os pinos que vão para o display como saída 
+    ------------------------------------------------
+*/
+.macro setOut
+	setPinGPIOOut db7
+	setPinGPIOOut db6
+	setPinGPIOOut db5
+	setPinGPIOOut db4
+	setPinGPIOOut RS
+.endm
 
 .data
 timespecsec: .word 0
