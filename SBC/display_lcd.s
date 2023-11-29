@@ -30,7 +30,7 @@
 */ 
 .macro FunctionSet
 	SetPinGPIOLow RS
-    SetPinGPIOLow RW
+    @SetPinGPIOLow RW
     @@ Parte 1
 	SetPinGPIOLow db7
 	SetPinGPIOLow db6
@@ -55,7 +55,7 @@
 */
 .macro clearDisplay
 	SetPinGPIOLow RS
-    SetPinGPIOLow RW
+    @SetPinGPIOLow RW
     @ Parte 1
 	SetPinGPIOLow db7
 	SetPinGPIOLow db6
@@ -93,7 +93,7 @@
 */
 .macro setInitialCursorPos
 	SetPinGPIOLow RS
-    SetPinGPIOLow RW
+    @SetPinGPIOLow RW
 
 	SetPinGPIOLow db7
 	SetPinGPIOLow db6
@@ -116,7 +116,7 @@
 */ 
 .macro shiftRightCursor
 	SetPinGPIOLow RS
-    SetPinGPIOLow RW
+    @SetPinGPIOLow RW
 
 	SetPinGPIOLow db7
 	SetPinGPIOLow db6
@@ -138,7 +138,7 @@
 */ 
 .macro shiftLeftCursor
 	SetPinGPIOLow RS
-    SetPinGPIOLow RW
+    @SetPinGPIOLow RW
 
 	SetPinGPIOLow db7
 	SetPinGPIOLow db6
@@ -210,7 +210,7 @@
     @ Seta os pinos como entrada
 
     SetPinGPIOLow RS
-    SetPinGPIOHigh RW
+    @SetPinGPIOHigh RW
     enableDisplay
 .endm
 
@@ -224,7 +224,7 @@
 */ 
 .macro EntryModeSet
 	SetPinGPIOLow RS
-    SetPinGPIOLow RW
+    @SetPinGPIOLow RW
     @@@ Parte 1 
 	SetPinGPIOLow db7
 	SetPinGPIOLow db6
@@ -362,7 +362,7 @@ pos precisa estar entre 1 e 32
     nanoSleep timeZero, time15ms
 
     SetPinGPIOLow RS
-    SetPinGPIOLow RW
+    @SetPinGPIOLow RW
 
     FunctionSetParcial
     nanoSleep timeZero, time5ms @ Aguarda por mais de 4.1ms
