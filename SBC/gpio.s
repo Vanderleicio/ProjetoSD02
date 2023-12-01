@@ -1,3 +1,25 @@
+.macro MemoryMap
+	LDR R0, =devmem @ R0 = nome do arquivo
+	MOV R1, #2 @ O_RDWR (permissao de leitura e escrita pra arquivo)
+	MOV R7, #5 @ sys_open
+	SVC 0
+	MOV R4, R0 @ salva o descritor do arquivo.
+
+	@sys_mmap2
+	MOV R0, #0 @ NULL (SO escolhe o endereco)
+	LDR R1, =pagelen
+	LDR R1, [R1] @ tamanho da pagina de memoria
+	MOV R2, #3 @ protecao leitura ou escrita
+	MOV R3, #1 @ memoria compartilhada
+	LDR R5, =gpioaddr @ endereco GPIO / 4096
+	LDR R5, [R5]
+	MOV R7, #192 @sys_mmap2
+	SVC 0
+	MOV R8, R0
+.endm
+
+
+
 @ Preciso de uma função que seta o pino de saída em ALTO. recebe o pino como parametro
 @SetPinGPIOHigh
 .macro SetPinGPIOHigh pino
@@ -89,6 +111,30 @@
 
 @ Preciso de uma função que seta o pino de saída para o valor passado (0 ou 1). Recebe o high ou low e recebe o id do pino
 @setStatePinGPIO (Usando reg R3 para o pino e R4 para o high ou low)
+
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ------------------------------------------------
+    Setando os pinos que vão para o display como saída 
+    ------------------------------------------------
+*/
+.macro setOut
+	setPinGPIOOut db7
+	setPinGPIOOut db6
+	setPinGPIOOut db5
+	setPinGPIOOut db4
+	setPinGPIOOut RS
+	setPinGPIOOut E
+.endm
+
+
+
+
+/* COMENTA ISSO AQUI JOVEM
+    ------------------------------------------------
+                COMENTA ISSO AQUI JOVEM
+    ------------------------------------------------
+   
+*/
 setStatePinGPIO:
     mov r6, r3			@Copio o endereço do pino para r6
     ldr r6, [r6]
@@ -117,52 +163,4 @@ setStatePinGPIO:
 	
     end:
     str r7, [r8, r6]    @Carrega a configuração
-    bl
-
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    ------------------------------------------------
-    Setando os pinos que vão para o display como saída 
-    ------------------------------------------------
-*/
-.macro setOut
-	setPinGPIOOut db7
-	setPinGPIOOut db6
-	setPinGPIOOut db5
-	setPinGPIOOut db4
-	setPinGPIOOut RS
-.endm
-
-.data
-timespecsec: .word 0
-timespecnano: .word 100000000
-devmem: .asciz "/dev/mem"
-
-@ mem address of gpio register / 4096
-gpioaddr: .word 0x1C20 @0x01C20800 / 0x1000 (4096) @Endereço base do GPIO / 0x1000
-
-@ Pinos precisam de 4 campos offset reg_data, offset dentro do reg_data, offset reg_select, offset dentro do reg_select
-db7: .word 0xE8 
-	.word 7 
-	.word 0xD8
-	.word 28 
-db6: .word 0xE8 
-	.word 6 
-	.word 0xD8
-	.word 24 
-db5: .word 0xE8 
-	.word 5 
-	.word 0xDC
-	.word 4 
-db4: .word 0xE8 
-	.word 4 
-	.word 0xDC
-	.word 0 
-E: .word 0x10 
-	.word 18 
-	.word 0x08
-	.word 8 
-RS: .word 0x10 
-	.word 2 
-	.word 0x00
-	.word 8 
-.text
+    bx lr 

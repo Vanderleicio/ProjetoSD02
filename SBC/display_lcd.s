@@ -24,9 +24,9 @@
 	SetPinGPIOLow db4 @ 1 para informar que os dados são mandados em 8bit e 0 para 4 bits
 	enableDisplay @ db7-db4  0 0 1 0
     @@ Parte 2
-	SetPinGPIOLow db7 @ 1 para 2 linhas e 0 para uma linha
+	SetPinGPIOHigh db7 @ 1 para 2 linhas e 0 para uma linha
 	SetPinGPIOLow db6 @ Fonte de caracters: 1 para 5x10 pontos e 0 para 5x8 pontos
-	@SetPinGPIOHigh db5
+	@SetPinGPIOLow db5
 	@SetPinGPIOLow db4
 	enableDisplay @ db7-db4  1 1 x x
 .endm
@@ -36,10 +36,10 @@
     ------------------------------------------------
                 Limpa a tela do display 
     ------------------------------------------------
-    Coloca 0000 dá enable
-    Coloca 0001 dá enable
+    Coloca 0000 em d7-d4 e dá enable
+    Coloca 0001 em d7-d4 e dá enable
 */
-.macro clearDisplay
+clearDisplay:
 	SetPinGPIOLow RS
     @SetPinGPIOLow RW
     @ Parte 1
@@ -54,10 +54,10 @@
 	@SetPinGPIOLow db5
 	SetPinGPIOHigh db4
 	enableDisplay
-.endm
+    bx lr
 
 
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+/* !!!!!!!!!!!!!!!!!! AVALIAR MUDAR PARA FUNÇÃO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
     (os tempos que estão aqui devem estar em .data)
     ------------------------------------------------
         Informa ao display para executar a instrução
@@ -68,9 +68,8 @@
     SetPinGPIOHigh E
     nanoSleep timeZero, time1ms
     SetPinGPIOLow E
-    nanoSleep timeZero, time1ms @ !!! Confirmar a necessidade desse último timer em low por tanto tempo, talvez só precise fazer o gpiolow
+    @nanoSleep timeZero, time1ms @ !!! Confirmar a necessidade desse último timer em low por tanto tempo, talvez só precise fazer o gpiolow
 .endm
-
 
 /* 
     ------------------------------------------------
@@ -100,7 +99,7 @@
     Desloca posição do cursor para direita em 1 caracter
     ------------------------------------------------
 */ 
-.macro shiftRightCursor
+cursorShiftRight:
 	SetPinGPIOLow RS
     @SetPinGPIOLow RW
 
@@ -115,14 +114,15 @@
 	@SetPinGPIOLow db5 
 	@SetPinGPIOLow db4 
 	enableDisplay @ 01xx
-.endm
+	bx lr 
 
-/* 
+
+/* !!!!!!!!!!!!!!! ACHO QUE NEM VOU USAR ISSO AQUI !!!!!!!!!!!!!!!!!!!!!!!!!!!
     ------------------------------------------------
     Desloca posição do cursor para esquerda em 1 caracter
     ------------------------------------------------
 */ 
-.macro shiftLeftCursor
+cursorShiftLeft:
 	SetPinGPIOLow RS
     @SetPinGPIOLow RW
 
@@ -137,7 +137,7 @@
 	@SetPinGPIOLow db5 
 	@SetPinGPIOLow db4 
 	enableDisplay @ 00xx
-.endm
+    bx lr
 
 
 /* 
@@ -182,25 +182,6 @@
 .endm
 
 
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    ------------------------------------------------
-            Verifica se o LCD está ocupado
-    ------------------------------------------------
-    Serve para verificar se o LCD está realizando alguma instrução.
-    Só posso mandar outro comando quando a busyflag for 0.
-    A busyFlag vai estar em db7.
-    !!! Posso colocar para ele esperar pelo tempo máximo que pode ficar
-    na instrução, aí não teria que verificar o busyflag
-*/ 
-.macro ReadBusyFlag
-    @ Seta os pinos como entrada
-
-    SetPinGPIOLow RS
-    @SetPinGPIOHigh RW
-    enableDisplay
-.endm
-
-
 /* 
     ------------------------------------------------
             Definindo o modo de entrada
@@ -226,46 +207,48 @@
 .endm
 
 
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+/*
     ------------------------------------------------
                 Escreve um caracter
     ------------------------------------------------
+    Em R1 deve estar o parametro que indica o caracter que deverá ser escrito
     Recebe um valor que corresponde ao caracter a ser exibido. Por exemplo:
     01010100 para escrever o T
 */
-.macro WriteChar char
-    MOV R9, \char
+WriteCharLCD:
+    MOV R9, R1
     SetPinGPIOHigh RS
 
     @ Primeira parte dos dados
     MOV R2, #7 @ Informa qual o bit vou ler primeiro. Aqui estou vendo se o o bit 7 (da dir para esq) é 1 ou 0
-    BL mascaraBit @ O valor vai estar em R0
+    BL mascaraBit  @ Retorna em R0 o estado que o pino deverá assumir
     @ # Informo que é o pino db7 no reg R3
-    ldr R3, =\db7 @TALVEZ N FUNCIONE
+    ldr R3, =db7 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg R4
     mov r4, r0
     BL setStatePinGPIO
 
     MOV R2, #6
-    BL mascaraBit
+    BL mascaraBit  @ Retorna em R0 o estado que o pino deverá assumir
     @ # Informo que é o pino db6
-    ldr R3, =\db6 @TALVEZ N FUNCIONE
+    ldr R3, =db6 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     mov r4, r0
     BL setStatePinGPIO
 
     MOV R2, #5
-    BL mascaraBit
+    BL mascaraBit  @ Retorna em R0 o estado que o pino deverá assumir
     @ # Informo que é o pino db5
-    ldr R3, =\db5 @TALVEZ N FUNCIONE
+    ldr R3, =db5 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     mov r4, r0
     BL setStatePinGPIO
 
     MOV R2, #4
-    BL mascaraBit
+    BL mascaraBit  @ Retorna em R0 o estado que o pino deverá assumir
     @ # Informo que é o pino db4
-    ldr R3, =\db4 @TALVEZ N FUNCIONE
+    ldr R3, =db4 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     mov r4, r0
     BL setStatePinGPIO
@@ -274,17 +257,17 @@
 
     @ Segunda parte dos dados
     MOV R2, #3
-    BL mascaraBit
+    BL mascaraBit  @ Retorna em R0 o estado que o pino deverá assumir
     @ # Informo que é o pino db7
-    ldr R3, =\db7 @TALVEZ N FUNCIONE
+    ldr R3, =db7 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     mov r4, r0
     BL setStatePinGPIO
 
     MOV R2, #2
-    BL mascaraBit
+    BL mascaraBit  @ Retorna em R0 o estado que o pino deverá assumir
     @ # Informo que é o pino db6
-    ldr R3, =\db6 @TALVEZ N FUNCIONE
+    ldr R3, =db6 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     mov r4, r0
     BL setStatePinGPIO
@@ -292,22 +275,37 @@
     MOV R2, #1
     BL mascaraBit
     @ # Informo que é o pino db5
-    ldr R3, =\db5 @TALVEZ N FUNCIONE
+    ldr R3, =db5 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     mov r4, r0
     BL setStatePinGPIO @ Faz a mudança de estado do pino
 
     MOV R2, #0
-    BL mascaraBit
+    BL mascaraBit @ Retorna em R0 o estado que o pino deverá assumir
     @ # Informo que é o pino db4
-    ldr R3, =\db4 @TALVEZ N FUNCIONE
+    ldr R3, =db4 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     mov r4, r0
     BL setStatePinGPIO
 
     enableDisplay
+    bx lr
 
-.endm
+
+/* 
+    ------------------------------------------------
+        Escreve um caracter número no display
+    ------------------------------------------------
+    Em R1 deve estar o parametro que indica o número que deverá ser escrito
+    Recebe um valor que corresponde ao caracter a ser exibido. Por exemplo:
+    00000111 para escrever o 7.
+    Como eu trato números como valores inteiros.
+*/
+WriteNumberLCD:
+    add R1, #48, R1 @# 00110000(48) + number = 0011 0111 = asc para 7
+    bl WriteCharLCD
+    bx lr
+
 
 /* Macro para evitar trechos longos e repetidos de código na inicialização do LCD */
 .macro FunctionSetParcial
@@ -322,11 +320,6 @@
 
 
 
-/* (PARTE ESPECIFICA DO PROJETO) Muda a tipo de tela de Recebimento para Envio 
-*/
-.macro mem
-.endm
-
 // ==================================================================================================================================================== //
 // ============================================================BLOCO DE FUNÇÕES ALTAS================================================================== //
 // ==================================================================================================================================================== //
@@ -338,13 +331,12 @@
 Faz o deslocamento de 1 em 1 unidade para a direita até atingir a posição especificada.
 pos é um  valor absoluto, ou seja, ele não leva em conta a posição atual do cursor e sim a posição em relação a posição 0
 pos precisa estar entre 1 e 32 
-*/
+*/     
 .macro setCursorPos pos
     MOV R0, \pos
     setInitialCursorPos @ Preciso jogar o cursor na posição inicial, pois pos não é relativo
     WHILE:
-        cursorShiftRight
-        nanoSleep timeZero, time150us @@ Preciso mesmo disso aqui??? Tirar depois 
+        bl cursorShiftRight
         SUB R0, #1
         CMP R0, #0
         BGT WHILE
@@ -357,19 +349,20 @@ pos precisa estar entre 1 e 32
     ------------------------------------------------
 */
 .macro initDisplay
-    nanoSleep timeZero, time15ms
+    nanoSleep timeZero, time100ms
 
     SetPinGPIOLow RS
     @SetPinGPIOLow RW
 
     FunctionSetParcial
+    .ltorg
     nanoSleep timeZero, time5ms @ Aguarda por mais de 4.1ms
 
     FunctionSetParcial
     nanoSleep timeZero, time150us @ Aguarda por mais de 100us
-
+    .ltorg 
     FunctionSetParcial
-
+    nanoSleep timeZero, time150us @ Aguarda por mais de 100us
     @@@@@@@@@@@@@@@@@@@@@@ APÒS AQUI DEVO VER O BF @@@@@@@@@@@@@@@@@@@@@@
 
     @@@ FunctionSet !!(É esse o que vale)!! OK
@@ -377,16 +370,26 @@ pos precisa estar entre 1 e 32
     SetPinGPIOLow db6
     SetPinGPIOHigh db5
     SetPinGPIOLow db4 @ Indica que os dados são de 4 em 4 bits
+    .ltorg 
     enableDisplay
-
+    nanoSleep timeZero, time150us @ Aguarda por mais de 100us
+    
     FunctionSet
+    nanoSleep timeZero, time60us @ Aguarda por mais de 100us
+    
     DisplayOff
-    clearDisplay
+    nanoSleep timeZero, time60us @ Aguarda por mais de 100us
+    
+    bl clearDisplay
+    nanoSleep timeZero, time3ms @ Aguarda por mais de 100us
+    
     EntryModeSet
+    nanoSleep timeZero, time60us @ Aguarda por mais de 100us
     @@@ O procedimento indicado acaba aqui @@@
     DisplayOn
+    nanoSleep timeZero, time60us @ Aguarda por mais de 100us
     EntryModeSet
-	.ltorg
+    .ltorg @ OQ é isso?
 .endm
 
 
@@ -399,3 +402,5 @@ pos precisa estar entre 1 e 32
 
 /* Escreve a situação do sensor
 */
+
+
