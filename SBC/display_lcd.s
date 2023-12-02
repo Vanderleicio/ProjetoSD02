@@ -39,7 +39,7 @@
     Coloca 0000 em d7-d4 e dá enable
     Coloca 0001 em d7-d4 e dá enable
 */
-clearDisplay:
+.macro clearDisplay
 	SetPinGPIOLow RS
     @SetPinGPIOLow RW
     @ Parte 1
@@ -54,7 +54,7 @@ clearDisplay:
 	@SetPinGPIOLow db5
 	SetPinGPIOHigh db4
 	enableDisplay
-    bx lr
+ .endm
 
 
 /* !!!!!!!!!!!!!!!!!! AVALIAR MUDAR PARA FUNÇÃO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
@@ -115,29 +115,6 @@ cursorShiftRight:
 	@SetPinGPIOLow db4 
 	enableDisplay @ 01xx
 	bx lr 
-
-
-/* !!!!!!!!!!!!!!! ACHO QUE NEM VOU USAR ISSO AQUI !!!!!!!!!!!!!!!!!!!!!!!!!!!
-    ------------------------------------------------
-    Desloca posição do cursor para esquerda em 1 caracter
-    ------------------------------------------------
-*/ 
-cursorShiftLeft:
-	SetPinGPIOLow RS
-    @SetPinGPIOLow RW
-
-	SetPinGPIOLow db7
-	SetPinGPIOLow db6
-	SetPinGPIOLow db5
-	SetPinGPIOHigh db4
-	enableDisplay @ 0001
-
-	@SetPinGPIOLow db7 @ 0 para deslocar o cursor, 1 para a exibição/tela
-	SetPinGPIOLow db6 @ 1 para direita e 0 para esquerda
-	@SetPinGPIOLow db5 
-	@SetPinGPIOLow db4 
-	enableDisplay @ 00xx
-    bx lr
 
 
 /* 
@@ -324,7 +301,7 @@ WriteNumberLCD:
 // ============================================================BLOCO DE FUNÇÕES ALTAS================================================================== //
 // ==================================================================================================================================================== //
 
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/* 
     ------------------------------------------------
     Desloca posição do cursor para posição determinada
     ------------------------------------------------
@@ -332,15 +309,21 @@ Faz o deslocamento de 1 em 1 unidade para a direita até atingir a posição esp
 pos é um  valor absoluto, ou seja, ele não leva em conta a posição atual do cursor e sim a posição em relação a posição 0
 pos precisa estar entre 1 e 32 
 */     
-.macro setCursorPos pos
-    MOV R0, \pos
+setCursorPos:
+    MOV R9, R2
     setInitialCursorPos @ Preciso jogar o cursor na posição inicial, pois pos não é relativo
-    WHILE:
-        bl cursorShiftRight
-        SUB R0, #1
-        CMP R0, #0
-        BGT WHILE
-.endm
+
+    @ Espera-se que eu nunca use esta função para ir para a posição 0 (Talvez eu remova ela)
+    CMP R9, #0 @ Para ver se não entro no while
+    BGT WHILE3
+    bx lr
+
+    WHILE3:
+        cursorShiftRight
+        SUB R9, #1
+        CMP R9, #0
+        BGT WHILE3
+        bx lr
 
 
 /*  
@@ -380,7 +363,7 @@ pos precisa estar entre 1 e 32
     DisplayOff
     nanoSleep timeZero, time60us @ Aguarda por mais de 100us
     
-    bl clearDisplay
+    clearDisplay
     nanoSleep timeZero, time3ms @ Aguarda por mais de 100us
     
     EntryModeSet
@@ -394,8 +377,57 @@ pos precisa estar entre 1 e 32
 
 
 
-/* Escreve a temperatura 
+/* 
+    ------------------------------------------------ 
+            Escreve a temperatura no display
+    ------------------------------------------------
+    Supõe que os dados da UART estão no reg R12
 */
+WriteTemperatureLCD:
+    @ Salvo o endereço de quem chamou a função, pois vou entrar em outras funções aqui dentro. O lr inicial seria perdido
+    sub sp, sp, #8
+    str lr,[sp,#0] @ Usado como temporário
+
+    setInitialCursorPos @ Zera todo o cursor para conseguir escrever direito
+    clearDisplay @ Para garantir que não vai ter lixo na tela
+    @ Escreve T
+    mov R1, #0b01010100
+    WriteCharLCD
+
+    @ ================ TRECHO PARA ESCREVER O Nº DO SENSOR
+    @ FAZ A MASCARA PARA PEGAR APENAS O NÚMERO DO SENSOR E JOGA EM R3
+    @ CHAMAR AQUI A MASCARA
+    mov R3, R12 @ Parametro da função !!!!! (ESSE R12 está errado, deverá ser onde estiver após a mascara)
+    bl SeparaDezenaUnidadeV2@ Dezena em r4 e unidade em r5
+    mov r1, r4 @ coloco a dezena como parametro
+    @ Escreve a dezena correspondente ao número do sensor. Ex: caso fosse o nº21, iria escrever 2
+    bl WriteNumberLCD
+    @ Escreve a unidade correspondente ao número do sensor. Ex: caso fosse o nº21, iria escrever 1
+    mov r1, r5 @ pego o valor da unidade e coloco como parametro
+    bl WriteNumberLCD
+    @ ==============
+
+    @ Escreve :
+    mov R1, #0b00111010
+    WriteCharLCD
+
+    @ ================ TRECHO PARA ESCREVER O VALOR DA TEMPERATURA
+    @ FAZ A MASCARA PARA PEGAR APENAS O VALOR DA TEMPERATURA
+    @ CHAMAR AQUI A MASCARA
+    mov R3, R12 @ Parametro da função !!!!! (ESSE R12 está errado, deverá ser onde estiver após a mascara)
+    SeparaDezenaUnidadeV2@ Dezena em r0 e unidade em r1
+    mov r1, r0 @ coloco a dezena como parametro
+    @ Escreve a dezena correspondente a temperatura. Ex: caso fosse o nº21, iria escrever 2
+    WriteNumberLCD
+    @ Escreve a unidade correspondente a temperatura. Ex: caso fosse o nº21, iria escrever 1
+    mov r1, r5 @ pego o valor da unidade e coloco como parametro
+    WriteNumberLCD
+    @ ==============
+
+    @ Tiro o lr da stack
+    ldr lr,[sp,#0]
+    add sp, sp, #8
+    bx lr
 
 /* Escreve a umidade
 */
