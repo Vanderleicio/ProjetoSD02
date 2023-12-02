@@ -381,7 +381,8 @@ setCursorPos:
     ------------------------------------------------ 
             Escreve a temperatura no display
     ------------------------------------------------
-    Supõe que os dados da UART estão no reg R12
+    Supõe que os dados da UART estão no reg R12.
+    Escreve como o exemplo: S04 TEMP: 23ºC
 */
 WriteTemperatureLCD:
     @ Salvo o endereço de quem chamou a função, pois vou entrar em outras funções aqui dentro. O lr inicial seria perdido
@@ -390,9 +391,9 @@ WriteTemperatureLCD:
 
     setInitialCursorPos @ Zera todo o cursor para conseguir escrever direito
     clearDisplay @ Para garantir que não vai ter lixo na tela
-    @ Escreve T
-    mov R1, #0b01010100
-    WriteCharLCD
+    @ Escreve S
+    mov R1, #0b01010011
+    bl WriteCharLCD
 
     @ ================ TRECHO PARA ESCREVER O Nº DO SENSOR
     @ FAZ A MASCARA PARA PEGAR APENAS O NÚMERO DO SENSOR E JOGA EM R3
@@ -407,9 +408,21 @@ WriteTemperatureLCD:
     bl WriteNumberLCD
     @ ==============
 
+    cursorShiftRight@ Suponndo que dá o espaço
+    @ ESCREVE 'TEMP'
+    mov R1, #0b01010100 @ T
+    bl WriteCharLCD
+    mov R1, #0b01000101 @ E
+    bl WriteCharLCD
+    mov R1, #0b01001101 @ M
+    bl WriteCharLCD
+    mov R1, #0b01010000 @ P
+    bl WriteCharLCD
+
     @ Escreve :
     mov R1, #0b00111010
-    WriteCharLCD
+    bl WriteCharLCD
+    cursorShiftRight@ Suponndo que dá o espaço
 
     @ ================ TRECHO PARA ESCREVER O VALOR DA TEMPERATURA
     @ FAZ A MASCARA PARA PEGAR APENAS O VALOR DA TEMPERATURA
@@ -418,11 +431,18 @@ WriteTemperatureLCD:
     SeparaDezenaUnidadeV2@ Dezena em r0 e unidade em r1
     mov r1, r0 @ coloco a dezena como parametro
     @ Escreve a dezena correspondente a temperatura. Ex: caso fosse o nº21, iria escrever 2
-    WriteNumberLCD
+    bl WriteNumberLCD
     @ Escreve a unidade correspondente a temperatura. Ex: caso fosse o nº21, iria escrever 1
     mov r1, r5 @ pego o valor da unidade e coloco como parametro
-    WriteNumberLCD
+    bl WriteNumberLCD
     @ ==============
+
+    @ Escreve º
+    mov R1, #0b11011111
+    bl WriteCharLCD
+    @ Escreve C
+    mov R1, #0b01000011
+    bl WriteCharLCD
 
     @ Tiro o lr da stack
     ldr lr,[sp,#0]
