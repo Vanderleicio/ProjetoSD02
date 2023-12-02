@@ -279,8 +279,15 @@ WriteCharLCD:
     Como eu trato números como valores inteiros.
 */
 WriteNumberLCD:
+    sub sp, sp, #8
+    str lr,[sp,#0] @ Usado como temporário
+
     add R1, #48, R1 @# 00110000(48) + number = 0011 0111 = asc para 7
     bl WriteCharLCD
+
+    ldr lr,[sp,#0]
+    add sp, sp, #8
+    
     bx lr
 
 
