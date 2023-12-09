@@ -398,3 +398,38 @@ TELA_COMANDOS:
     ldr lr,[sp,#0]
     add sp, sp, #8
     bx lr
+
+/*
+    ------------------------------------------------------------------------------------------------
+    Exibe a tela de desligamento do continuo de temperatura no formato indicado
+    ------------------------------------------------------------------------------------------------
+                                        S01 TEMPC:OFF
+                                           COMANDO
+
+    R13 -> É o dado recebido da UART. Todo o conjunto dos 2 bytes recebidos  
+*/
+TELA_DESLIGA_CONTINUO_TEMP:
+
+
+/*
+    ------------------------------------------------------------------------------------------------
+    Exibe a tela de desligamento do continuo de umidade no formato indicado
+    ------------------------------------------------------------------------------------------------
+                                        S01 UMIDC:OFF
+                                           COMANDO
+
+    R13 -> É o dado recebido da UART. Todo o conjunto dos 2 bytes recebidos  
+*/
+TELA_DESLIGA_CONTINUO_UMID:
+
+
+/*
+    -------------------------------------------------------------
+    Exibe a tela com a situação atual do sensor no formato indicado
+    -------------------------------------------------------------
+                        S01:OK            OU       S01:ERR 
+                        COMANDO                    COMANDO
+
+    R13 -> É o dado recebido da UART. Todo o conjunto dos 2 bytes recebidos  
+*/
+TELA_SITUACAO_SENSOR:

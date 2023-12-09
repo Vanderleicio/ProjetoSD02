@@ -5,7 +5,7 @@ Cada grupo de funções só podem retornar dados em regs especifícos
 
 # Parâmetros
 Cada grupo de funções só podem pegar parâmetros de regs especifícos
-- As funções de *TELA* e *DISPLAY* só podem usar os regs R0-R2 como parâmetros
+- As funções de *TELA* e *DISPLAY* só podem usar os regs R0-R2 como parâmetros, exceto as que pegam os dados direto da UART (podem usar R13)
 - As funções de *GPIO* só podem usar os regs R3-R4 como parâmetros
 - As funções de *UTILS* só pode usar os regs R5-R6 como parâmetros
 
