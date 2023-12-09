@@ -405,13 +405,3 @@ WriteCharLCD:
  	
  	bx lr
 
-
-
-/* Escreve a temperatura 
-*/
-
-/* Escreve a umidade
-*/
-
-/* Escreve a situação do sensor
-*/
