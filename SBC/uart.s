@@ -22,6 +22,114 @@
 	MOV R9, R0
 .endm
 
+/*
+    ------------------------------------------------
+        Envia os bits do parâmetro via UART
+    ------------------------------------------------
+    Recebe os bits através do registrador R13
+    Faz as duas transmissões necessárias, enviando primeiro
+    15:8 e depois de 7:0 do R13
+
+*/
+sendUart:
+
+@=======PUT PILHA
+    sub sp, sp, #24
+    str r0, [sp, #16]
+    str r1, [sp, #8]
+    str r2, [sp, #0]
+@=======PUT PILHA
+    @Não desloca para o registrador porque o offset é 0
+    mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
+    
+    mov r0, r13		@ Copio o valor a ser enviado no r0
+    lsr r0, #8		@ Desloca para ter os bits 15:8 no lsb de R0    
+
+    mov r1, #0b11111111	@ Cria uma máscara para pegar somente os 8 lsb (7:0)
+    and r1, r13		@ 8 LSBs do R13 no R1
+    
+
+    @ Escreve 8 bits na UART
+    str r0, [r9, r2] 	@ Carrega no reg UART_THR (15:8)
+
+    str r1, [r9, r2] 	@ Carrega no reg UART_THR (7:0)
+
+
+@=======POP PILHA
+    ldr r0, [sp, #16]
+    ldr r1, [sp, #8]
+    ldr r2, [sp, #0]
+    add sp, sp, #24
+@=======POP PILHA
+
+    bx lr
+
+/*
+    ------------------------------------------------
+        Retorna o que foi recebido via UART
+    ------------------------------------------------
+    Retorna no registrador R13 os valores que foram lidos da UART.
+    Os bits estão nos 16 LSBs: (15:8) primeira leitura, (7:0) segunda leitura.
+    Obrigatoriamente serão lidos 2 bytes, então é necessário se certificar que o Data Ready é 1
+    antes de chamar essa label.
+
+    ####TESTAR SE ESSA É A ORDEM DESEJÁVEL NA FPGA. NÃO CONSIGO VISUALIZAR MENTALMENTE A INVERSÃO
+    E A DESINVERSÃO QUE A FIFO, A UART, A FPGA E OS REGISTRADORES FAZEM#### 
+
+*/
+readUart:
+@=======PUT PILHA
+    sub sp, sp, #32
+    str r0, [sp, #24]
+    str r1, [sp, #16]
+    str r2, [sp, #8]
+    str r3, [sp, #0]
+@=======PUT PILHA
+    mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
+    str r3, [r9, r2] 	@ Carrega o reg UART_RBR (Primeira leitura)
+    
+    mov r0, #0b11111111	@ Máscara para pegar somente os 8 LSBs
+    and r0, r3		@ Dados da primeira leitura
+    
+    lsl r0, #8		@ Shift para escrever os dados da segunda leitura no 8 LSBs de R0
+
+    add r2, #0x0014	@ Deslocamento para o registrador LSR (Line Status)
+    
+    whileReadUart:
+    
+    str r3, [r9, r2] 	@ Carrega o reg UART_LSR (Line Status)
+
+    mov r1, #0b1	@ Máscara para ler o último bit
+    and r1, r3
+
+    cmp r1, #0b1
+    beq secondRead	@ Se for 1, quer dizer que o segundo byte já chegou então posso lê-lo
+    b whileReadUart	@ Se não for, fico checando até que seja
+
+    secondRead:
+
+    mov r2, #0		@ Deslocamento para o registrador RBR (Read Buffer)
+    str r3, [r9, r2] 	@ Carrega o reg UART_RBR (Segunda leitura)
+
+    mov r1, #0b1111111	@ Máscara para pegar somente os 8 LSBs
+    and r1, r3		@ Dados da segunda leitura
+
+    add r0, r1		@ Junta os dados da primeira e da segunda leitura em R0
+
+    mov r13, #0
+    or r13, r0		@Adiciona todos os dados lidos em r13 para retornar
+
+@=======POP PILHA
+    ldr r0, [sp, #24]
+    ldr r1, [sp, #16]
+    ldr r2, [sp, #8]
+    ldr r3, [sp, #0]
+    add sp, sp, #32
+@=======POP PILHA
+
+    bx lr
+
+
 setPinsUart:
 @=======PUT PILHA
     sub sp, sp, #40
@@ -218,13 +326,6 @@ setPinsUart:
     
     mov r0, #0b10000000		@ Habilita o buffer da uart
     bic r1, r0 			@ Coloca 0 no sétimo bit
-    str r1, [r9, r2] 		@ Salva novamente no endereço
-
-
-    @ Escreve 8 bits na UART
-    mov r2, #0xC00
-    mov r1, #0b00101010
-    str r1, [r9, r2] @ Carrega o reg UART_RBR
-    
+    str r1, [r9, r2] 		@ Salva novamente no endereço    
     
 .endm
