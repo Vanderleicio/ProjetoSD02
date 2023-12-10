@@ -210,7 +210,7 @@ WriteHumidityLCD:
     R2 -> É onde está o num do sensor(5 bits mais altos) e o codigo do comando(4 bits mais baixos)
     EX. Primeiro num sensor e depois comando 01010 1100
 */ 
-PARTE_DE_CIMA_TELA_COMANDOS:
+ParteDeCimaTelaComandos:
     sub sp, sp, #8
     str lr,[sp,#0] @ Usado como temporário
     @====================Parte de cima====================@
@@ -270,7 +270,7 @@ PARTE_DE_CIMA_TELA_COMANDOS:
                 xxxxxxxxxxxxxxxx
                 VOLTAR OK SEGUIR
 */ 
-PARTE_DE_BAIXO_TELA_COMANDOS:
+ParteDeBaixoTelaComandos:
     sub sp, sp, #8
     str lr,[sp,#0] @ Usado como temporário
     
@@ -324,11 +324,237 @@ PARTE_DE_BAIXO_TELA_COMANDOS:
     mov R1, #0b01010010
     bl WriteCharLCD
     
-    
     ldr lr,[sp,#0]
     add sp, sp, #8
     bx lr
 
+
+
+ /*
+    ------------------------------------------------
+    Parte de cima da tela para de continuo de umidade desligado
+    ------------------------------------------------
+                 S01 UMIDC:OFF
+                xxxxxxxxxxxxxx
+*/ 
+DesligaUmidContinuos:
+    @ Salvo o endereço de quem chamou a função, pois vou entrar em outras funções aqui dentro. O lr inicial seria perdido
+    sub sp, sp, #8
+    str lr,[sp,#0] @ Usado como temporário
+
+    setInitialCursorPos @ Zera todo o cursor para conseguir escrever direito
+    clearDisplay @ Para garantir que não vai ter lixo na tela
+
+    @ Escreve S
+    mov R1, #0b01010011
+    bl WriteCharLCD
+    @ ================ TRECHO PARA ESCREVER O Nº DO SENSOR
+    @ FAZ A MASCARA PARA PEGAR APENAS O NÚMERO DO SENSOR E JOGA EM R3
+    mov R5, R13 @ Parametro da função
+    bl pegaNumSensor@ PEGANDO O NÚMERO DO SENSOR EM R3
+    mov R5, R3
+    bl SeparaDezenaUnidadeV2 @ Dezena em r4 e unidade em r5
+    mov r1, r3 @ coloco a dezena como parametro
+    @ Escreve a dezena correspondente ao número do sensor. Ex: caso fosse o nº21, iria escrever 2
+    bl WriteNumberLCD
+    @ Escreve a unidade correspondente ao número do sensor. Ex: caso fosse o nº21, iria escrever 1
+    mov r1, r4 @ pego o valor da unidade e coloco como parametro
+    bl WriteNumberLCD
+    @ ==============
+
+    bl cursorShiftRight@ Suponndo que dá o espaço
+    @ ESCREVE 'UMIDC'
+    mov R1, #0b01010101 @ U
+    bl WriteCharLCD
+    mov R1, #0b01001101 @ M
+    bl WriteCharLCD
+    mov R1, #0b01001001 @ I
+    bl WriteCharLCD
+    mov R1, #0b01000100 @ D
+    bl WriteCharLCD
+    mov R1, #0b01000011 @ C
+    bl WriteCharLCD
+    @ Escreve :
+    mov R1, #0b00111010
+    bl WriteCharLCD
+    bl cursorShiftRight@ Suponndo que dá o espaço
+    @ Escreve O
+    mov R1, #0b01001111
+    bl WriteCharLCD
+    @ Escreve F
+    mov R1, #0b01000110
+    bl WriteCharLCD
+    @ Escreve F
+    mov R1, #0b01000110
+    bl WriteCharLCD
+
+    @ Tiro o lr da stack
+    ldr lr,[sp,#0]
+    add sp, sp, #8
+    bx lr
+ 
+
+
+ /*
+    ------------------------------------------------
+    Parte de cima da tela para de continuo de temperatura desligado
+    ------------------------------------------------
+                 S01 TEMPC:OFF
+                xxxxxxxxxxxxxx
+*/ 
+DesligaTempContinuos:
+    @ Salvo o endereço de quem chamou a função, pois vou entrar em outras funções aqui dentro. O lr inicial seria perdido
+    sub sp, sp, #8
+    str lr,[sp,#0] @ Usado como temporário
+
+    setInitialCursorPos @ Zera todo o cursor para conseguir escrever direito
+    clearDisplay @ Para garantir que não vai ter lixo na tela
+
+    @ Escreve S
+    mov R1, #0b01010011
+    bl WriteCharLCD
+    @ ================ TRECHO PARA ESCREVER O Nº DO SENSOR
+    @ FAZ A MASCARA PARA PEGAR APENAS O NÚMERO DO SENSOR E JOGA EM R3
+    mov R5, R13 @ Parametro da função
+    bl pegaNumSensor@ PEGANDO O NÚMERO DO SENSOR EM R3
+    mov R5, R3
+    bl SeparaDezenaUnidadeV2 @ Dezena em r4 e unidade em r5
+    mov r1, r3 @ coloco a dezena como parametro
+    @ Escreve a dezena correspondente ao número do sensor. Ex: caso fosse o nº21, iria escrever 2
+    bl WriteNumberLCD
+    @ Escreve a unidade correspondente ao número do sensor. Ex: caso fosse o nº21, iria escrever 1
+    mov r1, r4 @ pego o valor da unidade e coloco como parametro
+    bl WriteNumberLCD
+    @ ==============
+
+    bl cursorShiftRight@ Suponndo que dá o espaço
+    @ ESCREVE 'TEMP'
+    mov R1, #0b01010100 @ T
+    bl WriteCharLCD
+    mov R1, #0b01000101 @ E
+    bl WriteCharLCD
+    mov R1, #0b01001101 @ M
+    bl WriteCharLCD
+    mov R1, #0b01010000 @ P
+    bl WriteCharLCD
+    mov R1, #0b01000011 @ C
+    bl WriteCharLCD
+    @ Escreve :
+    mov R1, #0b00111010
+    bl WriteCharLCD
+    bl cursorShiftRight@ Suponndo que dá o espaço
+    @ Escreve O
+    mov R1, #0b01001111
+    bl WriteCharLCD
+    @ Escreve F
+    mov R1, #0b01000110
+    bl WriteCharLCD
+    @ Escreve F
+    mov R1, #0b01000110
+    bl WriteCharLCD
+
+    @ Tiro o lr da stack
+    ldr lr,[sp,#0]
+    add sp, sp, #8
+    bx lr
+
+
+/*
+    -------------------------------------------------------------
+    Exibe a tela com a situação do sensor sendo OK no formato indicado
+    -------------------------------------------------------------
+                        S01:OK
+                        xxxxxxx
+*/
+SituacaoSensorOk:
+    @ Salvo o endereço de quem chamou a função, pois vou entrar em outras funções aqui dentro. O lr inicial seria perdido
+    sub sp, sp, #8
+    str lr,[sp,#0] @ Usado como temporário
+
+    setInitialCursorPos @ Zera todo o cursor para conseguir escrever direito
+    clearDisplay @ Para garantir que não vai ter lixo na tela
+
+    @ Escreve S
+    mov R1, #0b01010011
+    bl WriteCharLCD
+    @ ================ TRECHO PARA ESCREVER O Nº DO SENSOR
+    @ FAZ A MASCARA PARA PEGAR APENAS O NÚMERO DO SENSOR E JOGA EM R3
+    mov R5, R13 @ Parametro da função
+    bl pegaNumSensor@ PEGANDO O NÚMERO DO SENSOR EM R3
+    mov R5, R3
+    bl SeparaDezenaUnidadeV2 @ Dezena em r4 e unidade em r5
+    mov r1, r3 @ coloco a dezena como parametro
+    @ Escreve a dezena correspondente ao número do sensor. Ex: caso fosse o nº21, iria escrever 2
+    bl WriteNumberLCD
+    @ Escreve a unidade correspondente ao número do sensor. Ex: caso fosse o nº21, iria escrever 1
+    mov r1, r4 @ pego o valor da unidade e coloco como parametro
+    bl WriteNumberLCD
+    @ Escreve :
+    mov R1, #0b00111010
+    bl WriteCharLCD
+    @ Escreve O
+    mov R1, #0b01001111
+    bl WriteCharLCD
+    @ Escreve K
+    mov R1, #0b01001011
+    bl WriteCharLCD
+
+    @ Tiro o lr da stack
+    ldr lr,[sp,#0]
+    add sp, sp, #8
+    bx lr
+
+
+/*
+    -------------------------------------------------------------
+    Exibe a tela com a situação do sensor sendo ERRO no formato indicado
+    -------------------------------------------------------------
+                        S01:ERRO
+                        xxxxxxx
+*/
+SituacaoSensorErro:
+    @ Salvo o endereço de quem chamou a função, pois vou entrar em outras funções aqui dentro. O lr inicial seria perdido
+    sub sp, sp, #8
+    str lr,[sp,#0] @ Usado como temporário
+
+    setInitialCursorPos @ Zera todo o cursor para conseguir escrever direito
+    clearDisplay @ Para garantir que não vai ter lixo na tela
+
+    @ Escreve S
+    mov R1, #0b01010011
+    bl WriteCharLCD
+    @ ================ TRECHO PARA ESCREVER O Nº DO SENSOR
+    @ FAZ A MASCARA PARA PEGAR APENAS O NÚMERO DO SENSOR E JOGA EM R3
+    mov R5, R13 @ Parametro da função
+    bl pegaNumSensor@ PEGANDO O NÚMERO DO SENSOR EM R3
+    mov R5, R3
+    bl SeparaDezenaUnidadeV2 @ Dezena em r4 e unidade em r5
+    mov r1, r3 @ coloco a dezena como parametro
+    @ Escreve a dezena correspondente ao número do sensor. Ex: caso fosse o nº21, iria escrever 2
+    bl WriteNumberLCD
+    @ Escreve a unidade correspondente ao número do sensor. Ex: caso fosse o nº21, iria escrever 1
+    mov r1, r4 @ pego o valor da unidade e coloco como parametro
+    bl WriteNumberLCD
+    @ Escreve :
+    mov R1, #0b00111010
+    bl WriteCharLCD
+    @ Escreve E
+    mov R1, #0b01000101
+    bl WriteCharLCD
+    @ Escreve R
+    mov R1, #0b01010010
+    bl WriteCharLCD
+    @ Escreve R
+    mov R1, #0b01010010
+    bl WriteCharLCD
+    @ Escreve O
+    mov R1, #0b01001111
+    bl WriteCharLCD
+
+    @ Tiro o lr da stack
+    ldr lr,[sp,#0]
+    add sp, sp, #8
+    bx lr
 @========================================================================================================================================@
 @========================================================== Bloco para as telas =========================================================@
 @========================================================================================================================================@
@@ -391,9 +617,9 @@ TELA_COMANDOS:
     sub sp, sp, #8
     str lr,[sp,#0] @ Usado como temporário
     
-    bl PARTE_DE_CIMA_TELA_COMANDOS @ Parte da linha de cima
+    bl ParteDeCimaTelaComandos @ Parte da linha de cima
     bl jumpLine
-    bl PARTE_DE_BAIXO_TELA_COMANDOS @ Parte da linha debaixo
+    bl ParteDeBaixoTelaComandos @ Parte da linha debaixo
     
     ldr lr,[sp,#0]
     add sp, sp, #8
@@ -409,7 +635,16 @@ TELA_COMANDOS:
     R13 -> É o dado recebido da UART. Todo o conjunto dos 2 bytes recebidos  
 */
 TELA_DESLIGA_CONTINUO_TEMP:
-
+    sub sp, sp, #8
+    str lr,[sp,#0] @ Usado como temporário
+    
+    bl DesligaTempContinuos @ Parte da linha de cima
+    bl jumpLine
+    bl EscreveComandoNaSegundaLinha @ Parte da linha debaixo
+    
+    ldr lr,[sp,#0]
+    add sp, sp, #8
+    bx lr
 
 /*
     ------------------------------------------------------------------------------------------------
@@ -421,15 +656,56 @@ TELA_DESLIGA_CONTINUO_TEMP:
     R13 -> É o dado recebido da UART. Todo o conjunto dos 2 bytes recebidos  
 */
 TELA_DESLIGA_CONTINUO_UMID:
+    sub sp, sp, #8
+    str lr,[sp,#0] @ Usado como temporário
+    
+    bl DesligaUmidContinuos @ Parte da linha de cima
+    bl jumpLine
+    bl EscreveComandoNaSegundaLinha @ Parte da linha debaixo
+    
+    ldr lr,[sp,#0]
+    add sp, sp, #8
+    bx lr
+
+/*
+    -------------------------------------------------------------
+    Exibe a tela com a situação atual do sensor no formato indicado
+    -------------------------------------------------------------
+                        S01:OK
+                        COMANDO
+
+    R13 -> É o dado recebido da UART. Todo o conjunto dos 2 bytes recebidos  
+*/
+TELA_SITUACAO_SENSOR_OK:
+    sub sp, sp, #8
+    str lr,[sp,#0] @ Usado como temporário
+    
+    bl SituacaoSensorOk @ Parte da linha de cima
+    bl jumpLine
+    bl EscreveComandoNaSegundaLinha @ Parte da linha debaixo
+    
+    ldr lr,[sp,#0]
+    add sp, sp, #8
+    bx lr
 
 
 /*
     -------------------------------------------------------------
     Exibe a tela com a situação atual do sensor no formato indicado
     -------------------------------------------------------------
-                        S01:OK            OU       S01:ERR 
-                        COMANDO                    COMANDO
+                        S01:ERRO
+                        COMANDO
 
     R13 -> É o dado recebido da UART. Todo o conjunto dos 2 bytes recebidos  
 */
-TELA_SITUACAO_SENSOR:
+TELA_SITUACAO_SENSOR_ERRO:
+    sub sp, sp, #8
+    str lr,[sp,#0] @ Usado como temporário
+    
+    bl SituacaoSensorErro @ Parte da linha de cima
+    bl jumpLine
+    bl EscreveComandoNaSegundaLinha @ Parte da linha debaixo
+    
+    ldr lr,[sp,#0]
+    add sp, sp, #8
+    bx lr

@@ -68,7 +68,7 @@
     SetPinGPIOHigh E
     nanoSleep timeZero, time1ms
     SetPinGPIOLow E
-    nanoSleep timeZero, time1ms @ !!! Confirmar a necessidade desse último timer em low por tanto tempo, talvez só precise fazer o gpiolow
+    nanoSleep timeZero, time1ms 
 .endm
 
 
