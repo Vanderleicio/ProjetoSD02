@@ -17,9 +17,5 @@ Cada grupo de funções só podem pegar parâmetros de regs especifícos
 - R13 é o registrador que deverá conter os dados da UART
 
 # Regs livres para uso e temporários
-- R7, R10-R15
-
-
-- R1 a R3 são parametros de funções
-- R4 a R5 São os retornos das funções
+- R7, R10-R12, R14-R15
 
