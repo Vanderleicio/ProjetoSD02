@@ -124,8 +124,8 @@ SeparaDezenaUnidadeV2:
     mov r4, r8 @ Quando saio do laço, já tenho a resposta do valor menos a dezena, que é a unidade, em r8
     RETURN:
         @ Retirando da pilha r8 e r7
-        ldur r8,[sp,#8]
-        ldur r7,[sp,#0]
+        ldr r8,[sp,#8]
+        ldr r7,[sp,#0]
         add sp, sp, #16
         bx lr
 
