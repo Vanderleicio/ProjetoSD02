@@ -21,8 +21,8 @@
 	SetPinGPIOLow db7
 	SetPinGPIOLow db6
 	SetPinGPIOHigh db5
-	SetPinGPIOLow db4 @ 1 para informar que os dados são mandados em 8bit e 0 para 4 bits
-	enableDisplay @ db7-db4  0 0 1 0
+	SetPinGPIOHigh db4 @ 1 para informar que os dados são mandados em 8bit e 0 para 4 bits
+	enableDisplay @ db7-db4  0 0 1 1
     @@ Parte 2
 	SetPinGPIOLow db7 @ 1 para 2 linhas e 0 para uma linha
 	SetPinGPIOLow db6 @ Fonte de caracters: 1 para 5x10 pontos e 0 para 5x8 pontos
