@@ -22,6 +22,43 @@
 	MOV R9, R0
 .endm
 
+resetFifo:
+@=======PUT PILHA
+    sub sp, sp, #24
+    str r1, [sp, #16]
+    str r2, [sp, #8]
+    str r3, [sp, #0]
+@=======PUT PILHA
+    mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
+    add r2, #0x007C	@ Deslocamento para o registrador USR (Uart Status)
+    
+    checagem:
+    ldr r3, [r9, r2]	@ Carrega o valor de USR
+    mov r1, #0b1000
+    
+    and r1, r3
+    lsr r1, #3
+    
+    cmp r1, #0b1
+    beq leitor
+    
+    b endRst
+    
+    leitor:
+    ldr r3, [r9, r2] 	@ Carrega o reg UART_RBR (Primeira leitura)
+    b checagem
+    
+    endRst:
+@=======POP PILHA
+    ldr r1, [sp, #16]
+    ldr r2, [sp, #8]
+    ldr r3, [sp, #0]
+    add sp, sp, #24
+@=======POP PILHA
+
+    bx lr
+
+
 /*
     ------------------------------------------------
         Envia os bits do parâmetro via UART
@@ -120,8 +157,8 @@ readUart:
 
     add r0, r1		@ Junta os dados da primeira e da segunda leitura em R0
 
-    mov r10, #0
-    orr r10, r0		@Adiciona todos os dados lidos em r10 para retornar
+    mov r12, #0
+    orr r12, r0		@Adiciona todos os dados lidos em r10 para retornar
 
 @=======POP PILHA
     ldr r0, [sp, #24]
