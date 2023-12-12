@@ -14,8 +14,10 @@ Cada grupo de funções só podem pegar parâmetros de regs especifícos
 - R9 é o endereço base para o *UART*
 
 # Dados da UART
-- R13 é o registrador que deverá conter os dados da UART
+- R12 é o registrador que deverá conter os dados da UART
 
 # Regs livres para uso e temporários
-- R7, R10-R12, R14-R15
+- R7, R10-R11, R15
 
+# Nunca usar
+- R12, R13, R14 (Talvez)
