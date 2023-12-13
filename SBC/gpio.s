@@ -307,14 +307,19 @@ setStatePinGPIO:
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     ------------------------------------------------
-    Setando os pinos das chaves como entradas
+    Setando os pinos das chaves e botões como entradas
     ------------------------------------------------
 */
-.macro setChIn
+.macro setIn
+    @ Chaves
     setPinGPIOIn ch1
     setPinGPIOIn ch2
     setPinGPIOIn ch3
     setPinGPIOIn ch4
+    @ Botões
+    setPinGPIOIn bConfirm
+    setPinGPIOIn bScreen
+    setPinGPIOIn bCancel
 .endm
 
 
@@ -330,6 +335,7 @@ setStatePinGPIO:
 	setPinGPIOOut db5
 	setPinGPIOOut db4
 	setPinGPIOOut RS
+    setPinGPIOOut led @ Setando o led que é acionado em HIGH 
 .endm
 
 
