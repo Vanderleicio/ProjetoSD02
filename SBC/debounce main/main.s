@@ -5,38 +5,21 @@
 .global _start
 
 _start:
-	MemoryMap
+    	MemoryMap
 	setPinGPIOOut led
-	@setChIn
-	SetPinGPIOHigh led
-	setPinGPIOIn bVoltar
-
-	loop:
-		readPinGPIO bVoltar
-		cmp r0, #0
-		bne verifica
-		b loop
-
-    
-	verifica: 
-		debounce bVoltar
-		cmp r0, #0
-		beq ascende
-		SetPinGPIOHigh led
+    	@setChIn
+    	SetPinGPIOHigh led
+    	setPinGPIOIn bVoltar
     	
-	ascende:
-		SetPinGPIOLow led
-		b loop
-
-		
-	/* loop:
+    	
+    	loop:
 	    	readPinGPIO bVoltar 	@ Leitura do botão
 	    	cmp r0, #0 		@ se o botão for 0 ir para verifica
 	    	beq verifica
 	    	b loop 	 			
 		
 	verifica:
-		nanoSleep timeZero, time800ms	@ Tempo de confirmação, caso o usuário mantenha pressionado
+		nanoSleep time1s, timeZero	@ Tempo de confirmação, caso o usuário mantenha pressionado
 		readPinGpio bVoltar		@ Ler novamente o botão
 		cmp r0, #0 	
 		beq exit
@@ -46,7 +29,7 @@ _start:
 	exit:
 		SetPinGPIOLow led
 		b loop
-	*/	
+		
 
 
 
@@ -60,7 +43,6 @@ _start:
 	time3ms:	.word	3000000  @ 3 Milissegundos
 	time5ms:	.word	5000000  @ 5 Milissegundos 
 	time15ms:	.word 	15000000 @ 15 Milissegundos
-	time800ms:	.word	800000000 @ 800 Milissegundos
 	time150us:	.word	150000 @ 150 us
 	time60us:	.word	60000 @ 150 us
 	timespecnano:	.word 	1000000

@@ -304,24 +304,6 @@ setStatePinGPIO:
 
 
 
-
-################### DEBOUNCE #######################################
-
-.macro debounce botao
-    verifica: 
-    nanoSleep timeZero, time800ms   @ Aguarda um tempo para verificar se a escolha do usuário se mantém 
-    readPinGPIO =\botao             @ Lê o botão novamente
-    cmp r0, #0                      @ Verifica se o valor corresponde
-    bne verifica
-.endm
-
-
-
-
-
-
-
-
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     ------------------------------------------------
     Setando os pinos das chaves como entradas
