@@ -1,7 +1,3 @@
-.section .text
-.global _start
-
-
 .macro MemoryMapUart
 	LDR R0, =devmem @ R0 = nome do arquivo
 	MOV R1, #2 @ O_RDWR (permissao de leitura e escrita pra arquivo)
