@@ -1,5 +1,0 @@
-Um teste para cada chave ascendendo o led (Quando aciono uma chave ascende o led)
-São 4 chaves, tem que ser para as 4. 
-E coloca comentado oq cada linha faz. coloca na pasta teste_rapido dentro de sbc
-Aproveita e faz mais um. Quando aperto um botão, ele só ascende o led se as chaves 
-das pontas estiverem acionadas
