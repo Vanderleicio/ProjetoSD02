@@ -112,7 +112,10 @@ SeparaDezenaUnidadeV2:
 
     mov r3, #0 @ guarda o digito da dezena (Será retornado)
     mov r7, #0 @ Guarda o digito da unidade (Será retornado)
-
+    
+    cmp r5, #10
+    BLE NADA
+    
     CMP r5, #0 @ Teste para o caso de passar 0 em r5
     BEQ RETURN @ Teste para o caso de passar 0 em r5
     WHILE:
@@ -128,4 +131,7 @@ SeparaDezenaUnidadeV2:
         ldr r7,[sp,#0]
         add sp, sp, #16
         bx lr
-
+    NADA:
+        mov r3, #0
+        mov r4, r5
+        b RETURN

@@ -2,7 +2,7 @@
 // ============================================================BLOCO DE FUNÇÕES BASE=================================================================== //
 // ==================================================================================================================================================== //
 
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+/*
     (os tempos que estão aqui devem estar em .data)
     ------------------------------------------------
         Informa ao display para executar a instrução
@@ -180,7 +180,7 @@ shiftRightCursor:
     Se o cursor estiver na primeira linha, vai cair para a segunda linha (na primeira posição da linha)
 */ 
 jumpLine:
-     	sub sp, sp, #8
+    sub sp, sp, #8
 	str lr, [sp, #0]
 	SetPinGPIOLow RS
     @@@ Parte 1 
@@ -196,7 +196,7 @@ jumpLine:
 	@SetPinGPIOLow db4  
 	bl enableDisplay
 	ldr lr, [sp, #0]
-    	add sp, sp, #8 
+    add sp, sp, #8 
 	bx lr
 
 
@@ -264,23 +264,23 @@ jumpLine:
     SetPinGPIOLow db4 @ Indica que os dados são de 4 em 4 bits
     .ltorg 
     bl enableDisplay
-    nanoSleep timeZero, time150us @ Aguarda por mais de 100us
+    nanoSleep timeZero, time150us 
     
     
     FunctionSet
-    nanoSleep timeZero, time60us @ Aguarda por mais de 100us
+    nanoSleep timeZero, time60us 
     
     DisplayOff
-    nanoSleep timeZero, time60us @ Aguarda por mais de 100us
+    nanoSleep timeZero, time60us 
     
     bl clearDisplay
-    nanoSleep timeZero, time3ms @ Aguarda por mais de 100us
+    nanoSleep timeZero, time3ms 
     
     EntryModeSet
-    nanoSleep timeZero, time60us @ Aguarda por mais de 100us
+    nanoSleep timeZero, time60us 
     @@@ O procedimento indicado acaba aqui @@@
     DisplayOn
-    nanoSleep timeZero, time60us @ Aguarda por mais de 100us
+    nanoSleep timeZero, time60us 
     EntryModeSet
     .ltorg @ OQ é isso?
 .endm
@@ -311,7 +311,7 @@ WriteCharLCD:
     BL mascaraBit @ O valor vai estar em R3
     mov r4, r3
     @ # Informo que é o pino db7 no reg R3
-    ldr R3, =db7 @TALVEZ N FUNCIONE
+    ldr R3, =db7 
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg R4
     BL setStatePinGPIO
 
@@ -319,7 +319,7 @@ WriteCharLCD:
     BL mascaraBit
     mov r4, r3
     @ # Informo que é o pino db6
-    ldr R3, =db6 @TALVEZ N FUNCIONE
+    ldr R3, =db6 
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     BL setStatePinGPIO
 
@@ -327,7 +327,7 @@ WriteCharLCD:
     BL mascaraBit
     mov r4, r3
     @ # Informo que é o pino db5
-    ldr R3, =db5 @TALVEZ N FUNCIONE
+    ldr R3, =db5 
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     BL setStatePinGPIO
 
@@ -335,7 +335,7 @@ WriteCharLCD:
     BL mascaraBit
     mov r4, r3
     @ # Informo que é o pino db4
-    ldr R3, =db4 @TALVEZ N FUNCIONE
+    ldr R3, =db4 
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     BL setStatePinGPIO
 
@@ -346,7 +346,7 @@ WriteCharLCD:
     BL mascaraBit
     mov r4, r3
     @ # Informo que é o pino db7
-    ldr R3, =db7 @TALVEZ N FUNCIONE
+    ldr R3, =db7 
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     BL setStatePinGPIO
 
@@ -354,7 +354,7 @@ WriteCharLCD:
     BL mascaraBit
     mov r4, r3
     @ # Informo que é o pino db6
-    ldr R3, =db6 @TALVEZ N FUNCIONE
+    ldr R3, =db6 
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     BL setStatePinGPIO
 
@@ -362,7 +362,7 @@ WriteCharLCD:
     BL mascaraBit
     mov r4, r3
     @ # Informo que é o pino db5
-    ldr R3, =db5 @TALVEZ N FUNCIONE
+    ldr R3, =db5 
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     BL setStatePinGPIO @ Faz a mudança de estado do pino
 
@@ -370,7 +370,7 @@ WriteCharLCD:
     BL mascaraBit
     mov r4, r3
     @ # Informo que é o pino db4
-    ldr R3, =db4 @TALVEZ N FUNCIONE
+    ldr R3, =db4 
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     BL setStatePinGPIO
 
