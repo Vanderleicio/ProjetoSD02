@@ -22,6 +22,43 @@
 	MOV R9, R0
 .endm
 
+resetFifo:
+@=======PUT PILHA
+    sub sp, sp, #24
+    str r1, [sp, #16]
+    str r2, [sp, #8]
+    str r3, [sp, #0]
+@=======PUT PILHA
+    mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
+    add r2, #0x007C	@ Deslocamento para o registrador USR (Uart Status)
+    
+    checagem:
+    ldr r3, [r9, r2]	@ Carrega o valor de USR
+    mov r1, #0b1000
+    
+    and r1, r3
+    lsr r1, #3
+    
+    cmp r1, #0b1
+    beq leitor
+    
+    b endRst
+    
+    leitor:
+    ldr r3, [r9, r2] 	@ Carrega o reg UART_RBR (Primeira leitura)
+    b checagem
+    
+    endRst:
+@=======POP PILHA
+    ldr r1, [sp, #16]
+    ldr r2, [sp, #8]
+    ldr r3, [sp, #0]
+    add sp, sp, #24
+@=======POP PILHA
+
+    bx lr
+
+
 /*
     ------------------------------------------------
         Envia os bits do parâmetro via UART
@@ -42,11 +79,15 @@ sendUart:
     @Não desloca para o registrador porque o offset é 0
     mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
     
-    mov r0, r13		@ Copio o valor a ser enviado no r0
+    mov r0, r10		@ Copio o valor a ser enviado no r0
+    
     lsr r0, #8		@ Desloca para ter os bits 15:8 no lsb de R0    
 
     mov r1, #0b11111111	@ Cria uma máscara para pegar somente os 8 lsb (7:0)
-    and r1, r13		@ 8 LSBs do R13 no R1
+    and r1, r10		@ 8 LSBs do R13 no R1
+    
+    @mov r0, #0b01101001
+    @mov r1, #0b10010110
     
 
     @ Escreve 8 bits na UART
@@ -68,7 +109,7 @@ sendUart:
     ------------------------------------------------
         Retorna o que foi recebido via UART
     ------------------------------------------------
-    Retorna no registrador R13 os valores que foram lidos da UART.
+    Retorna no registrador R10 os valores que foram lidos da UART.
     Os bits estão nos 16 LSBs: (15:8) primeira leitura, (7:0) segunda leitura.
     Obrigatoriamente serão lidos 2 bytes, então é necessário se certificar que o Data Ready é 1
     antes de chamar essa label.
@@ -86,7 +127,7 @@ readUart:
     str r3, [sp, #0]
 @=======PUT PILHA
     mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
-    str r3, [r9, r2] 	@ Carrega o reg UART_RBR (Primeira leitura)
+    ldr r3, [r9, r2] 	@ Carrega o reg UART_RBR (Primeira leitura)
     
     mov r0, #0b11111111	@ Máscara para pegar somente os 8 LSBs
     and r0, r3		@ Dados da primeira leitura
@@ -97,7 +138,7 @@ readUart:
     
     whileReadUart:
     
-    str r3, [r9, r2] 	@ Carrega o reg UART_LSR (Line Status)
+    ldr r3, [r9, r2] 	@ Carrega o reg UART_LSR (Line Status)
 
     mov r1, #0b1	@ Máscara para ler o último bit
     and r1, r3
@@ -108,16 +149,16 @@ readUart:
 
     secondRead:
 
-    mov r2, #0		@ Deslocamento para o registrador RBR (Read Buffer)
-    str r3, [r9, r2] 	@ Carrega o reg UART_RBR (Segunda leitura)
+    mov r2, #0xC00		@ Deslocamento para o registrador RBR (Read Buffer)
+    ldr r3, [r9, r2] 	@ Carrega o reg UART_RBR (Segunda leitura)
 
     mov r1, #0b1111111	@ Máscara para pegar somente os 8 LSBs
     and r1, r3		@ Dados da segunda leitura
 
     add r0, r1		@ Junta os dados da primeira e da segunda leitura em R0
 
-    mov r13, #0
-    or r13, r0		@Adiciona todos os dados lidos em r13 para retornar
+    mov r12, #0
+    orr r12, r0		@Adiciona todos os dados lidos em r10 para retornar
 
 @=======POP PILHA
     ldr r0, [sp, #24]
@@ -125,52 +166,6 @@ readUart:
     ldr r2, [sp, #8]
     ldr r3, [sp, #0]
     add sp, sp, #32
-@=======POP PILHA
-
-    bx lr
-
-
-setPinsUart:
-@=======PUT PILHA
-    sub sp, sp, #40
-    str r0, [sp, #32]
-    str r1, [sp, #24]
-    str r2, [sp, #16]
-    str r3, [sp, #8]
-    str r4, [sp, #0]
-@=======PUT PILHA
-
-    ldr r2, =uart3		@ Carrega o offset base do registrador select do uart3
-    ldr r2, [r2] 		@ Carrega o valor
-    
-    add r2, #0x800		@ Adicionar o offset padrão do uart
-
-    ldr r1, [r8, r2] 		@ Valor no registrador select
-
-    ldr r3, =uart3 		@ Endereço do deslocamento específico para o pino tx
-    add r3, #4 			@ Deslocamento para a posição do offset dentro do registrador select
-    ldr r3, [r3] 		@ Carrega o valor
-    
-    ldr r4, =uart3 		@ Endereço do deslocamento específico para o pino rx
-    add r4, #8 			@ Deslocamento para a posição do offset dentro do registrador select
-    ldr r4, [r4] 		@ Carrega o valor
-
-    mov r0, #0b100 		@ Registrador a ser usado como máscara
-    lsl r0, r3 			@ Desloca para a posicao da máscara (Onde os 3 bits do pino estarão) tx
-    bic r1, r0 			@ Limpa os bits 011(input)
-    
-    lsl r0, r4 			@ Desloca para a posicao da máscara (Onde os 3 bits do pino estarão) rx
-    bic r1, r0 			@ Limpa os bits 011(input)
-
-    str r1, [r8, r2] 		@ Salva novamente no endereço
-
-@=======POP PILHA
-    ldr r0, [sp, #32]
-    ldr r1, [sp, #24]
-    ldr r2, [sp, #16]
-    ldr r3, [sp, #8]
-    ldr r4, [sp, #0]
-    add sp, sp, #40
 @=======POP PILHA
 
     bx lr
@@ -329,3 +324,48 @@ setPinsUart:
     str r1, [r9, r2] 		@ Salva novamente no endereço    
     
 .endm
+
+setPinsUart:
+@=======PUT PILHA
+    sub sp, sp, #40
+    str r0, [sp, #32]
+    str r1, [sp, #24]
+    str r2, [sp, #16]
+    str r3, [sp, #8]
+    str r4, [sp, #0]
+@=======PUT PILHA
+
+    ldr r2, =uart3		@ Carrega o offset base do registrador select do uart3
+    ldr r2, [r2] 		@ Carrega o valor
+    
+    add r2, #0x800		@ Adicionar o offset padrão do uart
+
+    ldr r1, [r8, r2] 		@ Valor no registrador select
+
+    ldr r3, =uart3 		@ Endereço do deslocamento específico para o pino tx
+    add r3, #4 			@ Deslocamento para a posição do offset dentro do registrador select
+    ldr r3, [r3] 		@ Carrega o valor
+    
+    ldr r4, =uart3 		@ Endereço do deslocamento específico para o pino rx
+    add r4, #8 			@ Deslocamento para a posição do offset dentro do registrador select
+    ldr r4, [r4] 		@ Carrega o valor
+
+    mov r0, #0b100 		@ Registrador a ser usado como máscara
+    lsl r0, r3 			@ Desloca para a posicao da máscara (Onde os 3 bits do pino estarão) tx
+    bic r1, r0 			@ Limpa os bits 011(input)
+    
+    lsl r0, r4 			@ Desloca para a posicao da máscara (Onde os 3 bits do pino estarão) rx
+    bic r1, r0 			@ Limpa os bits 011(input)
+
+    str r1, [r8, r2] 		@ Salva novamente no endereço
+
+@=======POP PILHA
+    ldr r0, [sp, #32]
+    ldr r1, [sp, #24]
+    ldr r2, [sp, #16]
+    ldr r3, [sp, #8]
+    ldr r4, [sp, #0]
+    add sp, sp, #40
+@=======POP PILHA
+
+    bx lr
