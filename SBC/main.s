@@ -9,6 +9,10 @@
 .global _start
 
 _start:
+    MemoryMap @ Mapeando o GPIO
+    setOut @ Setandos os pinos de saída
+    setIn @ Setando os pinos de entrada
+    initDisplay @ Configurando o display LCD
 
 	@Encerramento do programa
 	MOV R0, #0
