@@ -354,6 +354,10 @@ setStatePinGPIO:
         - Se não estiver pressionado, finalizo
 */
 labelDebounce:
+    sub sp, sp, #16
+    str r7, [sp, #8]
+    str lr, [sp, #0]
+    
     mov r7, #0 @ Estou dizendo que nenhum o botão não foi pressionado
     @ Faço a primeira leitura do bootão
     bl labelreadPin @ Tenho o estado em r0
@@ -365,7 +369,11 @@ labelDebounce:
     cmp r0, #0 
     bne end @ Se o botão estiver desacionado, finalizo
     mov r7, #1 @ Se o botão ainda estiver pressionnado, eu indico que a ação que depende dele deverá ocorrer
+   
     end:
+    ldr r7, [sp, #8]
+    ldr lr, [sp, #0]
+    add sp, sp, #16
     bx lr
 
 
