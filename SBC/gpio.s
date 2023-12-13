@@ -3,7 +3,7 @@
 	MOV R1, #2 @ O_RDWR (permissao de leitura e escrita pra arquivo)
 	MOV R7, #5 @ sys_open
 	SVC 0
-	MOV R4, R0 @ salva o descritor do arquivo.
+	MOV R4, R0 @ salva o descritor do arquivo em r4.
 
 	@sys_mmap2
 	MOV R0, #0 @ NULL (SO escolhe o endereco)
@@ -330,4 +330,59 @@ setStatePinGPIO:
 	setPinGPIOOut db5
 	setPinGPIOOut db4
 	setPinGPIOOut RS
+.endm
+
+
+
+/* 
+    ------------------------------------------------
+            Label para auxiliar o debounce
+    ------------------------------------------------
+    r7 -> representa a informação se o botão foi pressionado (deve ser verificado logo após a chamada da macro do debounce) 
+    Fluxo abaixo:
+    Verifico o estado do pino
+        - Se tiver pressionado
+            - Dou sleep e verifico novamente
+                - Se ainda estiver pressionado, retorno 1 e finalizo
+                - Se não estiver pressionado, finalizo
+        - Se não estiver pressionado, finalizo
+*/
+labelDebounce:
+    mov r7, #0 @ Estou dizendo que nenhum o botão não foi pressionado
+    @ Faço a primeira leitura do bootão
+    bl labelreadPin @ Tenho o estado em r0
+    cmp r0, #0 
+    bne end @ Se eu não tiver acionado o botão, finalizo
+    nanoSleep timeZero, time800ms 
+    @ Faço a segunda leitura do bootão
+    bl labelreadPin @ Tenho o estado em r0
+    cmp r0, #0 
+    bne end @ Se o botão estiver desacionado, finalizo
+    mov r7, #1 @ Se o botão ainda estiver pressionnado, eu indico que a ação que depende dele deverá ocorrer
+    end:
+    bx lr
+
+
+.macro debouncePin pino
+
+    sub sp, sp, #16
+    str r1, [sp, #8]
+    str r2, [sp, #0]
+
+    @ ================================================================
+    ldr r1, =\pino		@ Offset do registrador data
+    ldr r1, [r1] 		@ Carregando valor
+    
+	
+    ldr r2, =\pino
+    add r2, #4			
+    ldr r2, [r2]		@Deslocamento dentro do registrador data
+
+    @ ================================================================
+    bl labelDebounce
+
+    ldr r2, [sp, #8]
+    ldr r1, [sp, #0]
+    add sp, sp, #16
+
 .endm
