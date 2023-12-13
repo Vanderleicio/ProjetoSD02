@@ -128,7 +128,9 @@ readUart:
     mov r0, #0b11111111	@ Máscara para pegar somente os 8 LSBs
     and r0, r3		@ Dados da primeira leitura
     
+    /* DESCOMENTE ESSA PARTE SE NÃO ESTIVER FUNCIONANDO
     lsl r0, #8		@ Shift para escrever os dados da segunda leitura no 8 LSBs de R0
+    */
 
     add r2, #0x0014	@ Deslocamento para o registrador LSR (Line Status)
     
@@ -150,6 +152,9 @@ readUart:
 
     mov r1, #0b1111111	@ Máscara para pegar somente os 8 LSBs
     and r1, r3		@ Dados da segunda leitura
+
+    @ === COMENTE A LINHA ABAIXO SE NÃO ESTIVER FUNCIONANDO ===
+    lsl r1, #8 		@ Desloca para fazer a segunda leitura ser os 8 bits iniciais do retorno
 
     add r0, r1		@ Junta os dados da primeira e da segunda leitura em R0
 
