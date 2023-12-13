@@ -1,10 +1,8 @@
 .include "sleep.s"
 .include "utils.s"
+.include "gpio.s"
 .include "display_lcd.s"
 .include "telas.s"
-.include "gpio.s"
-
-
 
 
 

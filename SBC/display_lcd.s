@@ -21,10 +21,10 @@
 	SetPinGPIOLow db7
 	SetPinGPIOLow db6
 	SetPinGPIOHigh db5
-	SetPinGPIOHigh db4 @ 1 para informar que os dados são mandados em 8bit e 0 para 4 bits
-	enableDisplay @ db7-db4  0 0 1 1
+	SetPinGPIOLow db4 @ 1 para informar que os dados são mandados em 8bit e 0 para 4 bits
+	enableDisplay @ db7-db4  0 0 1 0
     @@ Parte 2
-	SetPinGPIOLow db7 @ 1 para 2 linhas e 0 para uma linha
+	SetPinGPIOHigh db7 @ 1 para 2 linhas e 0 para uma linha
 	SetPinGPIOLow db6 @ Fonte de caracters: 1 para 5x10 pontos e 0 para 5x8 pontos
 	@SetPinGPIOHigh db5
 	@SetPinGPIOLow db4
@@ -100,7 +100,10 @@
     Desloca posição do cursor para direita em 1 caracter
     ------------------------------------------------
 */ 
-.macro shiftRightCursor
+shiftRightCursor:
+     	sub sp, sp, #8
+	str lr, [sp, #0]
+	cursor2:
 	SetPinGPIOLow RS
     @SetPinGPIOLow RW
 
@@ -109,36 +112,16 @@
 	SetPinGPIOLow db5
 	SetPinGPIOHigh db4
 	enableDisplay @ 0001
-
+	
 	@SetPinGPIOLow db7 @ 0 para deslocar o cursor, 1 para a exibição/tela
 	SetPinGPIOHigh db6 @ 1 para direita e 0 para esquerda
 	@SetPinGPIOLow db5 
 	@SetPinGPIOLow db4 
-	enableDisplay @ 01xx
-.endm
-
-/* 
-    ------------------------------------------------
-    Desloca posição do cursor para esquerda em 1 caracter
-    ------------------------------------------------
-*/ 
-.macro shiftLeftCursor
-	SetPinGPIOLow RS
-    @SetPinGPIOLow RW
-
-	SetPinGPIOLow db7
-	SetPinGPIOLow db6
-	SetPinGPIOLow db5
-	SetPinGPIOHigh db4
-	enableDisplay @ 0001
-
-	@SetPinGPIOLow db7 @ 0 para deslocar o cursor, 1 para a exibição/tela
-	SetPinGPIOLow db6 @ 1 para direita e 0 para esquerda
-	@SetPinGPIOLow db5 
-	@SetPinGPIOLow db4 
-	enableDisplay @ 00xx
-.endm
-
+	enableDisplay @ 01xx	
+    	ldr lr, [sp, #0]
+    	add sp, sp, #8
+	bx lr
+	.ltorg
 
 /* 
     ------------------------------------------------
@@ -189,6 +172,8 @@
     Se o cursor estiver na primeira linha, vai cair para a segunda linha (na primeira posição da linha)
 */ 
 jumpLine:
+     	sub sp, sp, #8
+	str lr, [sp, #0]
 	SetPinGPIOLow RS
     @@@ Parte 1 
 	SetPinGPIOHigh db7
@@ -201,7 +186,9 @@ jumpLine:
 	SetPinGPIOLow db6
 	@SetPinGPIOLow db5 
 	@SetPinGPIOLow db4  
-	enableDisplay 
+	enableDisplay
+	ldr lr, [sp, #0]
+    	add sp, sp, #8 
 	bx lr
 
 
@@ -238,6 +225,7 @@ jumpLine:
     SetPinGPIOHigh db4
     enableDisplay
 .endm
+
 
 /*  
     ------------------------------------------------ 
@@ -289,7 +277,6 @@ jumpLine:
     .ltorg @ OQ é isso?
 .endm
 
-
 // ==================================================================================================================================================== //
 // ============================================================BLOCO DE FUNÇÕES PARA ESCREVER================================================================== //
 // ==================================================================================================================================================== //
@@ -302,86 +289,90 @@ jumpLine:
     01010100 para escrever o T
 */
 WriteCharLCD:
- 	sub sp, sp, #16
- 	str r5, [sp, #8]
+ 	sub sp, sp, #32
+ 	str r3, [sp, #24]
+ 	str r5, [sp, #16]
+ 	str r4, [sp, #8]
  	str lr, [sp,#0]
 
-    MOV R9, R1
+    MOV R5, R1 @ Parametro de mascara bit
     SetPinGPIOHigh RS
 
     @ Primeira parte dos dados
-    MOV R2, #7 @ Informa qual o bit vou ler primeiro. Aqui estou vendo se o o bit 7 (da dir para esq) é 1 ou 0
-    BL mascaraBit @ O valor vai estar em R0
+    MOV R6, #7 @ Informa qual o bit vou ler primeiro. Aqui estou vendo se o o bit 7 (da dir para esq) é 1 ou 0
+    BL mascaraBit @ O valor vai estar em R3
+    mov r4, r3
     @ # Informo que é o pino db7 no reg R3
     ldr R3, =db7 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg R4
-    mov r4, r0
     BL setStatePinGPIO
 
-    MOV R2, #6
+    MOV R6, #6
     BL mascaraBit
+    mov r4, r3
     @ # Informo que é o pino db6
     ldr R3, =db6 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
-    mov r4, r0
     BL setStatePinGPIO
 
-    MOV R2, #5
+    MOV R6, #5
     BL mascaraBit
+    mov r4, r3
     @ # Informo que é o pino db5
     ldr R3, =db5 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
-    mov r4, r0
     BL setStatePinGPIO
 
-    MOV R2, #4
+    MOV R6, #4
     BL mascaraBit
+    mov r4, r3
     @ # Informo que é o pino db4
     ldr R3, =db4 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
-    mov r4, r0
     BL setStatePinGPIO
 
     enableDisplay
 
     @ Segunda parte dos dados
-    MOV R2, #3
+    MOV R6, #3
     BL mascaraBit
+    mov r4, r3
     @ # Informo que é o pino db7
     ldr R3, =db7 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
-    mov r4, r0
     BL setStatePinGPIO
 
-    MOV R2, #2
+    MOV R6, #2
     BL mascaraBit
+    mov r4, r3
     @ # Informo que é o pino db6
     ldr R3, =db6 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
-    mov r4, r0
     BL setStatePinGPIO
 
-    MOV R2, #1
+    MOV R6, #1
     BL mascaraBit
+    mov r4, r3
     @ # Informo que é o pino db5
     ldr R3, =db5 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
-    mov r4, r0
     BL setStatePinGPIO @ Faz a mudança de estado do pino
 
-    MOV R2, #0
+    MOV R6, #0
     BL mascaraBit
+    mov r4, r3
     @ # Informo que é o pino db4
     ldr R3, =db4 @TALVEZ N FUNCIONE
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
-    mov r4, r0
     BL setStatePinGPIO
 
     enableDisplay
     
     ldr lr, [sp, #0]
-    ldr r5, [sp, #8]
- 	add sp, sp, #16
+    ldr r5, [sp, #16]
+    ldr r3, [sp, #24]
+    ldr r4, [sp, #8]
+ 	add sp, sp, #32
     bx lr
 
 
