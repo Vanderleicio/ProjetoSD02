@@ -2,6 +2,23 @@
 // ============================================================BLOCO DE FUNÇÕES BASE=================================================================== //
 // ==================================================================================================================================================== //
 
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+    (os tempos que estão aqui devem estar em .data)
+    ------------------------------------------------
+        Informa ao display para executar a instrução
+    ------------------------------------------------
+    Dá o pulso de enable para o display observar os 4 bits
+*/
+enableDisplay:
+    sub sp, sp, #8
+	str lr, [sp, #0]
+    SetPinGPIOHigh E
+    nanoSleep timeZero, time1ms
+    SetPinGPIOLow E
+    nanoSleep timeZero, time1ms 
+    ldr lr, [sp, #0]
+    add sp, sp, #8
+    bx lr
 
 
 
@@ -22,13 +39,13 @@
 	SetPinGPIOLow db6
 	SetPinGPIOHigh db5
 	SetPinGPIOLow db4 @ 1 para informar que os dados são mandados em 8bit e 0 para 4 bits
-	enableDisplay @ db7-db4  0 0 1 0
+	bl enableDisplay @ db7-db4  0 0 1 0
     @@ Parte 2
 	SetPinGPIOHigh db7 @ 1 para 2 linhas e 0 para uma linha
 	SetPinGPIOLow db6 @ Fonte de caracters: 1 para 5x10 pontos e 0 para 5x8 pontos
 	@SetPinGPIOHigh db5
 	@SetPinGPIOLow db4
-	enableDisplay @ db7-db4  1 1 x x
+	bl enableDisplay @ db7-db4  1 1 x x
 .endm
 
 
@@ -39,7 +56,9 @@
     Coloca 0000 dá enable
     Coloca 0001 dá enable
 */
-.macro clearDisplay
+clearDisplay:
+    sub sp, sp, #8
+	str lr, [sp, #0]
 	SetPinGPIOLow RS
     @SetPinGPIOLow RW
     @ Parte 1
@@ -47,29 +66,19 @@
 	SetPinGPIOLow db6
 	SetPinGPIOLow db5
 	SetPinGPIOLow db4
-	enableDisplay
+	bl enableDisplay
     @ Parte 2
 	@SetPinGPIOLow db7
 	@SetPinGPIOLow db6
 	@SetPinGPIOLow db5
 	SetPinGPIOHigh db4
-	enableDisplay
-.endm
+    
+	bl enableDisplay
+    ldr lr, [sp, #0]
+    add sp, sp, #8
+    bx lr
 
 
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-    (os tempos que estão aqui devem estar em .data)
-    ------------------------------------------------
-        Informa ao display para executar a instrução
-    ------------------------------------------------
-    Dá o pulso de enable para o display observar os 4 bits
-*/
-.macro enableDisplay
-    SetPinGPIOHigh E
-    nanoSleep timeZero, time1ms
-    SetPinGPIOLow E
-    nanoSleep timeZero, time1ms 
-.endm
 
 
 /* 
@@ -85,13 +94,13 @@
 	SetPinGPIOLow db6
 	SetPinGPIOLow db5
 	SetPinGPIOLow db4
-	enableDisplay @ 0000
+	bl enableDisplay @ 0000
 
 	@SetPinGPIOLow db7
 	@SetPinGPIOLow db6
 	SetPinGPIOHigh db5
 	@SetPinGPIOLow db4
-	enableDisplay @ 001x
+	bl enableDisplay @ 001x
 .endm
 
 
@@ -101,9 +110,8 @@
     ------------------------------------------------
 */ 
 shiftRightCursor:
-     	sub sp, sp, #8
+    sub sp, sp, #8
 	str lr, [sp, #0]
-	cursor2:
 	SetPinGPIOLow RS
     @SetPinGPIOLow RW
 
@@ -111,15 +119,15 @@ shiftRightCursor:
 	SetPinGPIOLow db6
 	SetPinGPIOLow db5
 	SetPinGPIOHigh db4
-	enableDisplay @ 0001
+	bl enableDisplay @ 0001
 	
 	@SetPinGPIOLow db7 @ 0 para deslocar o cursor, 1 para a exibição/tela
 	SetPinGPIOHigh db6 @ 1 para direita e 0 para esquerda
 	@SetPinGPIOLow db5 
 	@SetPinGPIOLow db4 
-	enableDisplay @ 01xx	
-    	ldr lr, [sp, #0]
-    	add sp, sp, #8
+	bl enableDisplay @ 01xx	
+    ldr lr, [sp, #0]
+    add sp, sp, #8
 	bx lr
 	.ltorg
 
@@ -134,13 +142,13 @@ shiftRightCursor:
     SetPinGPIOLow db6
     SetPinGPIOLow db5
     SetPinGPIOLow db4
-    enableDisplay
+    bl enableDisplay
     @@@ Parte 2
     SetPinGPIOHigh db7
     SetPinGPIOLow db6 @ Desliga o display
     SetPinGPIOLow db5 @ Oculta o cursor
     SetPinGPIOLow db4 @ O carcter indicado pelo cursor não pisca
-    enableDisplay
+    bl enableDisplay
 .endm
 
 
@@ -155,13 +163,13 @@ shiftRightCursor:
     SetPinGPIOLow db6
     SetPinGPIOLow db5
     SetPinGPIOLow db4
-    enableDisplay
+    bl enableDisplay
     @@@ Parte 2
     SetPinGPIOHigh db7
     SetPinGPIOHigh db6 @ liga o display
     SetPinGPIOHigh db5 @ exibe o cursor
     SetPinGPIOLow db4 @ O carcter indicado pelo cursor não pisca
-    enableDisplay
+    bl enableDisplay
 .endm
 
 
@@ -180,13 +188,13 @@ jumpLine:
 	SetPinGPIOHigh db6
 	SetPinGPIOLow db5
 	SetPinGPIOLow db4
-	enableDisplay
+	bl enableDisplay
     @@@ Parte 2 
 	SetPinGPIOLow db7
 	SetPinGPIOLow db6
 	@SetPinGPIOLow db5 
 	@SetPinGPIOLow db4  
-	enableDisplay
+	bl enableDisplay
 	ldr lr, [sp, #0]
     	add sp, sp, #8 
 	bx lr
@@ -207,13 +215,13 @@ jumpLine:
 	SetPinGPIOLow db6
 	SetPinGPIOLow db5
 	SetPinGPIOLow db4
-	enableDisplay
+	bl enableDisplay
     @@@ Parte 2 
 	@SetPinGPIOLow db7
 	SetPinGPIOHigh db6
 	SetPinGPIOHigh db5 @ 1 para direita e 0 para esquerda
 	@SetPinGPIOLow db4  @ Move o cursor em vez da tela
-	enableDisplay 
+	bl enableDisplay 
 .endm
 
 
@@ -223,7 +231,7 @@ jumpLine:
     SetPinGPIOLow db6
     SetPinGPIOHigh db5
     SetPinGPIOHigh db4
-    enableDisplay
+    bl enableDisplay
 .endm
 
 
@@ -255,7 +263,7 @@ jumpLine:
     SetPinGPIOHigh db5
     SetPinGPIOLow db4 @ Indica que os dados são de 4 em 4 bits
     .ltorg 
-    enableDisplay
+    bl enableDisplay
     nanoSleep timeZero, time150us @ Aguarda por mais de 100us
     
     
@@ -265,7 +273,7 @@ jumpLine:
     DisplayOff
     nanoSleep timeZero, time60us @ Aguarda por mais de 100us
     
-    clearDisplay
+    bl clearDisplay
     nanoSleep timeZero, time3ms @ Aguarda por mais de 100us
     
     EntryModeSet
@@ -331,7 +339,7 @@ WriteCharLCD:
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     BL setStatePinGPIO
 
-    enableDisplay
+    bl enableDisplay
 
     @ Segunda parte dos dados
     MOV R6, #3
@@ -366,7 +374,7 @@ WriteCharLCD:
     @ # Informo se o pino deve ir para HIGH ou LOW, coloco 0 ou 1 no reg
     BL setStatePinGPIO
 
-    enableDisplay
+    bl enableDisplay
     
     ldr lr, [sp, #0]
     ldr r5, [sp, #16]
