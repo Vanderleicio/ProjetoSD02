@@ -408,13 +408,15 @@ labelDebounce:
     ------------------------------------------------
         Realiza a leitura de todas as chaves juntas
     ------------------------------------------------
-    r6 -> É onde está os valores da chaves
+    r6 -> É onde está os valores da chaves (4bits)
 */
 LER_CHAVES_GPIO:
     sub sp, sp, #16
     str lr, [sp, #8]
     str r0, [sp, #0]
 
+    mov r6, #0
+    
     readPinGPIO sh4@ Retorna o estado em R0
     eor r0, r0, #1 @ Inverte o valor em r0 já que a chave apresenta valor 0 quanndo acionada. Aí fica 1 no lugar
     lsl r0, #3
