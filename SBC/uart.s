@@ -1,3 +1,7 @@
+.section .text
+.global _start
+
+
 .macro MemoryMapUart
 	LDR R0, =devmem @ R0 = nome do arquivo
 	MOV R1, #2 @ O_RDWR (permissao de leitura e escrita pra arquivo)
@@ -127,11 +131,10 @@ readUart:
     
     mov r0, #0b11111111	@ Máscara para pegar somente os 8 LSBs
     and r0, r3		@ Dados da primeira leitura
-    
-    /* DESCOMENTE ESSA PARTE SE NÃO ESTIVER FUNCIONANDO
-    lsl r0, #8		@ Shift para escrever os dados da segunda leitura no 8 LSBs de R0
-    */
 
+    @ DESCOMENTE ESSA PARTE SE NÃO TIVER FUNCIONANDO
+    @lsl r0, #8		@ Shift para escrever os dados da segunda leitura no 8 LSBs de R0
+    
     add r2, #0x0014	@ Deslocamento para o registrador LSR (Line Status)
     
     whileReadUart:
@@ -153,6 +156,7 @@ readUart:
     mov r1, #0b1111111	@ Máscara para pegar somente os 8 LSBs
     and r1, r3		@ Dados da segunda leitura
 
+    teste3:
     @ === COMENTE A LINHA ABAIXO SE NÃO ESTIVER FUNCIONANDO ===
     lsl r1, #8 		@ Desloca para fazer a segunda leitura ser os 8 bits iniciais do retorno
 
@@ -160,7 +164,7 @@ readUart:
 
     mov r12, #0
     orr r12, r0		@Adiciona todos os dados lidos em r10 para retornar
-
+    teste11:
 @=======POP PILHA
     ldr r0, [sp, #24]
     ldr r1, [sp, #16]

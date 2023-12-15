@@ -31,17 +31,17 @@ mascaraBit:
     Pega somente o número do sensor dos dados da UART
     ------------------------------------------------
     Registradores de Parâmetros e Retornos:
-    	* r5 -> reg que possui os dados da UART (2 bytes)
+    	* r12 -> reg que possui os dados da UART (2 bytes)
     	* r3 -> reg de retorno com o número do sensor
 */
 pegaNumSensor:
     sub sp, sp, #8
     str r10, [sp, #0]
     
-    mov r10, #0b011111 @ Coloca a mascara para pegar os 5 bits de 4:0 dos dados recebidos pela UART
-    and r3, r5, r10
+    mov r10, #0b11111 @ Coloca a mascara para pegar os 5 bits de 4:0 dos dados recebidos pela UART
+    and r3, r12, r10
 
-    str r10, [sp, #0]
+    ldr r10, [sp, #0]
     add sp, sp, #8
 
     bx lr
@@ -52,7 +52,7 @@ pegaNumSensor:
     Pega somente o número do comando dos dados da UART
     ------------------------------------------------
     Registradores de Parâmetros e Retornos:
-    	* r5 -> reg que possui os dados da UART (2 bytes)
+    	* r12 -> reg que possui os dados da UART (2 bytes)
     	* r3 -> reg de retorno com o código do comando
 */
 pegaNumComando:
@@ -60,9 +60,9 @@ pegaNumComando:
     str r10, [sp, #0]
     
     mov r10, #0b111100000 @ Coloca a mascara para pegar os 4 bits de 8:5 
-    and r3, r5, r10
+    and r3, r12, r10
 
-    str r10, [sp, #0]
+    ldr r10, [sp, #0]
     add sp, sp, #8
 
     bx lr
@@ -74,18 +74,11 @@ pegaNumComando:
     Retira apenas o valor da leitura. Ex no caso de leitura de temperatura
     vai pegar 23
     Registradores de Parâmetros e Retornos:
-    	* r5 -> reg que possui os dados da UART (2 bytes)
+    	* r12 -> reg que possui os dados da UART (2 bytes)
     	* r3 -> reg de retorno com o código do comando
 */
 pegaNumDados:
-    sub sp, sp, #8
-    str r10, [sp, #0]
-    
-    lsr r3, r3, #9 @ TESTAR SE É NOVE MESMO
-
-    str r10, [sp, #0]
-    add sp, sp, #8
-
+    lsr r3, r12, #9 @ TESTAR SE É NOVE MESMO
     bx lr
 
 
@@ -114,7 +107,7 @@ SeparaDezenaUnidadeV2:
     mov r7, #0 @ Guarda o digito da unidade (Será retornado)
     
     cmp r5, #10
-    BLE NADA
+    BLT NADA
     
     CMP r5, #0 @ Teste para o caso de passar 0 em r5
     BEQ RETURN @ Teste para o caso de passar 0 em r5
@@ -135,3 +128,4 @@ SeparaDezenaUnidadeV2:
         mov r3, #0
         mov r4, r5
         b RETURN
+

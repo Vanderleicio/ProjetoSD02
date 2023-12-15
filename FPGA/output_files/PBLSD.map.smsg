@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at controlDHT11.v(43): always construct contains both blocking and non-blocking assignments File: /home/aluno/Documentos/ProjetoVerilog/controlDHT11.v Line: 43
+Warning (10268): Verilog HDL information at dhtAlt.v(46): always construct contains both blocking and non-blocking assignments File: /home/aluno/Documentos/ProjetoVerilog/dhtAlt.v Line: 46
