@@ -195,7 +195,7 @@ WriteHumidityLCD:
                 S:00 C:00
                 xxxxxxxxxxxx
 
-    r11 -> É onde está o num do sensor(5 bits mais altos) e o codigo do comando(4 bits mais baixos)
+    r12 -> É onde está o num do sensor(5 bits mais altos) e o codigo do comando(4 bits mais baixos)
     EX. Primeiro num sensor e depois comando 01010 1100
 */ 
 ParteDeCimaTelaComandos:
@@ -211,7 +211,7 @@ ParteDeCimaTelaComandos:
     @ Escreve o nº do sensor
     @ ================ TRECHO PARA ESCREVER O NUM Do sensor
     @ CHAMAR AQUI A MASCARA
-    lsr r5, r11, #4@ Desloco para a direita para remover os 4 bits do comando
+    and r5, r12, #0b11111 @ Mascara para pegar os 4 ultimos bits
     bl SeparaDezenaUnidadeV2@ Dezena em r0 e unidade em r1
     mov r1, r3 @ coloco a dezena como parametro
     @ Escreve a dezena correspondente a temperatura. Ex: caso fosse o nº21, iria escrever 2
@@ -234,7 +234,8 @@ ParteDeCimaTelaComandos:
     @ Escreve o nº do comando
     @ ================ TRECHO PARA ESCREVER O NUM Do comando
     @ CHAMAR AQUI A MASCARA
-    and r5, r11, #0b1111@ Faço and para pegar apenas os 4 últimos bits 
+    lsr r5, r12, #8
+    and r5, r5, #0b1111@ Faço and para pegar apenas os 4 últimos bits 
     bl SeparaDezenaUnidadeV2@ Dezena em r0 e unidade em r1
     mov r1, r3 @ coloco a dezena como parametro
     @ Escreve a dezena correspondente a temperatura. Ex: caso fosse o nº21, iria escrever 2
@@ -589,7 +590,7 @@ TELA_UMIDADE:
                 S:00 C:00
                 VOLTAR SEGUIR
 
-    r11 -> É onde está o num do sensor(5 bits mais altos) e o codigo do comando(4 bits mais baixos)
+    r12 -> É onde está o num do sensor(5 bits mais altos) e o codigo do comando(4 bits mais baixos)
     EX. Primeiro num sensor e depois comando 01010 1100
 */
 TELA_COMANDOS:
@@ -614,7 +615,7 @@ TELA_COMANDOS:
                 S:00 C:00
                 VOLTAR SEGUIR
 
-    r11 -> É onde está os dados a serem enviados. [4:0] é num sensor e [11:8] é o comando
+    r12 -> É onde está os dados a serem enviados. [4:0] é num sensor e [11:8] é o comando
     EX. Primeiro num sensor e depois comando 01010 1100
 */
 TELA_COMANDO_MAIS_EXTERNA:
@@ -625,7 +626,7 @@ TELA_COMANDO_MAIS_EXTERNA:
     
     @ ===========Loop principal da tela (estágio 1)=========== @
     INICIO_TELA_COMANDOS:
-    mov r11, #0 @ Zero os dados para ser enviado
+    mov r12, #0 @ Zero os dados para ser enviado
     @ O estágio 1 é onde controlo para qual sensor vou enviar os dados
     @ Faço o primeiro print da tela e espero apertar o botão Confirm para atualizar a tela
     bl TELA_COMANDOS 
@@ -639,7 +640,7 @@ TELA_COMANDO_MAIS_EXTERNA:
     FIM_ESTAGIO_1: 
     @ Faço a leitura das chaves e carrego no reg de enviar dados uart
     bl LER_CHAVES_GPIO @ Valores em r6
-    add r11, r11, r6 @ Carrego
+    add r12, r12, r6 @ Carrego num sensor
     @ Coloco no reg de enviar uart
     bl TELA_COMANDOS  @ Atualizo a tela 
 
@@ -655,8 +656,8 @@ TELA_COMANDO_MAIS_EXTERNA:
     FIM_ESTAGIO_2: 
     @ Faço a leitura das chaves e carrego no reg de enviar dados uart
     bl LER_CHAVES_GPIO @ Valores em r6
-    lsl r6, #8 # Desloco para colocar os valores do comando no segundo byte
-    add r11, r11, r6 @ Carrego
+    lsl r6, #8 @ Desloco para colocar os valores do comando no segundo byte
+    add r12, r12, r6 @ Carrego o comando
     bl TELA_COMANDOS  @ Atualizo a tela 
 
     @ ===========Loop principal da tela (estágio 3)=========== @
