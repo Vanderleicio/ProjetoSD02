@@ -1,5 +1,5 @@
-.section .text
-.global _start
+@.section .text
+@.global _start
 
 
 .macro MemoryMapUart
@@ -65,7 +65,7 @@ resetFifo:
     ------------------------------------------------
     Recebe os bits através do registrador R13
     Faz as duas transmissões necessárias, enviando primeiro
-    15:8 e depois de 7:0 do R13
+    7:0 e depois  15:8 do R12
 
 */
 sendUart:
@@ -79,21 +79,22 @@ sendUart:
     @Não desloca para o registrador porque o offset é 0
     mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
     
-    mov r0, r10		@ Copio o valor a ser enviado no r0
+    mov r0, r12		@ Copio o valor a ser enviado no r0
     
     lsr r0, #8		@ Desloca para ter os bits 15:8 no lsb de R0    
 
     mov r1, #0b11111111	@ Cria uma máscara para pegar somente os 8 lsb (7:0)
-    and r1, r10		@ 8 LSBs do R13 no R1
+    and r1, r12		@ 8 LSBs do R13 no R1
     
     @mov r0, #0b01101001
     @mov r1, #0b10010110
     
 
     @ Escreve 8 bits na UART
+    str r1, [r9, r2] 	@ Carrega no reg UART_THR (7:0)
     str r0, [r9, r2] 	@ Carrega no reg UART_THR (15:8)
 
-    str r1, [r9, r2] 	@ Carrega no reg UART_THR (7:0)
+    
 
 
 @=======POP PILHA
@@ -373,4 +374,27 @@ setPinsUart:
     add sp, sp, #40
 @=======POP PILHA
 
+    bx lr
+
+
+/*
+    ------------------------------------------------
+    Verifica se tem dados que podem ser lidos na uart
+    ------------------------------------------------
+    Retorna em R1 se pode ler(1) ou não(0)
+*/
+isUartReceived:
+    sub sp, sp, #16
+    str r2, [sp, #8]
+    str r3, [sp, #0]
+
+    mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
+    add r2, #0x0014	@ Deslocamento para o registrador LSR (Line Status)
+    ldr r3, [r9, r2] 	@ Carrega o reg UART_LSR (Line Status)
+    mov r1, #0b1	@ Máscara para ler o último bit
+    and r1, r3
+
+    ldr r2, [sp, #8]
+    ldr r3, [sp, #0]
+    add sp, sp, #16
     bx lr
