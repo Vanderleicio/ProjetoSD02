@@ -31,6 +31,19 @@
 	enableDisplay @ db7-db4  1 1 x x
 .endm
 
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+    (os tempos que estão aqui devem estar em .data)
+    ------------------------------------------------
+        Informa ao display para executar a instrução
+    ------------------------------------------------
+    Dá o pulso de enable para o display observar os 4 bits
+*/
+.macro enableDisplay
+    SetPinGPIOHigh E
+    nanoSleep timeZero, time1ms
+    SetPinGPIOLow E
+    nanoSleep timeZero, time1ms @ Se não fuancionar, comenta aquite
+.endm
 
 /* 
     ------------------------------------------------
@@ -62,19 +75,7 @@ clearDisplay:
 	bx lr
 
 
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-    (os tempos que estão aqui devem estar em .data)
-    ------------------------------------------------
-        Informa ao display para executar a instrução
-    ------------------------------------------------
-    Dá o pulso de enable para o display observar os 4 bits
-*/
-.macro enableDisplay
-    SetPinGPIOHigh E
-    nanoSleep timeZero, time1ms
-    SetPinGPIOLow E
-    nanoSleep timeZero, time1ms @ Se não fuancionar, comenta aquite
-.endm
+
 
 
 /* 

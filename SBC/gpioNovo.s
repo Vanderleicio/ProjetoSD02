@@ -357,19 +357,27 @@ labelDebounce:
     str lr, [sp, #0]
     
     mov r7, #0 @ Estou dizendo que nenhum o botão não foi pressionado
-    loopBounce:
+    
     @ Faço a primeira leitura do bootão
     ldr r1, [sp, #16]
     bl labelreadPin @ Tenho o estado em r0
     cmp r0, #0 
     bne endDebounce @ Se eu não tiver acionado o botão, finalizo
-    nanoSleep timeZero, time800ms 
+    nanoSleep timeZero, time300ms 
     @ Faço a segunda leitura do bootão
     ldr r1, [sp, #16]
     bl labelreadPin @ Tenho o estado em r0
     cmp r0, #0 
-    beq loopBounce @ Se o botão estiver desacionado, finalizo
-    mov r7, #1 @ Se o botão ainda estiver pressionnado, eu indico que a ação que depende dele deverá ocorrer
+    bne endDebounce @ Se eu não tiver acionado o botão, finalizo
+    @ Se o botão ainda estiver acionado, fica em loop até soltar
+    loopBounce:
+    @ Faço mais uma leitura do bootão
+    ldr r1, [sp, #16]
+    bl labelreadPin @ Tenho o estado em r0
+    cmp r0, #0 
+    beq loopBounce @ Se o botão estiver acionado ainda, continuo no loop
+    @ Se o botão tiver sido solto agora, significa que ele passou no teste e eu indico que a ação que depende dele deverá ocorrer
+    mov r7, #1 
    
     endDebounce:
     ldr r0, [sp, #8]
@@ -437,3 +445,4 @@ LER_CHAVES_GPIO:
     ldr r0, [sp, #0]
     add sp, sp, #16
     bx lr
+    
