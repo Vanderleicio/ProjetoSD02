@@ -1,6 +1,6 @@
 LOOP_PRINCIPAL:
 @ Verifico se chegou algo na uart
-isUartReceived
+bl isUartReceived
 cmp r1, #1
 @ Se tiver chego algo, exibo a tela correspondente
 BEQ EXIBE_RECEBIDO
