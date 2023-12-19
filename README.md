@@ -66,11 +66,11 @@ No entanto, as instruções do ARMv7 não têm conhecimento direto dos pinos GPI
 
 
 Para realizar a chamada do mmpa2, é importante que alguns registradores que são utilizados como parâmetros estejam preenchidos, são eles:
-`R0`: Dica para o endereço virtual que será utilizado, caso seja nullo, o linux escolherá
-`R1`: Comprimento da região de memória, multiplo de 4096, que é o tamanho da página de memória
-`R2`: Proteção de memória
-`R3`: Descritor de arquivo, usado para abrir o *dev/mem*
-`R5`: O endereço do GPIO / 4096, o endereço do gpio divido pelo tamanho da página de memória, utilizado para calcular o deslocamento necessário para mapear um endereço físico no espaço de memória virtual.
+- `R0`: Dica para o endereço virtual que será utilizado, caso seja nullo, o linux escolherá
+- `R1`: Comprimento da região de memória, multiplo de 4096, que é o tamanho da página de memória
+- `R2`: Proteção de memória
+- `R3`: Descritor de arquivo, usado para abrir o *dev/mem*
+- `R5`: O endereço do GPIO / 4096, o endereço do gpio divido pelo tamanho da página de memória, utilizado para calcular o deslocamento necessário para mapear um endereço físico no espaço de memória virtual.
 
 
 Os dados que são utilizados no R0, R1 e R5 são passados na seção .data.
