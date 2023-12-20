@@ -15,7 +15,6 @@
 
 ### Sumário 
 ------------
-+ [Como Executar](#como-executar)
 + [Introdução](#introdução)
 + [Características da Solução](#características-da-solução)
 + &nbsp;&nbsp;&nbsp;[Materiais Utilizados](#materiais-utilizados)
@@ -24,15 +23,15 @@
 + &nbsp;&nbsp;&nbsp;[Mapeamento](#mapeamento)
 + &nbsp;&nbsp;&nbsp;[Display](#display)
 + &nbsp;&nbsp;&nbsp;[Uart](#uart)
-+ [Testes](#testes)
++ [Como Executar](#como-executar)
++ [Comandos](#comandos)
++ [Testes](#Testes)
 + [Conclusões](#conclusões)
 + [Referências](#referências)
 
+-------
 
-
-## Como Executar
-
-
+# O sistema
 ## Introdução
 
 Este documento descreve a continuação do desenvolvimento de um sistema digital para controle de ambientes. O projeto está dividido em duas etapas, o leitor pode encontrar a descrição da implementação da primeira etapa [Clicando aqui (Primeira Etapa)](https://github.com/Vanderleicio/ProjetoSD01). A segunda etapa, visa desenvolver uma interface homem-máquina que, receba comandos, se comunique com a FPGA, receba respostas e exiba essas respostas no Display LCD. Essa interface, deve substitituir a implementada na primeira etapa utilizando a linguagem de programação C, atendendo os mesmos requisitos. Desta vez o prótotipo será embutido em um computador de placa única (SBC) a Orange Pi PC Plus. Uma das restrições do projeto, é que seja a solução seja escrita em Assembly, linguagem que corresponde ao conjunto de instruções de uma arquitetura específica.
@@ -47,14 +46,23 @@ A Orange PI PC PLUS possui o processador AllWinner H3, baseado na arquitetura AR
 ### Materiais utilizados
 ----------
 
+[FPGA]
 
+[ORANGE PI]
+gpuio
 
 ### Arquitetura do Computador
+
+A Orange PI PC plus.
+Allwinner H3 
+- CPU: quad-core  ARM Cortex A7
+
+arquitetura ARMv7
+
+
 ----------
 
 
-### Instruções Utilizadas
-----------
 
 ### Mapeamento
 ----------
@@ -78,22 +86,40 @@ Os dados que são utilizados no R0, R1 e R5 são passados na seção .data.
 
 
 
-
 ### Display
 --------------
+
 
 ### Uart
 --------------
 
+## Como Executar
+--------------
+
+### Comandos
+--------------
+Ao todo existem 7 comandos:
+- Comando 0 | Posição 0000: Solicita a situação atual do sensor.
+- Comando 1 | Posição 0001: Solicita a medidade de temperatura atual do sensor.
+- Comando 2 | Posição 0010: Solicita a medida de umidade atual.
+- Comando 3 | Posição 0011: Ativa sensoriamento continuo de temperatura.
+- Comando 4 | Posição 0100: Ativa sensoriamento continuo de umidade.
+- Comando 5 | Posição 0101: Desativa sensoriamento continuo de temperatura.
+- Comando 6 | Posição 0110: Desativa o sensoriamento continuo de unmidade.
+
+Para enviar um comando, são necessarios dois passos:
++ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
++ 2: Posiconar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok. 
 
 
-## Teste
+## Testes
+--------------
 
 
 ## Conclusões
 
 
-
+--------------
 ## Referências
 
 
