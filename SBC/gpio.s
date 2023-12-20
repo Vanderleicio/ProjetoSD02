@@ -108,8 +108,6 @@ labelPinLow:
     add sp, sp, #16
 @=======POP PILHA
     bx lr
-    
-
 
 @ Preciso de uma função que seta o pino como saída. recebe o pino como parametro
 @setPinGPIOOut
@@ -207,7 +205,6 @@ labelPinIn:
 @=======POP PILHA
     bx lr
 
-
 .macro readPinGPIO pino
 
     sub sp, sp, #16
@@ -303,25 +300,8 @@ setStatePinGPIO:
 @=======POP PILHA
     bx lr
 
-
-
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    ------------------------------------------------
-    Setando os pinos das chaves como entradas
-    ------------------------------------------------
-*/
-.macro setIn
-    setPinGPIOIn sh1
-    setPinGPIOIn sh2
-    setPinGPIOIn sh3
-    setPinGPIOIn sh4
-        @ Botões
-    setPinGPIOIn bConfirm
-    setPinGPIOIn bOk
-    setPinGPIOIn bCancel
-.endm
-
-
+@ Preciso de uma função que seta o pino de saída para o valor passado (0 ou 1). Recebe o high ou low e recebe o id do pino
+@setStatePinGPIO (Usando reg R3 para o pino e R4 para o high ou low)
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     ------------------------------------------------
@@ -333,117 +313,10 @@ setStatePinGPIO:
 	setPinGPIOOut db6
 	setPinGPIOOut db5
 	setPinGPIOOut db4
-	setPinGPIOOut E
 	setPinGPIOOut RS
-	setPinGPIOOut led @ Setando o led que é acionado em HIGH 
+	setPinGPIOOut E
+	@setPinGPIOOut led @ Setando o led que é acionado em HIGH 
 .endm
 
 /* 
-    ------------------------------------------------
-            Label para auxiliar o debounce
-    ------------------------------------------------
-    r7 -> representa a informação se o botão foi pressionado (deve ser verificado logo após a chamada da macro do debounce) 
-    Fluxo abaixo:
-    Verifico o estado do pino
-        - Se tiver pressionado
-            - Dou sleep e verifico novamente
-                - Se ainda estiver pressionado, retorno 1 e finalizo
-                - Se não estiver pressionado, finalizo
-        - Se não estiver pressionado, finalizo
-*/
-labelDebounce:
-    sub sp, sp, #24
-    str r1, [sp, #16]
-    str r0, [sp, #8]
-    str lr, [sp, #0]
-    
-    mov r7, #0 @ Estou dizendo que nenhum o botão não foi pressionado
-    
-    @ Faço a primeira leitura do bootão
-    ldr r1, [sp, #16]
-    bl labelreadPin @ Tenho o estado em r0
-    cmp r0, #0 
-    bne endDebounce @ Se eu não tiver acionado o botão, finalizo
-    nanoSleep timeZero, time300ms 
-    @ Faço a segunda leitura do bootão
-    ldr r1, [sp, #16]
-    bl labelreadPin @ Tenho o estado em r0
-    cmp r0, #0 
-    bne endDebounce @ Se eu não tiver acionado o botão, finalizo
-    @ Se o botão ainda estiver acionado, fica em loop até soltar
-    loopBounce:
-    @ Faço mais uma leitura do bootão
-    ldr r1, [sp, #16]
-    bl labelreadPin @ Tenho o estado em r0
-    cmp r0, #0 
-    beq loopBounce @ Se o botão estiver acionado ainda, continuo no loop
-    @ Se o botão tiver sido solto agora, significa que ele passou no teste e eu indico que a ação que depende dele deverá ocorrer
-    mov r7, #1 
-   
-    endDebounce:
-    ldr r0, [sp, #8]
-    ldr lr, [sp, #0]
-    add sp, sp, #24
-    bx lr
 
-
-.macro debouncePin pino
-
-    sub sp, sp, #16
-    str r1, [sp, #8]
-    str r2, [sp, #0]
-
-    @ ================================================================
-    ldr r1, =\pino		@ Offset do registrador data
-    ldr r1, [r1] 		@ Carregando valor
-    
-	
-    ldr r2, =\pino
-    add r2, #4			
-    ldr r2, [r2]		@Deslocamento dentro do registrador data
-
-    @ ================================================================
-    bl labelDebounce
-
-    ldr r2, [sp, #8]
-    ldr r1, [sp, #0]
-    add sp, sp, #16
-
-.endm
-
-
-
-/* 
-    ------------------------------------------------
-        Realiza a leitura de todas as chaves juntas
-    ------------------------------------------------
-    r6 -> É onde está os valores da chaves (4bits)
-*/
-LER_CHAVES_GPIO:
-    sub sp, sp, #16
-    str lr, [sp, #8]
-    str r0, [sp, #0]
-
-    mov r6, #0
-    
-    readPinGPIO sh4@ Retorna o estado em R0
-    eor r0, r0, #1 @ Inverte o valor em r0 já que a chave apresenta valor 0 quanndo acionada. Aí fica 1 no lugar
-    lsl r0, #3
-    add r6, r6, r0
-    readPinGPIO sh3@ Retorna o estado em R0
-    eor r0, r0, #1 @ Inverte o valor em r0 já que a chave apresenta valor 0 quanndo acionada. Aí fica 1 no lugar
-    lsl r0, #2
-    add r6, r6, r0
-    readPinGPIO sh2@ Retorna o estado em R0
-    eor r0, r0, #1 @ Inverte o valor em r0 já que a chave apresenta valor 0 quanndo acionada. Aí fica 1 no lugar
-    lsl r0, #1
-    add r6, r6, r0
-    readPinGPIO sh1@ Retorna o estado em R0
-    eor r0, r0, #1 @ Inverte o valor em r0 já que a chave apresenta valor 0 quanndo acionada. Aí fica 1 no lugar
-    add r6, r6, r0
-
-    ldr lr, [sp, #8]
-    ldr r0, [sp, #0]
-    add sp, sp, #16
-    bx lr
-    

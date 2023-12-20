@@ -15,54 +15,64 @@ _start:
 	setOut
 	setIn
 
-	@initDisplay
+	initDisplay
 	
 	MemoryMapUart
 	inicializarUART
+	@bl resetFifo @@@@@@@@@@@@@@@
 
-@FIM DA INICIALIZAÇÃO GERAL
-    	
-    	bl resetFifo
-    	
-    	mov r1, #0b01000101
-    	bl WriteCharLCD
+	@FIM DA INICIALIZAÇÃO GERAL
     	
     	@======== INICIALIZA AS TELAS
-    	bl clearDisplay
-    	bl setInitialCursorPos
-    	bl jumpLine
-    	bl EscreveComandoNaSegundaLinha
+	bl TELA_INICIAL
+	@mov r12, #1 @Comando
+	@lsl r12, #8 
+	@add r12, r12, #7 @ Adiciono o endereço
+	@bl sendUart
     	@======== INICIALIZA AS TELAS
+    	
+    	
+    	LOOP_PRINCIPAL:
+	@ Verifico se chegou algo na uart
+	bl isUartReceived
+	cmp r1, #1
+	
+	@ Se tiver chego algo, exibo a tela correspondente
+	BEQ EXIBE_RECEBIDO
+	
+	velBt:
+	@ Se não tiver recebido algo eu verifico o botão
+	debouncePin bOk
+	cmp r7, #1
+	
+	@ Se o botão tiver sido pressionado, vou para a tela de comando
+	BEQ TEL_COMANDO
+	
+	@ Se não estiver pressionado, volto refaço o processo
+	b LOOP_PRINCIPAL
 
-    	@bl TELA_COMANDO_MAIS_EXTERNA
-	
-	    @ 0011001 1011 01000
-	    mov r12, #0
-	    //====SIMULANDO UM DADO RECEBIDO DA UART PARA JOGAR NAS TELAS====//
-	    // DADOS
-	    mov r14, #25 @ Colocando o valor do DADO recebido (25)
-	    lsl r14, #9 @ Deslocando o comando para o bit
-	    add r12, r12, r14 @Coloca o valor do comando na posição correta
-	    // COMANDO
-	    mov r14, #0b1011 @ Colocando o valor do COMANDO recebido (11)
-	    lsl r14, #5 @ Deslocando o comando para o bit
-	    add r12, r12, r14 @Coloca o valor do comando na posição correta
-	    // Nº SENSOR
-	    mov r14, #8 @ Colocando o valor do número do sensor recebido (8)
-	    add r12, r12, r14 @Coloca o valor do comando na posição correta
-	
-	bl TELA_SITUACAO_SENSOR_ERRO
-	@bl TELA_SITUACAO_SENSOR_OK
-	@bl TELA_DESLIGA_CONTINUO_UMID
-	@bl TELA_DESLIGA_CONTINUO_TEMP
-	@bl TELA_COMANDOS
-	@bl TELA_UMIDADE
-	@bl TELA_TEMPERATURA
-	
+	TEL_COMANDO:
+	    bl TELA_COMANDO_MAIS_EXTERNA
+	    bl resetFifo @@@@@@@@@@@@@@@@@@@@@@@@@@@
+	    @ Quando saio da tela, já devo enviar os dados pela UART
+	    bl TELA_INICIAL
+	    bl sendUart
+	    b LOOP_PRINCIPAL
+
+	EXIBE_RECEBIDO:
+	    bl readUart
+	    mov r12, r11
+	    bl SELECAO_TELA
+	    KKKK:
+	    b velBt
+    
 	@Encerramento do programa
 	MOV R0, #0
     	MOV R7, #1
     	SVC 0
+
+
+
 
 .data 
 	timeZero: 	.word	0 @ 0 Segundos
@@ -122,7 +132,7 @@ _start:
 	    .word 0x00
 	    .word 28
 	@PA 10
-	bScreen: .word 0X10
+	bOk: .word 0X10
 	    .word 10
 	    .word 0x04
 	    .word 8

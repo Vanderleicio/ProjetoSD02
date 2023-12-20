@@ -61,10 +61,11 @@ pegaNumComando:
     
     mov r10, #0b111100000 @ Coloca a mascara para pegar os 4 bits de 8:5 
     and r3, r12, r10
+    lsr r3, #5
 
     ldr r10, [sp, #0]
     add sp, sp, #8
-
+    t1:
     bx lr
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -607,7 +607,7 @@ TELA_COMANDOS:
     ldr lr,[sp,#0]
     add sp, sp, #8
     bx lr
-
+	
 /*
     ------------------------------------------------
         Controla o fluxo da tela de comandos
@@ -623,6 +623,10 @@ TELA_COMANDO_MAIS_EXTERNA:
     str r7,[sp,#16] 
     str r6,[sp,#8] 
     str lr,[sp,#0] @ Usado como temporário  
+    
+    
+
+    
     
     @ ===========Loop principal da tela (estágio 1)=========== @
     INICIO_TELA_COMANDOS:
@@ -675,6 +679,7 @@ TELA_COMANDO_MAIS_EXTERNA:
     B LOOP_3_TCOMANDO
     FIM_ESTAGIO_3: 
     @ FINALIZO TUDO E ENVIO
+
 
     str r7,[sp,#16] 
     str r6,[sp,#8] 
@@ -792,9 +797,9 @@ SELECAO_TELA:
     str r0, [sp, #8]
     str lr, [sp, #0]
 @=======PUT PILHA
-    bl pegaNumComando @ Retorna em r3
+    	bl pegaNumComando @ Retorna em r3
 	 
-	cmp r3, #8
+	cmp r3, #15
 	bne prox1
 	bl TELA_SITUACAO_SENSOR_ERRO
 	b encerra
@@ -836,3 +841,22 @@ SELECAO_TELA:
     add sp, sp, #16
 @=======POP PILHA
 	bx lr
+
+
+
+
+TELA_INICIAL:
+    sub sp, sp, #8
+    str lr, [sp, #0]
+    
+    bl clearDisplay
+    bl setInitialCursorPos
+    bl jumpLine
+    bl EscreveComandoNaSegundaLinha
+    
+    ldr lr, [sp, #0]
+    add sp, sp, #8
+    bx lr
+    
+    
+    

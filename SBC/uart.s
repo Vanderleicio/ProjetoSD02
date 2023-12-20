@@ -22,41 +22,56 @@
 	MOV R9, R0
 .endm
 
-resetFifo:
-@=======PUT PILHA
+
+ligarGating:
     sub sp, sp, #24
     str r1, [sp, #16]
     str r2, [sp, #8]
-    str r3, [sp, #0]
-@=======PUT PILHA
-    mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
-    add r2, #0x007C	@ Deslocamento para o registrador USR (Uart Status)
+    str r0, [sp, #0]
     
-    checagem:
-    ldr r3, [r9, r2]	@ Carrega o valor de USR
-    mov r1, #0b1000
+    mov r2, #0x000   		@ Carregar o registrador referente ao reset do uart3
+    add r2, #0x006C
     
-    and r1, r3
-    lsr r1, #3
+    ldr r1, [r8, r2] 		@ Valor no registrador select
+
+    mov r0, #0b1 		@ Registrador a ser usado como máscara
+    lsl r0, #19 		@ Desloca para a posicao da máscara 
+   
+    orr r1, r0
     
-    cmp r1, #0b1
-    beq leitor
+    str r1, [r8, r2] 		@ Salva novamente no endereço
     
-    b endRst
     
-    leitor:
-    ldr r3, [r9, r2] 	@ Carrega o reg UART_RBR (Primeira leitura)
-    b checagem
-    
-    endRst:
-@=======POP PILHA
     ldr r1, [sp, #16]
     ldr r2, [sp, #8]
-    ldr r3, [sp, #0]
+    ldr r0, [sp, #0]
     add sp, sp, #24
-@=======POP PILHA
-
+    
     bx lr
+
+
+
+fifocheio:
+	sub sp, sp, #8
+	str lr, [sp, #0]
+
+	
+	mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
+    	add r2, #0x007C	@ Deslocamento para o registrador USR (Uart Status)
+    	ldr r3, [r9, r2]	@ Carrega o valor de USR
+    	
+    	mov r4, #0b10000
+    	and r4, r3
+    	
+    	lsr r4, #4
+    	eor r4, #1
+    	ldr r3, =led
+    	
+    	bl setStatePinGPIO
+    
+	ldr lr, [sp, #0]
+    	add sp, sp, #8
+    	bx lr
 
 
 /*
@@ -71,11 +86,13 @@ resetFifo:
 sendUart:
 
 @=======PUT PILHA
-    sub sp, sp, #24
+    sub sp, sp, #32
+    str lr, [sp, #24]
     str r0, [sp, #16]
     str r1, [sp, #8]
     str r2, [sp, #0]
 @=======PUT PILHA
+    bl ligarGating
     @Não desloca para o registrador porque o offset é 0
     mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
     
@@ -94,14 +111,13 @@ sendUart:
     str r1, [r9, r2] 	@ Carrega no reg UART_THR (7:0)
     str r0, [r9, r2] 	@ Carrega no reg UART_THR (15:8)
 
-    
-
 
 @=======POP PILHA
+    ldr lr, [sp, #24]
     ldr r0, [sp, #16]
     ldr r1, [sp, #8]
     ldr r2, [sp, #0]
-    add sp, sp, #24
+    add sp, sp, #32
 @=======POP PILHA
 
     bx lr
@@ -121,12 +137,14 @@ sendUart:
 */
 readUart:
 @=======PUT PILHA
-    sub sp, sp, #32
+    sub sp, sp, #40
+    str lr, [sp, #32]
     str r0, [sp, #24]
     str r1, [sp, #16]
     str r2, [sp, #8]
     str r3, [sp, #0]
 @=======PUT PILHA
+    bl ligarGating
     mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
     ldr r3, [r9, r2] 	@ Carrega o reg UART_RBR (Primeira leitura)
     
@@ -157,21 +175,21 @@ readUart:
     mov r1, #0b1111111	@ Máscara para pegar somente os 8 LSBs
     and r1, r3		@ Dados da segunda leitura
 
-    teste3:
     @ === COMENTE A LINHA ABAIXO SE NÃO ESTIVER FUNCIONANDO ===
     lsl r1, #8 		@ Desloca para fazer a segunda leitura ser os 8 bits iniciais do retorno
 
     add r0, r1		@ Junta os dados da primeira e da segunda leitura em R0
 
-    mov r12, #0
-    orr r12, r0		@Adiciona todos os dados lidos em r10 para retornar
-    teste11:
+    mov r11, #0
+    orr r11, r0		@Adiciona todos os dados lidos em r11 para retornar
+    
 @=======POP PILHA
+    ldr lr, [sp, #32]
     ldr r0, [sp, #24]
     ldr r1, [sp, #16]
     ldr r2, [sp, #8]
     ldr r3, [sp, #0]
-    add sp, sp, #32
+    add sp, sp, #40
 @=======POP PILHA
 
     bx lr
@@ -256,7 +274,7 @@ readUart:
     mov r0, #0x0008 
     add r0, #0xC00   
     
-    mov r1, #1
+    mov r1, #0b1 @ Antes era #0b1
     
     ldr r2, [r9, r0] @ Carrega o reg UART_FCR
     orr r2, r2, r1
@@ -387,6 +405,7 @@ isUartReceived:
     sub sp, sp, #16
     str r2, [sp, #8]
     str r3, [sp, #0]
+    
 
     mov r2, #0xC00	@ Deslocamento padrão dos módulos UART
     add r2, #0x0014	@ Deslocamento para o registrador LSR (Line Status)
@@ -398,3 +417,31 @@ isUartReceived:
     ldr r3, [sp, #0]
     add sp, sp, #16
     bx lr
+    
+    
+   @===================================================================================================
+resetFifo:
+@=======PUT PILHA
+    sub sp, sp, #16
+    str lr, [sp, #8]
+    str r1, [sp, #0]
+@=======PUT PILHA
+
+   LOOP_RESET:
+   bl isUartReceived
+   cmp r1, #1
+   BEQ FACA_LEITURA
+   b endRst
+   FACA_LEITURA:
+   bl readUart
+   b LOOP_RESET 
+   
+   endRst:
+@=======POP PILHA
+    ldr lr, [sp, #8]
+    ldr r1, [sp, #0]
+    add sp, sp, #16
+@=======POP PILHA
+
+    bx lr
+    
