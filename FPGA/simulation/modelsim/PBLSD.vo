@@ -1,0 +1,3311 @@
+// Copyright (C) 2020  Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions 
+// and other software and tools, and any partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License 
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel FPGA IP License Agreement, or other applicable license
+// agreement, including, without limitation, that your use is for
+// the sole purpose of programming logic devices manufactured by
+// Intel and sold by Intel or its authorized distributors.  Please
+// refer to the applicable agreement for further details, at
+// https://fpgasoftware.intel.com/eula.
+
+// VENDOR "Altera"
+// PROGRAM "Quartus Prime"
+// VERSION "Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition"
+
+// DATE "12/14/2023 11:30:42"
+
+// 
+// Device: Altera EP4CE30F23C7 Package FBGA484
+// 
+
+// 
+// This Verilog file should be used for ModelSim-Altera (Verilog) only
+// 
+
+`timescale 1 ps/ 1 ps
+
+module main (
+	clk,
+	rx,
+	tx,
+	ch1);
+input 	clk;
+input 	rx;
+output 	tx;
+input 	ch1;
+
+// Design Ports Information
+// rx	=>  Location: PIN_F16,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// tx	=>  Location: PIN_F19,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ch1	=>  Location: PIN_W22,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// clk	=>  Location: PIN_T2,	 I/O Standard: 2.5 V,	 Current Strength: Default
+
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+tri1 devclrn;
+tri1 devpor;
+tri1 devoe;
+wire \rx~input_o ;
+wire \tx~output_o ;
+wire \clk~input_o ;
+wire \gerador|baudRateReg[0]~13_combout ;
+wire \gerador|baudRateReg[0]~feeder_combout ;
+wire \gerador|baudRateReg[0]~14 ;
+wire \gerador|baudRateReg[1]~15_combout ;
+wire \gerador|baudRateReg[1]~feeder_combout ;
+wire \~GND~combout ;
+wire \gerador|baudRateReg[1]~16 ;
+wire \gerador|baudRateReg[2]~17_combout ;
+wire \gerador|baudRateReg[2]~18 ;
+wire \gerador|baudRateReg[3]~19_combout ;
+wire \gerador|baudRateReg[3]~20 ;
+wire \gerador|baudRateReg[4]~21_combout ;
+wire \gerador|baudRateReg[4]~22 ;
+wire \gerador|baudRateReg[5]~23_combout ;
+wire \gerador|baudRateReg[5]~24 ;
+wire \gerador|baudRateReg[6]~25_combout ;
+wire \gerador|baudRateReg[6]~26 ;
+wire \gerador|baudRateReg[7]~27_combout ;
+wire \gerador|baudRateReg[7]~28 ;
+wire \gerador|baudRateReg[8]~29_combout ;
+wire \gerador|baudRateReg[8]~30 ;
+wire \gerador|baudRateReg[9]~31_combout ;
+wire \gerador|baudRateReg[9]~32 ;
+wire \gerador|baudRateReg[10]~33_combout ;
+wire \gerador|baudRateReg[10]~34 ;
+wire \gerador|baudRateReg[11]~35_combout ;
+wire \gerador|baudRateReg[11]~36 ;
+wire \gerador|baudRateReg[12]~37_combout ;
+wire \gerador|Equal0~0_combout ;
+wire \gerador|Equal0~1_combout ;
+wire \gerador|Equal0~2_combout ;
+wire \gerador|Equal0~combout ;
+wire \gerador|Equal0~clkctrl_outclk ;
+wire \ch1~input_o ;
+wire \transmissor_UART|Selector36~0_combout ;
+wire \transmissor_UART|Add0~1 ;
+wire \transmissor_UART|Add0~2_combout ;
+wire \transmissor_UART|Selector31~1_combout ;
+wire \transmissor_UART|Add0~3 ;
+wire \transmissor_UART|Add0~4_combout ;
+wire \transmissor_UART|Selector30~0_combout ;
+wire \transmissor_UART|Add0~5 ;
+wire \transmissor_UART|Add0~6_combout ;
+wire \transmissor_UART|Selector29~0_combout ;
+wire \transmissor_UART|Add0~7 ;
+wire \transmissor_UART|Add0~8_combout ;
+wire \transmissor_UART|Selector28~0_combout ;
+wire \transmissor_UART|Add0~9 ;
+wire \transmissor_UART|Add0~10_combout ;
+wire \transmissor_UART|Selector27~0_combout ;
+wire \transmissor_UART|Add0~11 ;
+wire \transmissor_UART|Add0~12_combout ;
+wire \transmissor_UART|Selector26~0_combout ;
+wire \transmissor_UART|Add0~13 ;
+wire \transmissor_UART|Add0~14_combout ;
+wire \transmissor_UART|Selector25~0_combout ;
+wire \transmissor_UART|Selector35~2_combout ;
+wire \transmissor_UART|Add0~15 ;
+wire \transmissor_UART|Add0~16_combout ;
+wire \transmissor_UART|Selector24~0_combout ;
+wire \transmissor_UART|Add0~17 ;
+wire \transmissor_UART|Add0~18_combout ;
+wire \transmissor_UART|Selector23~0_combout ;
+wire \transmissor_UART|Add0~19 ;
+wire \transmissor_UART|Add0~20_combout ;
+wire \transmissor_UART|Selector22~0_combout ;
+wire \transmissor_UART|Add0~21 ;
+wire \transmissor_UART|Add0~22_combout ;
+wire \transmissor_UART|Selector21~0_combout ;
+wire \transmissor_UART|Selector35~3_combout ;
+wire \transmissor_UART|Selector35~1_combout ;
+wire \transmissor_UART|Add0~23 ;
+wire \transmissor_UART|Add0~24_combout ;
+wire \transmissor_UART|Selector20~0_combout ;
+wire \transmissor_UART|Add0~25 ;
+wire \transmissor_UART|Add0~26_combout ;
+wire \transmissor_UART|Selector19~0_combout ;
+wire \transmissor_UART|Add0~27 ;
+wire \transmissor_UART|Add0~28_combout ;
+wire \transmissor_UART|Selector18~0_combout ;
+wire \transmissor_UART|Add0~29 ;
+wire \transmissor_UART|Add0~30_combout ;
+wire \transmissor_UART|Selector17~0_combout ;
+wire \transmissor_UART|Selector35~4_combout ;
+wire \transmissor_UART|Selector35~5_combout ;
+wire \transmissor_UART|Add0~31 ;
+wire \transmissor_UART|Add0~32_combout ;
+wire \transmissor_UART|Selector16~0_combout ;
+wire \transmissor_UART|Add0~33 ;
+wire \transmissor_UART|Add0~34_combout ;
+wire \transmissor_UART|Selector15~0_combout ;
+wire \transmissor_UART|Add0~35 ;
+wire \transmissor_UART|Add0~36_combout ;
+wire \transmissor_UART|Selector14~0_combout ;
+wire \transmissor_UART|Add0~37 ;
+wire \transmissor_UART|Add0~38_combout ;
+wire \transmissor_UART|Selector13~0_combout ;
+wire \transmissor_UART|Add0~39 ;
+wire \transmissor_UART|Add0~40_combout ;
+wire \transmissor_UART|Selector12~0_combout ;
+wire \transmissor_UART|Add0~41 ;
+wire \transmissor_UART|Add0~42_combout ;
+wire \transmissor_UART|Selector11~0_combout ;
+wire \transmissor_UART|Add0~43 ;
+wire \transmissor_UART|Add0~44_combout ;
+wire \transmissor_UART|Selector10~0_combout ;
+wire \transmissor_UART|Add0~45 ;
+wire \transmissor_UART|Add0~46_combout ;
+wire \transmissor_UART|Selector9~0_combout ;
+wire \transmissor_UART|Add0~47 ;
+wire \transmissor_UART|Add0~48_combout ;
+wire \transmissor_UART|Selector8~0_combout ;
+wire \transmissor_UART|Add0~49 ;
+wire \transmissor_UART|Add0~50_combout ;
+wire \transmissor_UART|Selector7~0_combout ;
+wire \transmissor_UART|Add0~51 ;
+wire \transmissor_UART|Add0~52_combout ;
+wire \transmissor_UART|Selector6~0_combout ;
+wire \transmissor_UART|Add0~53 ;
+wire \transmissor_UART|Add0~54_combout ;
+wire \transmissor_UART|Selector5~0_combout ;
+wire \transmissor_UART|Add0~55 ;
+wire \transmissor_UART|Add0~56_combout ;
+wire \transmissor_UART|Selector4~0_combout ;
+wire \transmissor_UART|Add0~57 ;
+wire \transmissor_UART|Add0~58_combout ;
+wire \transmissor_UART|Selector3~0_combout ;
+wire \transmissor_UART|Add0~59 ;
+wire \transmissor_UART|Add0~60_combout ;
+wire \transmissor_UART|Selector2~0_combout ;
+wire \transmissor_UART|Add0~61 ;
+wire \transmissor_UART|Add0~62_combout ;
+wire \transmissor_UART|Selector1~0_combout ;
+wire \transmissor_UART|Selector35~9_combout ;
+wire \transmissor_UART|Selector35~8_combout ;
+wire \transmissor_UART|Selector35~7_combout ;
+wire \transmissor_UART|Selector35~6_combout ;
+wire \transmissor_UART|Selector35~10_combout ;
+wire \transmissor_UART|Selector34~0_combout ;
+wire \transmissor_UART|state.IDLE~q ;
+wire \transmissor_UART|Selector35~0_combout ;
+wire \transmissor_UART|Selector35~11_combout ;
+wire \transmissor_UART|state.START~q ;
+wire \transmissor_UART|Selector36~1_combout ;
+wire \transmissor_UART|state~12_combout ;
+wire \transmissor_UART|Add0~0_combout ;
+wire \transmissor_UART|state~10_combout ;
+wire \transmissor_UART|state~11_combout ;
+wire \transmissor_UART|state~13_combout ;
+wire \transmissor_UART|state~14_combout ;
+wire \transmissor_UART|state~15_combout ;
+wire \transmissor_UART|state~16_combout ;
+wire \transmissor_UART|state~17_combout ;
+wire \transmissor_UART|state~18_combout ;
+wire \transmissor_UART|state~19_combout ;
+wire \transmissor_UART|Selector36~2_combout ;
+wire \transmissor_UART|state.DATA~q ;
+wire \transmissor_UART|state~20_combout ;
+wire \transmissor_UART|state.STOP~q ;
+wire \transmissor_UART|Selector31~0_combout ;
+wire \transmissor_UART|Selector32~0_combout ;
+wire \transmissor_UART|Mux0~0_combout ;
+wire \transmissor_UART|Selector33~0_combout ;
+wire \transmissor_UART|Selector33~1_combout ;
+wire \transmissor_UART|tx~q ;
+wire [31:0] \transmissor_UART|pos ;
+wire [12:0] \gerador|baudRateReg ;
+
+
+hard_block auto_generated_inst(
+	.devpor(devpor),
+	.devclrn(devclrn),
+	.devoe(devoe));
+
+// Location: IOOBUF_X67_Y37_N16
+cycloneive_io_obuf \tx~output (
+	.i(!\transmissor_UART|tx~q ),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\tx~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \tx~output .bus_hold = "false";
+defparam \tx~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y21_N15
+cycloneive_io_ibuf \clk~input (
+	.i(clk),
+	.ibar(gnd),
+	.o(\clk~input_o ));
+// synopsys translate_off
+defparam \clk~input .bus_hold = "false";
+defparam \clk~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N2
+cycloneive_lcell_comb \gerador|baudRateReg[0]~13 (
+// Equation(s):
+// \gerador|baudRateReg[0]~13_combout  = \gerador|baudRateReg [0] $ (VCC)
+// \gerador|baudRateReg[0]~14  = CARRY(\gerador|baudRateReg [0])
+
+	.dataa(\gerador|baudRateReg [0]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(gnd),
+	.combout(\gerador|baudRateReg[0]~13_combout ),
+	.cout(\gerador|baudRateReg[0]~14 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[0]~13 .lut_mask = 16'h55AA;
+defparam \gerador|baudRateReg[0]~13 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N28
+cycloneive_lcell_comb \gerador|baudRateReg[0]~feeder (
+// Equation(s):
+// \gerador|baudRateReg[0]~feeder_combout  = \gerador|baudRateReg[0]~13_combout 
+
+	.dataa(gnd),
+	.datab(\gerador|baudRateReg[0]~13_combout ),
+	.datac(gnd),
+	.datad(gnd),
+	.cin(gnd),
+	.combout(\gerador|baudRateReg[0]~feeder_combout ),
+	.cout());
+// synopsys translate_off
+defparam \gerador|baudRateReg[0]~feeder .lut_mask = 16'hCCCC;
+defparam \gerador|baudRateReg[0]~feeder .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N29
+dffeas \gerador|baudRateReg[0] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[0]~feeder_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [0]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[0] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[0] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N4
+cycloneive_lcell_comb \gerador|baudRateReg[1]~15 (
+// Equation(s):
+// \gerador|baudRateReg[1]~15_combout  = (\gerador|baudRateReg [1] & (!\gerador|baudRateReg[0]~14 )) # (!\gerador|baudRateReg [1] & ((\gerador|baudRateReg[0]~14 ) # (GND)))
+// \gerador|baudRateReg[1]~16  = CARRY((!\gerador|baudRateReg[0]~14 ) # (!\gerador|baudRateReg [1]))
+
+	.dataa(gnd),
+	.datab(\gerador|baudRateReg [1]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\gerador|baudRateReg[0]~14 ),
+	.combout(\gerador|baudRateReg[1]~15_combout ),
+	.cout(\gerador|baudRateReg[1]~16 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[1]~15 .lut_mask = 16'h3C3F;
+defparam \gerador|baudRateReg[1]~15 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X2_Y21_N8
+cycloneive_lcell_comb \gerador|baudRateReg[1]~feeder (
+// Equation(s):
+// \gerador|baudRateReg[1]~feeder_combout  = \gerador|baudRateReg[1]~15_combout 
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\gerador|baudRateReg[1]~15_combout ),
+	.cin(gnd),
+	.combout(\gerador|baudRateReg[1]~feeder_combout ),
+	.cout());
+// synopsys translate_off
+defparam \gerador|baudRateReg[1]~feeder .lut_mask = 16'hFF00;
+defparam \gerador|baudRateReg[1]~feeder .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X2_Y21_N0
+cycloneive_lcell_comb \~GND (
+// Equation(s):
+// \~GND~combout  = GND
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(gnd),
+	.cin(gnd),
+	.combout(\~GND~combout ),
+	.cout());
+// synopsys translate_off
+defparam \~GND .lut_mask = 16'h0000;
+defparam \~GND .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X2_Y21_N9
+dffeas \gerador|baudRateReg[1] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[1]~feeder_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [1]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[1] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[1] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N6
+cycloneive_lcell_comb \gerador|baudRateReg[2]~17 (
+// Equation(s):
+// \gerador|baudRateReg[2]~17_combout  = (\gerador|baudRateReg [2] & (\gerador|baudRateReg[1]~16  $ (GND))) # (!\gerador|baudRateReg [2] & (!\gerador|baudRateReg[1]~16  & VCC))
+// \gerador|baudRateReg[2]~18  = CARRY((\gerador|baudRateReg [2] & !\gerador|baudRateReg[1]~16 ))
+
+	.dataa(\gerador|baudRateReg [2]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\gerador|baudRateReg[1]~16 ),
+	.combout(\gerador|baudRateReg[2]~17_combout ),
+	.cout(\gerador|baudRateReg[2]~18 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[2]~17 .lut_mask = 16'hA50A;
+defparam \gerador|baudRateReg[2]~17 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N7
+dffeas \gerador|baudRateReg[2] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[2]~17_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [2]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[2] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[2] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N8
+cycloneive_lcell_comb \gerador|baudRateReg[3]~19 (
+// Equation(s):
+// \gerador|baudRateReg[3]~19_combout  = (\gerador|baudRateReg [3] & (!\gerador|baudRateReg[2]~18 )) # (!\gerador|baudRateReg [3] & ((\gerador|baudRateReg[2]~18 ) # (GND)))
+// \gerador|baudRateReg[3]~20  = CARRY((!\gerador|baudRateReg[2]~18 ) # (!\gerador|baudRateReg [3]))
+
+	.dataa(gnd),
+	.datab(\gerador|baudRateReg [3]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\gerador|baudRateReg[2]~18 ),
+	.combout(\gerador|baudRateReg[3]~19_combout ),
+	.cout(\gerador|baudRateReg[3]~20 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[3]~19 .lut_mask = 16'h3C3F;
+defparam \gerador|baudRateReg[3]~19 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N9
+dffeas \gerador|baudRateReg[3] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[3]~19_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [3]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[3] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[3] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N10
+cycloneive_lcell_comb \gerador|baudRateReg[4]~21 (
+// Equation(s):
+// \gerador|baudRateReg[4]~21_combout  = (\gerador|baudRateReg [4] & (\gerador|baudRateReg[3]~20  $ (GND))) # (!\gerador|baudRateReg [4] & (!\gerador|baudRateReg[3]~20  & VCC))
+// \gerador|baudRateReg[4]~22  = CARRY((\gerador|baudRateReg [4] & !\gerador|baudRateReg[3]~20 ))
+
+	.dataa(\gerador|baudRateReg [4]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\gerador|baudRateReg[3]~20 ),
+	.combout(\gerador|baudRateReg[4]~21_combout ),
+	.cout(\gerador|baudRateReg[4]~22 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[4]~21 .lut_mask = 16'hA50A;
+defparam \gerador|baudRateReg[4]~21 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N11
+dffeas \gerador|baudRateReg[4] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[4]~21_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [4]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[4] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[4] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N12
+cycloneive_lcell_comb \gerador|baudRateReg[5]~23 (
+// Equation(s):
+// \gerador|baudRateReg[5]~23_combout  = (\gerador|baudRateReg [5] & (!\gerador|baudRateReg[4]~22 )) # (!\gerador|baudRateReg [5] & ((\gerador|baudRateReg[4]~22 ) # (GND)))
+// \gerador|baudRateReg[5]~24  = CARRY((!\gerador|baudRateReg[4]~22 ) # (!\gerador|baudRateReg [5]))
+
+	.dataa(gnd),
+	.datab(\gerador|baudRateReg [5]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\gerador|baudRateReg[4]~22 ),
+	.combout(\gerador|baudRateReg[5]~23_combout ),
+	.cout(\gerador|baudRateReg[5]~24 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[5]~23 .lut_mask = 16'h3C3F;
+defparam \gerador|baudRateReg[5]~23 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N13
+dffeas \gerador|baudRateReg[5] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[5]~23_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [5]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[5] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[5] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N14
+cycloneive_lcell_comb \gerador|baudRateReg[6]~25 (
+// Equation(s):
+// \gerador|baudRateReg[6]~25_combout  = (\gerador|baudRateReg [6] & (\gerador|baudRateReg[5]~24  $ (GND))) # (!\gerador|baudRateReg [6] & (!\gerador|baudRateReg[5]~24  & VCC))
+// \gerador|baudRateReg[6]~26  = CARRY((\gerador|baudRateReg [6] & !\gerador|baudRateReg[5]~24 ))
+
+	.dataa(\gerador|baudRateReg [6]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\gerador|baudRateReg[5]~24 ),
+	.combout(\gerador|baudRateReg[6]~25_combout ),
+	.cout(\gerador|baudRateReg[6]~26 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[6]~25 .lut_mask = 16'hA50A;
+defparam \gerador|baudRateReg[6]~25 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N15
+dffeas \gerador|baudRateReg[6] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[6]~25_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [6]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[6] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[6] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N16
+cycloneive_lcell_comb \gerador|baudRateReg[7]~27 (
+// Equation(s):
+// \gerador|baudRateReg[7]~27_combout  = (\gerador|baudRateReg [7] & (!\gerador|baudRateReg[6]~26 )) # (!\gerador|baudRateReg [7] & ((\gerador|baudRateReg[6]~26 ) # (GND)))
+// \gerador|baudRateReg[7]~28  = CARRY((!\gerador|baudRateReg[6]~26 ) # (!\gerador|baudRateReg [7]))
+
+	.dataa(gnd),
+	.datab(\gerador|baudRateReg [7]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\gerador|baudRateReg[6]~26 ),
+	.combout(\gerador|baudRateReg[7]~27_combout ),
+	.cout(\gerador|baudRateReg[7]~28 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[7]~27 .lut_mask = 16'h3C3F;
+defparam \gerador|baudRateReg[7]~27 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N17
+dffeas \gerador|baudRateReg[7] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[7]~27_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [7]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[7] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[7] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N18
+cycloneive_lcell_comb \gerador|baudRateReg[8]~29 (
+// Equation(s):
+// \gerador|baudRateReg[8]~29_combout  = (\gerador|baudRateReg [8] & (\gerador|baudRateReg[7]~28  $ (GND))) # (!\gerador|baudRateReg [8] & (!\gerador|baudRateReg[7]~28  & VCC))
+// \gerador|baudRateReg[8]~30  = CARRY((\gerador|baudRateReg [8] & !\gerador|baudRateReg[7]~28 ))
+
+	.dataa(\gerador|baudRateReg [8]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\gerador|baudRateReg[7]~28 ),
+	.combout(\gerador|baudRateReg[8]~29_combout ),
+	.cout(\gerador|baudRateReg[8]~30 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[8]~29 .lut_mask = 16'hA50A;
+defparam \gerador|baudRateReg[8]~29 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N19
+dffeas \gerador|baudRateReg[8] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[8]~29_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [8]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[8] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[8] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N20
+cycloneive_lcell_comb \gerador|baudRateReg[9]~31 (
+// Equation(s):
+// \gerador|baudRateReg[9]~31_combout  = (\gerador|baudRateReg [9] & (!\gerador|baudRateReg[8]~30 )) # (!\gerador|baudRateReg [9] & ((\gerador|baudRateReg[8]~30 ) # (GND)))
+// \gerador|baudRateReg[9]~32  = CARRY((!\gerador|baudRateReg[8]~30 ) # (!\gerador|baudRateReg [9]))
+
+	.dataa(\gerador|baudRateReg [9]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\gerador|baudRateReg[8]~30 ),
+	.combout(\gerador|baudRateReg[9]~31_combout ),
+	.cout(\gerador|baudRateReg[9]~32 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[9]~31 .lut_mask = 16'h5A5F;
+defparam \gerador|baudRateReg[9]~31 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N21
+dffeas \gerador|baudRateReg[9] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[9]~31_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [9]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[9] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[9] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N22
+cycloneive_lcell_comb \gerador|baudRateReg[10]~33 (
+// Equation(s):
+// \gerador|baudRateReg[10]~33_combout  = (\gerador|baudRateReg [10] & (\gerador|baudRateReg[9]~32  $ (GND))) # (!\gerador|baudRateReg [10] & (!\gerador|baudRateReg[9]~32  & VCC))
+// \gerador|baudRateReg[10]~34  = CARRY((\gerador|baudRateReg [10] & !\gerador|baudRateReg[9]~32 ))
+
+	.dataa(\gerador|baudRateReg [10]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\gerador|baudRateReg[9]~32 ),
+	.combout(\gerador|baudRateReg[10]~33_combout ),
+	.cout(\gerador|baudRateReg[10]~34 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[10]~33 .lut_mask = 16'hA50A;
+defparam \gerador|baudRateReg[10]~33 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N23
+dffeas \gerador|baudRateReg[10] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[10]~33_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [10]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[10] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[10] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N24
+cycloneive_lcell_comb \gerador|baudRateReg[11]~35 (
+// Equation(s):
+// \gerador|baudRateReg[11]~35_combout  = (\gerador|baudRateReg [11] & (!\gerador|baudRateReg[10]~34 )) # (!\gerador|baudRateReg [11] & ((\gerador|baudRateReg[10]~34 ) # (GND)))
+// \gerador|baudRateReg[11]~36  = CARRY((!\gerador|baudRateReg[10]~34 ) # (!\gerador|baudRateReg [11]))
+
+	.dataa(gnd),
+	.datab(\gerador|baudRateReg [11]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\gerador|baudRateReg[10]~34 ),
+	.combout(\gerador|baudRateReg[11]~35_combout ),
+	.cout(\gerador|baudRateReg[11]~36 ));
+// synopsys translate_off
+defparam \gerador|baudRateReg[11]~35 .lut_mask = 16'h3C3F;
+defparam \gerador|baudRateReg[11]~35 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N25
+dffeas \gerador|baudRateReg[11] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[11]~35_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [11]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[11] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[11] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N26
+cycloneive_lcell_comb \gerador|baudRateReg[12]~37 (
+// Equation(s):
+// \gerador|baudRateReg[12]~37_combout  = \gerador|baudRateReg [12] $ (!\gerador|baudRateReg[11]~36 )
+
+	.dataa(\gerador|baudRateReg [12]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(gnd),
+	.cin(\gerador|baudRateReg[11]~36 ),
+	.combout(\gerador|baudRateReg[12]~37_combout ),
+	.cout());
+// synopsys translate_off
+defparam \gerador|baudRateReg[12]~37 .lut_mask = 16'hA5A5;
+defparam \gerador|baudRateReg[12]~37 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: FF_X1_Y21_N27
+dffeas \gerador|baudRateReg[12] (
+	.clk(\clk~input_o ),
+	.d(\gerador|baudRateReg[12]~37_combout ),
+	.asdata(\~GND~combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(\gerador|Equal0~combout ),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\gerador|baudRateReg [12]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \gerador|baudRateReg[12] .is_wysiwyg = "true";
+defparam \gerador|baudRateReg[12] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N0
+cycloneive_lcell_comb \gerador|Equal0~0 (
+// Equation(s):
+// \gerador|Equal0~0_combout  = (!\gerador|baudRateReg [2] & (\gerador|baudRateReg [3] & (!\gerador|baudRateReg [1] & !\gerador|baudRateReg [0])))
+
+	.dataa(\gerador|baudRateReg [2]),
+	.datab(\gerador|baudRateReg [3]),
+	.datac(\gerador|baudRateReg [1]),
+	.datad(\gerador|baudRateReg [0]),
+	.cin(gnd),
+	.combout(\gerador|Equal0~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \gerador|Equal0~0 .lut_mask = 16'h0004;
+defparam \gerador|Equal0~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X2_Y21_N20
+cycloneive_lcell_comb \gerador|Equal0~1 (
+// Equation(s):
+// \gerador|Equal0~1_combout  = (!\gerador|baudRateReg [5] & (\gerador|baudRateReg [6] & (!\gerador|baudRateReg [7] & \gerador|baudRateReg [4])))
+
+	.dataa(\gerador|baudRateReg [5]),
+	.datab(\gerador|baudRateReg [6]),
+	.datac(\gerador|baudRateReg [7]),
+	.datad(\gerador|baudRateReg [4]),
+	.cin(gnd),
+	.combout(\gerador|Equal0~1_combout ),
+	.cout());
+// synopsys translate_off
+defparam \gerador|Equal0~1 .lut_mask = 16'h0400;
+defparam \gerador|Equal0~1 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X2_Y21_N2
+cycloneive_lcell_comb \gerador|Equal0~2 (
+// Equation(s):
+// \gerador|Equal0~2_combout  = (\gerador|baudRateReg [10] & (!\gerador|baudRateReg [8] & (!\gerador|baudRateReg [11] & !\gerador|baudRateReg [9])))
+
+	.dataa(\gerador|baudRateReg [10]),
+	.datab(\gerador|baudRateReg [8]),
+	.datac(\gerador|baudRateReg [11]),
+	.datad(\gerador|baudRateReg [9]),
+	.cin(gnd),
+	.combout(\gerador|Equal0~2_combout ),
+	.cout());
+// synopsys translate_off
+defparam \gerador|Equal0~2 .lut_mask = 16'h0002;
+defparam \gerador|Equal0~2 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X1_Y21_N30
+cycloneive_lcell_comb \gerador|Equal0 (
+// Equation(s):
+// \gerador|Equal0~combout  = LCELL((\gerador|baudRateReg [12] & (\gerador|Equal0~0_combout  & (\gerador|Equal0~1_combout  & \gerador|Equal0~2_combout ))))
+
+	.dataa(\gerador|baudRateReg [12]),
+	.datab(\gerador|Equal0~0_combout ),
+	.datac(\gerador|Equal0~1_combout ),
+	.datad(\gerador|Equal0~2_combout ),
+	.cin(gnd),
+	.combout(\gerador|Equal0~combout ),
+	.cout());
+// synopsys translate_off
+defparam \gerador|Equal0 .lut_mask = 16'h8000;
+defparam \gerador|Equal0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: CLKCTRL_G3
+cycloneive_clkctrl \gerador|Equal0~clkctrl (
+	.ena(vcc),
+	.inclk({vcc,vcc,vcc,\gerador|Equal0~combout }),
+	.clkselect(2'b00),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.outclk(\gerador|Equal0~clkctrl_outclk ));
+// synopsys translate_off
+defparam \gerador|Equal0~clkctrl .clock_type = "global clock";
+defparam \gerador|Equal0~clkctrl .ena_register_mode = "none";
+// synopsys translate_on
+
+// Location: IOIBUF_X67_Y7_N1
+cycloneive_io_ibuf \ch1~input (
+	.i(ch1),
+	.ibar(gnd),
+	.o(\ch1~input_o ));
+// synopsys translate_off
+defparam \ch1~input .bus_hold = "false";
+defparam \ch1~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N30
+cycloneive_lcell_comb \transmissor_UART|Selector36~0 (
+// Equation(s):
+// \transmissor_UART|Selector36~0_combout  = (\transmissor_UART|state.DATA~q  & \ch1~input_o )
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(\transmissor_UART|state.DATA~q ),
+	.datad(\ch1~input_o ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector36~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector36~0 .lut_mask = 16'hF000;
+defparam \transmissor_UART|Selector36~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N0
+cycloneive_lcell_comb \transmissor_UART|Add0~0 (
+// Equation(s):
+// \transmissor_UART|Add0~0_combout  = \transmissor_UART|pos [0] $ (VCC)
+// \transmissor_UART|Add0~1  = CARRY(\transmissor_UART|pos [0])
+
+	.dataa(\transmissor_UART|pos [0]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(gnd),
+	.combout(\transmissor_UART|Add0~0_combout ),
+	.cout(\transmissor_UART|Add0~1 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~0 .lut_mask = 16'h55AA;
+defparam \transmissor_UART|Add0~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N2
+cycloneive_lcell_comb \transmissor_UART|Add0~2 (
+// Equation(s):
+// \transmissor_UART|Add0~2_combout  = (\transmissor_UART|pos [1] & (!\transmissor_UART|Add0~1 )) # (!\transmissor_UART|pos [1] & ((\transmissor_UART|Add0~1 ) # (GND)))
+// \transmissor_UART|Add0~3  = CARRY((!\transmissor_UART|Add0~1 ) # (!\transmissor_UART|pos [1]))
+
+	.dataa(\transmissor_UART|pos [1]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~1 ),
+	.combout(\transmissor_UART|Add0~2_combout ),
+	.cout(\transmissor_UART|Add0~3 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~2 .lut_mask = 16'h5A5F;
+defparam \transmissor_UART|Add0~2 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N0
+cycloneive_lcell_comb \transmissor_UART|Selector31~1 (
+// Equation(s):
+// \transmissor_UART|Selector31~1_combout  = (\transmissor_UART|Add0~2_combout  & ((\transmissor_UART|Selector36~0_combout ) # ((\transmissor_UART|pos [1] & \transmissor_UART|Selector31~0_combout )))) # (!\transmissor_UART|Add0~2_combout  & 
+// (\transmissor_UART|pos [1] & (\transmissor_UART|Selector31~0_combout )))
+
+	.dataa(\transmissor_UART|Add0~2_combout ),
+	.datab(\transmissor_UART|pos [1]),
+	.datac(\transmissor_UART|Selector31~0_combout ),
+	.datad(\transmissor_UART|Selector36~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector31~1_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector31~1 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector31~1 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N13
+dffeas \transmissor_UART|pos[1] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector31~1_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [1]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[1] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[1] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N4
+cycloneive_lcell_comb \transmissor_UART|Add0~4 (
+// Equation(s):
+// \transmissor_UART|Add0~4_combout  = (\transmissor_UART|pos [2] & (\transmissor_UART|Add0~3  $ (GND))) # (!\transmissor_UART|pos [2] & (!\transmissor_UART|Add0~3  & VCC))
+// \transmissor_UART|Add0~5  = CARRY((\transmissor_UART|pos [2] & !\transmissor_UART|Add0~3 ))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [2]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~3 ),
+	.combout(\transmissor_UART|Add0~4_combout ),
+	.cout(\transmissor_UART|Add0~5 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~4 .lut_mask = 16'hC30C;
+defparam \transmissor_UART|Add0~4 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N6
+cycloneive_lcell_comb \transmissor_UART|Selector30~0 (
+// Equation(s):
+// \transmissor_UART|Selector30~0_combout  = (\transmissor_UART|pos [2] & ((\transmissor_UART|Selector31~0_combout ) # ((\transmissor_UART|Add0~4_combout  & \transmissor_UART|Selector36~0_combout )))) # (!\transmissor_UART|pos [2] & 
+// (((\transmissor_UART|Add0~4_combout  & \transmissor_UART|Selector36~0_combout ))))
+
+	.dataa(\transmissor_UART|pos [2]),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|Add0~4_combout ),
+	.datad(\transmissor_UART|Selector36~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector30~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector30~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector30~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N9
+dffeas \transmissor_UART|pos[2] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector30~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [2]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[2] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[2] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N6
+cycloneive_lcell_comb \transmissor_UART|Add0~6 (
+// Equation(s):
+// \transmissor_UART|Add0~6_combout  = (\transmissor_UART|pos [3] & (!\transmissor_UART|Add0~5 )) # (!\transmissor_UART|pos [3] & ((\transmissor_UART|Add0~5 ) # (GND)))
+// \transmissor_UART|Add0~7  = CARRY((!\transmissor_UART|Add0~5 ) # (!\transmissor_UART|pos [3]))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [3]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~5 ),
+	.combout(\transmissor_UART|Add0~6_combout ),
+	.cout(\transmissor_UART|Add0~7 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~6 .lut_mask = 16'h3C3F;
+defparam \transmissor_UART|Add0~6 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N12
+cycloneive_lcell_comb \transmissor_UART|Selector29~0 (
+// Equation(s):
+// \transmissor_UART|Selector29~0_combout  = (\transmissor_UART|pos [3] & ((\transmissor_UART|Selector31~0_combout ) # ((\transmissor_UART|Add0~6_combout  & \transmissor_UART|Selector36~0_combout )))) # (!\transmissor_UART|pos [3] & 
+// (((\transmissor_UART|Add0~6_combout  & \transmissor_UART|Selector36~0_combout ))))
+
+	.dataa(\transmissor_UART|pos [3]),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|Add0~6_combout ),
+	.datad(\transmissor_UART|Selector36~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector29~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector29~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector29~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N19
+dffeas \transmissor_UART|pos[3] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector29~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [3]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[3] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[3] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N8
+cycloneive_lcell_comb \transmissor_UART|Add0~8 (
+// Equation(s):
+// \transmissor_UART|Add0~8_combout  = (\transmissor_UART|pos [4] & (\transmissor_UART|Add0~7  $ (GND))) # (!\transmissor_UART|pos [4] & (!\transmissor_UART|Add0~7  & VCC))
+// \transmissor_UART|Add0~9  = CARRY((\transmissor_UART|pos [4] & !\transmissor_UART|Add0~7 ))
+
+	.dataa(\transmissor_UART|pos [4]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~7 ),
+	.combout(\transmissor_UART|Add0~8_combout ),
+	.cout(\transmissor_UART|Add0~9 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~8 .lut_mask = 16'hA50A;
+defparam \transmissor_UART|Add0~8 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N14
+cycloneive_lcell_comb \transmissor_UART|Selector28~0 (
+// Equation(s):
+// \transmissor_UART|Selector28~0_combout  = (\transmissor_UART|pos [4] & ((\transmissor_UART|Selector31~0_combout ) # ((\transmissor_UART|Selector36~0_combout  & \transmissor_UART|Add0~8_combout )))) # (!\transmissor_UART|pos [4] & 
+// (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~8_combout ))))
+
+	.dataa(\transmissor_UART|pos [4]),
+	.datab(\transmissor_UART|Selector36~0_combout ),
+	.datac(\transmissor_UART|Selector31~0_combout ),
+	.datad(\transmissor_UART|Add0~8_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector28~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector28~0 .lut_mask = 16'hECA0;
+defparam \transmissor_UART|Selector28~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N11
+dffeas \transmissor_UART|pos[4] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector28~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [4]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[4] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[4] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N10
+cycloneive_lcell_comb \transmissor_UART|Add0~10 (
+// Equation(s):
+// \transmissor_UART|Add0~10_combout  = (\transmissor_UART|pos [5] & (!\transmissor_UART|Add0~9 )) # (!\transmissor_UART|pos [5] & ((\transmissor_UART|Add0~9 ) # (GND)))
+// \transmissor_UART|Add0~11  = CARRY((!\transmissor_UART|Add0~9 ) # (!\transmissor_UART|pos [5]))
+
+	.dataa(\transmissor_UART|pos [5]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~9 ),
+	.combout(\transmissor_UART|Add0~10_combout ),
+	.cout(\transmissor_UART|Add0~11 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~10 .lut_mask = 16'h5A5F;
+defparam \transmissor_UART|Add0~10 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N8
+cycloneive_lcell_comb \transmissor_UART|Selector27~0 (
+// Equation(s):
+// \transmissor_UART|Selector27~0_combout  = (\transmissor_UART|Add0~10_combout  & ((\transmissor_UART|Selector36~0_combout ) # ((\transmissor_UART|pos [5] & \transmissor_UART|Selector31~0_combout )))) # (!\transmissor_UART|Add0~10_combout  & 
+// (\transmissor_UART|pos [5] & (\transmissor_UART|Selector31~0_combout )))
+
+	.dataa(\transmissor_UART|Add0~10_combout ),
+	.datab(\transmissor_UART|pos [5]),
+	.datac(\transmissor_UART|Selector31~0_combout ),
+	.datad(\transmissor_UART|Selector36~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector27~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector27~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector27~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N23
+dffeas \transmissor_UART|pos[5] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector27~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [5]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[5] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[5] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N12
+cycloneive_lcell_comb \transmissor_UART|Add0~12 (
+// Equation(s):
+// \transmissor_UART|Add0~12_combout  = (\transmissor_UART|pos [6] & (\transmissor_UART|Add0~11  $ (GND))) # (!\transmissor_UART|pos [6] & (!\transmissor_UART|Add0~11  & VCC))
+// \transmissor_UART|Add0~13  = CARRY((\transmissor_UART|pos [6] & !\transmissor_UART|Add0~11 ))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [6]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~11 ),
+	.combout(\transmissor_UART|Add0~12_combout ),
+	.cout(\transmissor_UART|Add0~13 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~12 .lut_mask = 16'hC30C;
+defparam \transmissor_UART|Add0~12 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N18
+cycloneive_lcell_comb \transmissor_UART|Selector26~0 (
+// Equation(s):
+// \transmissor_UART|Selector26~0_combout  = (\transmissor_UART|Add0~12_combout  & ((\transmissor_UART|Selector36~0_combout ) # ((\transmissor_UART|pos [6] & \transmissor_UART|Selector31~0_combout )))) # (!\transmissor_UART|Add0~12_combout  & 
+// (\transmissor_UART|pos [6] & (\transmissor_UART|Selector31~0_combout )))
+
+	.dataa(\transmissor_UART|Add0~12_combout ),
+	.datab(\transmissor_UART|pos [6]),
+	.datac(\transmissor_UART|Selector31~0_combout ),
+	.datad(\transmissor_UART|Selector36~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector26~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector26~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector26~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N29
+dffeas \transmissor_UART|pos[6] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector26~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [6]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[6] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[6] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N14
+cycloneive_lcell_comb \transmissor_UART|Add0~14 (
+// Equation(s):
+// \transmissor_UART|Add0~14_combout  = (\transmissor_UART|pos [7] & (!\transmissor_UART|Add0~13 )) # (!\transmissor_UART|pos [7] & ((\transmissor_UART|Add0~13 ) # (GND)))
+// \transmissor_UART|Add0~15  = CARRY((!\transmissor_UART|Add0~13 ) # (!\transmissor_UART|pos [7]))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [7]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~13 ),
+	.combout(\transmissor_UART|Add0~14_combout ),
+	.cout(\transmissor_UART|Add0~15 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~14 .lut_mask = 16'h3C3F;
+defparam \transmissor_UART|Add0~14 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N20
+cycloneive_lcell_comb \transmissor_UART|Selector25~0 (
+// Equation(s):
+// \transmissor_UART|Selector25~0_combout  = (\transmissor_UART|Add0~14_combout  & ((\transmissor_UART|Selector36~0_combout ) # ((\transmissor_UART|pos [7] & \transmissor_UART|Selector31~0_combout )))) # (!\transmissor_UART|Add0~14_combout  & 
+// (\transmissor_UART|pos [7] & (\transmissor_UART|Selector31~0_combout )))
+
+	.dataa(\transmissor_UART|Add0~14_combout ),
+	.datab(\transmissor_UART|pos [7]),
+	.datac(\transmissor_UART|Selector31~0_combout ),
+	.datad(\transmissor_UART|Selector36~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector25~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector25~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector25~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N25
+dffeas \transmissor_UART|pos[7] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector25~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [7]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[7] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[7] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N24
+cycloneive_lcell_comb \transmissor_UART|Selector35~2 (
+// Equation(s):
+// \transmissor_UART|Selector35~2_combout  = (!\transmissor_UART|pos [6] & (!\transmissor_UART|pos [5] & (!\transmissor_UART|pos [4] & !\transmissor_UART|pos [7])))
+
+	.dataa(\transmissor_UART|pos [6]),
+	.datab(\transmissor_UART|pos [5]),
+	.datac(\transmissor_UART|pos [4]),
+	.datad(\transmissor_UART|pos [7]),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~2_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~2 .lut_mask = 16'h0001;
+defparam \transmissor_UART|Selector35~2 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N16
+cycloneive_lcell_comb \transmissor_UART|Add0~16 (
+// Equation(s):
+// \transmissor_UART|Add0~16_combout  = (\transmissor_UART|pos [8] & (\transmissor_UART|Add0~15  $ (GND))) # (!\transmissor_UART|pos [8] & (!\transmissor_UART|Add0~15  & VCC))
+// \transmissor_UART|Add0~17  = CARRY((\transmissor_UART|pos [8] & !\transmissor_UART|Add0~15 ))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [8]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~15 ),
+	.combout(\transmissor_UART|Add0~16_combout ),
+	.cout(\transmissor_UART|Add0~17 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~16 .lut_mask = 16'hC30C;
+defparam \transmissor_UART|Add0~16 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N6
+cycloneive_lcell_comb \transmissor_UART|Selector24~0 (
+// Equation(s):
+// \transmissor_UART|Selector24~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~16_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [8])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [8])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [8]),
+	.datad(\transmissor_UART|Add0~16_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector24~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector24~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector24~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N1
+dffeas \transmissor_UART|pos[8] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector24~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [8]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[8] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[8] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N18
+cycloneive_lcell_comb \transmissor_UART|Add0~18 (
+// Equation(s):
+// \transmissor_UART|Add0~18_combout  = (\transmissor_UART|pos [9] & (!\transmissor_UART|Add0~17 )) # (!\transmissor_UART|pos [9] & ((\transmissor_UART|Add0~17 ) # (GND)))
+// \transmissor_UART|Add0~19  = CARRY((!\transmissor_UART|Add0~17 ) # (!\transmissor_UART|pos [9]))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [9]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~17 ),
+	.combout(\transmissor_UART|Add0~18_combout ),
+	.cout(\transmissor_UART|Add0~19 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~18 .lut_mask = 16'h3C3F;
+defparam \transmissor_UART|Add0~18 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N4
+cycloneive_lcell_comb \transmissor_UART|Selector23~0 (
+// Equation(s):
+// \transmissor_UART|Selector23~0_combout  = (\transmissor_UART|pos [9] & ((\transmissor_UART|Selector31~0_combout ) # ((\transmissor_UART|Selector36~0_combout  & \transmissor_UART|Add0~18_combout )))) # (!\transmissor_UART|pos [9] & 
+// (((\transmissor_UART|Selector36~0_combout  & \transmissor_UART|Add0~18_combout ))))
+
+	.dataa(\transmissor_UART|pos [9]),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|Selector36~0_combout ),
+	.datad(\transmissor_UART|Add0~18_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector23~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector23~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector23~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N3
+dffeas \transmissor_UART|pos[9] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector23~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [9]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[9] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[9] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N20
+cycloneive_lcell_comb \transmissor_UART|Add0~20 (
+// Equation(s):
+// \transmissor_UART|Add0~20_combout  = (\transmissor_UART|pos [10] & (\transmissor_UART|Add0~19  $ (GND))) # (!\transmissor_UART|pos [10] & (!\transmissor_UART|Add0~19  & VCC))
+// \transmissor_UART|Add0~21  = CARRY((\transmissor_UART|pos [10] & !\transmissor_UART|Add0~19 ))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [10]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~19 ),
+	.combout(\transmissor_UART|Add0~20_combout ),
+	.cout(\transmissor_UART|Add0~21 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~20 .lut_mask = 16'hC30C;
+defparam \transmissor_UART|Add0~20 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N22
+cycloneive_lcell_comb \transmissor_UART|Selector22~0 (
+// Equation(s):
+// \transmissor_UART|Selector22~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~20_combout ) # ((\transmissor_UART|pos [10] & \transmissor_UART|Selector31~0_combout )))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|pos [10] & ((\transmissor_UART|Selector31~0_combout ))))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|pos [10]),
+	.datac(\transmissor_UART|Add0~20_combout ),
+	.datad(\transmissor_UART|Selector31~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector22~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector22~0 .lut_mask = 16'hECA0;
+defparam \transmissor_UART|Selector22~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N21
+dffeas \transmissor_UART|pos[10] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector22~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [10]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[10] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[10] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N22
+cycloneive_lcell_comb \transmissor_UART|Add0~22 (
+// Equation(s):
+// \transmissor_UART|Add0~22_combout  = (\transmissor_UART|pos [11] & (!\transmissor_UART|Add0~21 )) # (!\transmissor_UART|pos [11] & ((\transmissor_UART|Add0~21 ) # (GND)))
+// \transmissor_UART|Add0~23  = CARRY((!\transmissor_UART|Add0~21 ) # (!\transmissor_UART|pos [11]))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [11]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~21 ),
+	.combout(\transmissor_UART|Add0~22_combout ),
+	.cout(\transmissor_UART|Add0~23 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~22 .lut_mask = 16'h3C3F;
+defparam \transmissor_UART|Add0~22 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N0
+cycloneive_lcell_comb \transmissor_UART|Selector21~0 (
+// Equation(s):
+// \transmissor_UART|Selector21~0_combout  = (\transmissor_UART|pos [11] & ((\transmissor_UART|Selector31~0_combout ) # ((\transmissor_UART|Selector36~0_combout  & \transmissor_UART|Add0~22_combout )))) # (!\transmissor_UART|pos [11] & 
+// (((\transmissor_UART|Selector36~0_combout  & \transmissor_UART|Add0~22_combout ))))
+
+	.dataa(\transmissor_UART|pos [11]),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|Selector36~0_combout ),
+	.datad(\transmissor_UART|Add0~22_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector21~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector21~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector21~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N5
+dffeas \transmissor_UART|pos[11] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector21~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [11]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[11] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[11] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N20
+cycloneive_lcell_comb \transmissor_UART|Selector35~3 (
+// Equation(s):
+// \transmissor_UART|Selector35~3_combout  = (!\transmissor_UART|pos [9] & (!\transmissor_UART|pos [8] & (!\transmissor_UART|pos [10] & !\transmissor_UART|pos [11])))
+
+	.dataa(\transmissor_UART|pos [9]),
+	.datab(\transmissor_UART|pos [8]),
+	.datac(\transmissor_UART|pos [10]),
+	.datad(\transmissor_UART|pos [11]),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~3_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~3 .lut_mask = 16'h0001;
+defparam \transmissor_UART|Selector35~3 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N26
+cycloneive_lcell_comb \transmissor_UART|Selector35~1 (
+// Equation(s):
+// \transmissor_UART|Selector35~1_combout  = (!\transmissor_UART|pos [0] & (\transmissor_UART|pos [3] & (!\transmissor_UART|pos [1] & !\transmissor_UART|pos [2])))
+
+	.dataa(\transmissor_UART|pos [0]),
+	.datab(\transmissor_UART|pos [3]),
+	.datac(\transmissor_UART|pos [1]),
+	.datad(\transmissor_UART|pos [2]),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~1_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~1 .lut_mask = 16'h0004;
+defparam \transmissor_UART|Selector35~1 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N24
+cycloneive_lcell_comb \transmissor_UART|Add0~24 (
+// Equation(s):
+// \transmissor_UART|Add0~24_combout  = (\transmissor_UART|pos [12] & (\transmissor_UART|Add0~23  $ (GND))) # (!\transmissor_UART|pos [12] & (!\transmissor_UART|Add0~23  & VCC))
+// \transmissor_UART|Add0~25  = CARRY((\transmissor_UART|pos [12] & !\transmissor_UART|Add0~23 ))
+
+	.dataa(\transmissor_UART|pos [12]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~23 ),
+	.combout(\transmissor_UART|Add0~24_combout ),
+	.cout(\transmissor_UART|Add0~25 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~24 .lut_mask = 16'hA50A;
+defparam \transmissor_UART|Add0~24 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N10
+cycloneive_lcell_comb \transmissor_UART|Selector20~0 (
+// Equation(s):
+// \transmissor_UART|Selector20~0_combout  = (\transmissor_UART|pos [12] & ((\transmissor_UART|Selector31~0_combout ) # ((\transmissor_UART|Selector36~0_combout  & \transmissor_UART|Add0~24_combout )))) # (!\transmissor_UART|pos [12] & 
+// (((\transmissor_UART|Selector36~0_combout  & \transmissor_UART|Add0~24_combout ))))
+
+	.dataa(\transmissor_UART|pos [12]),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|Selector36~0_combout ),
+	.datad(\transmissor_UART|Add0~24_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector20~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector20~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector20~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N7
+dffeas \transmissor_UART|pos[12] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector20~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [12]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[12] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[12] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N26
+cycloneive_lcell_comb \transmissor_UART|Add0~26 (
+// Equation(s):
+// \transmissor_UART|Add0~26_combout  = (\transmissor_UART|pos [13] & (!\transmissor_UART|Add0~25 )) # (!\transmissor_UART|pos [13] & ((\transmissor_UART|Add0~25 ) # (GND)))
+// \transmissor_UART|Add0~27  = CARRY((!\transmissor_UART|Add0~25 ) # (!\transmissor_UART|pos [13]))
+
+	.dataa(\transmissor_UART|pos [13]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~25 ),
+	.combout(\transmissor_UART|Add0~26_combout ),
+	.cout(\transmissor_UART|Add0~27 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~26 .lut_mask = 16'h5A5F;
+defparam \transmissor_UART|Add0~26 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N16
+cycloneive_lcell_comb \transmissor_UART|Selector19~0 (
+// Equation(s):
+// \transmissor_UART|Selector19~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~26_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [13])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [13])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [13]),
+	.datad(\transmissor_UART|Add0~26_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector19~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector19~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector19~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N31
+dffeas \transmissor_UART|pos[13] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector19~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [13]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[13] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[13] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N28
+cycloneive_lcell_comb \transmissor_UART|Add0~28 (
+// Equation(s):
+// \transmissor_UART|Add0~28_combout  = (\transmissor_UART|pos [14] & (\transmissor_UART|Add0~27  $ (GND))) # (!\transmissor_UART|pos [14] & (!\transmissor_UART|Add0~27  & VCC))
+// \transmissor_UART|Add0~29  = CARRY((\transmissor_UART|pos [14] & !\transmissor_UART|Add0~27 ))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [14]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~27 ),
+	.combout(\transmissor_UART|Add0~28_combout ),
+	.cout(\transmissor_UART|Add0~29 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~28 .lut_mask = 16'hC30C;
+defparam \transmissor_UART|Add0~28 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N26
+cycloneive_lcell_comb \transmissor_UART|Selector18~0 (
+// Equation(s):
+// \transmissor_UART|Selector18~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~28_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [14])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [14])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [14]),
+	.datad(\transmissor_UART|Add0~28_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector18~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector18~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector18~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N17
+dffeas \transmissor_UART|pos[14] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector18~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [14]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[14] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[14] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y7_N30
+cycloneive_lcell_comb \transmissor_UART|Add0~30 (
+// Equation(s):
+// \transmissor_UART|Add0~30_combout  = (\transmissor_UART|pos [15] & (!\transmissor_UART|Add0~29 )) # (!\transmissor_UART|pos [15] & ((\transmissor_UART|Add0~29 ) # (GND)))
+// \transmissor_UART|Add0~31  = CARRY((!\transmissor_UART|Add0~29 ) # (!\transmissor_UART|pos [15]))
+
+	.dataa(\transmissor_UART|pos [15]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~29 ),
+	.combout(\transmissor_UART|Add0~30_combout ),
+	.cout(\transmissor_UART|Add0~31 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~30 .lut_mask = 16'h5A5F;
+defparam \transmissor_UART|Add0~30 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N14
+cycloneive_lcell_comb \transmissor_UART|Selector17~0 (
+// Equation(s):
+// \transmissor_UART|Selector17~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~30_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [15])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [15])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [15]),
+	.datad(\transmissor_UART|Add0~30_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector17~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector17~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector17~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X62_Y7_N15
+dffeas \transmissor_UART|pos[15] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector17~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [15]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[15] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[15] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N18
+cycloneive_lcell_comb \transmissor_UART|Selector35~4 (
+// Equation(s):
+// \transmissor_UART|Selector35~4_combout  = (!\transmissor_UART|pos [13] & (!\transmissor_UART|pos [15] & (!\transmissor_UART|pos [14] & !\transmissor_UART|pos [12])))
+
+	.dataa(\transmissor_UART|pos [13]),
+	.datab(\transmissor_UART|pos [15]),
+	.datac(\transmissor_UART|pos [14]),
+	.datad(\transmissor_UART|pos [12]),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~4_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~4 .lut_mask = 16'h0001;
+defparam \transmissor_UART|Selector35~4 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N8
+cycloneive_lcell_comb \transmissor_UART|Selector35~5 (
+// Equation(s):
+// \transmissor_UART|Selector35~5_combout  = (\transmissor_UART|Selector35~2_combout  & (\transmissor_UART|Selector35~3_combout  & (\transmissor_UART|Selector35~1_combout  & \transmissor_UART|Selector35~4_combout )))
+
+	.dataa(\transmissor_UART|Selector35~2_combout ),
+	.datab(\transmissor_UART|Selector35~3_combout ),
+	.datac(\transmissor_UART|Selector35~1_combout ),
+	.datad(\transmissor_UART|Selector35~4_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~5_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~5 .lut_mask = 16'h8000;
+defparam \transmissor_UART|Selector35~5 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N0
+cycloneive_lcell_comb \transmissor_UART|Add0~32 (
+// Equation(s):
+// \transmissor_UART|Add0~32_combout  = (\transmissor_UART|pos [16] & (\transmissor_UART|Add0~31  $ (GND))) # (!\transmissor_UART|pos [16] & (!\transmissor_UART|Add0~31  & VCC))
+// \transmissor_UART|Add0~33  = CARRY((\transmissor_UART|pos [16] & !\transmissor_UART|Add0~31 ))
+
+	.dataa(\transmissor_UART|pos [16]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~31 ),
+	.combout(\transmissor_UART|Add0~32_combout ),
+	.cout(\transmissor_UART|Add0~33 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~32 .lut_mask = 16'hA50A;
+defparam \transmissor_UART|Add0~32 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N20
+cycloneive_lcell_comb \transmissor_UART|Selector16~0 (
+// Equation(s):
+// \transmissor_UART|Selector16~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~32_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [16])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [16])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [16]),
+	.datad(\transmissor_UART|Add0~32_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector16~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector16~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector16~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y6_N21
+dffeas \transmissor_UART|pos[16] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector16~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [16]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[16] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[16] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N2
+cycloneive_lcell_comb \transmissor_UART|Add0~34 (
+// Equation(s):
+// \transmissor_UART|Add0~34_combout  = (\transmissor_UART|pos [17] & (!\transmissor_UART|Add0~33 )) # (!\transmissor_UART|pos [17] & ((\transmissor_UART|Add0~33 ) # (GND)))
+// \transmissor_UART|Add0~35  = CARRY((!\transmissor_UART|Add0~33 ) # (!\transmissor_UART|pos [17]))
+
+	.dataa(\transmissor_UART|pos [17]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~33 ),
+	.combout(\transmissor_UART|Add0~34_combout ),
+	.cout(\transmissor_UART|Add0~35 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~34 .lut_mask = 16'h5A5F;
+defparam \transmissor_UART|Add0~34 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N30
+cycloneive_lcell_comb \transmissor_UART|Selector15~0 (
+// Equation(s):
+// \transmissor_UART|Selector15~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~34_combout ) # ((\transmissor_UART|pos [17] & \transmissor_UART|Selector31~0_combout )))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (((\transmissor_UART|pos [17] & \transmissor_UART|Selector31~0_combout ))))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Add0~34_combout ),
+	.datac(\transmissor_UART|pos [17]),
+	.datad(\transmissor_UART|Selector31~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector15~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector15~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector15~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y6_N31
+dffeas \transmissor_UART|pos[17] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector15~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [17]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[17] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[17] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N4
+cycloneive_lcell_comb \transmissor_UART|Add0~36 (
+// Equation(s):
+// \transmissor_UART|Add0~36_combout  = (\transmissor_UART|pos [18] & (\transmissor_UART|Add0~35  $ (GND))) # (!\transmissor_UART|pos [18] & (!\transmissor_UART|Add0~35  & VCC))
+// \transmissor_UART|Add0~37  = CARRY((\transmissor_UART|pos [18] & !\transmissor_UART|Add0~35 ))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [18]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~35 ),
+	.combout(\transmissor_UART|Add0~36_combout ),
+	.cout(\transmissor_UART|Add0~37 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~36 .lut_mask = 16'hC30C;
+defparam \transmissor_UART|Add0~36 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N12
+cycloneive_lcell_comb \transmissor_UART|Selector14~0 (
+// Equation(s):
+// \transmissor_UART|Selector14~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~36_combout ) # ((\transmissor_UART|pos [18] & \transmissor_UART|Selector31~0_combout )))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (((\transmissor_UART|pos [18] & \transmissor_UART|Selector31~0_combout ))))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Add0~36_combout ),
+	.datac(\transmissor_UART|pos [18]),
+	.datad(\transmissor_UART|Selector31~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector14~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector14~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector14~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y6_N13
+dffeas \transmissor_UART|pos[18] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector14~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [18]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[18] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[18] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N6
+cycloneive_lcell_comb \transmissor_UART|Add0~38 (
+// Equation(s):
+// \transmissor_UART|Add0~38_combout  = (\transmissor_UART|pos [19] & (!\transmissor_UART|Add0~37 )) # (!\transmissor_UART|pos [19] & ((\transmissor_UART|Add0~37 ) # (GND)))
+// \transmissor_UART|Add0~39  = CARRY((!\transmissor_UART|Add0~37 ) # (!\transmissor_UART|pos [19]))
+
+	.dataa(\transmissor_UART|pos [19]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~37 ),
+	.combout(\transmissor_UART|Add0~38_combout ),
+	.cout(\transmissor_UART|Add0~39 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~38 .lut_mask = 16'h5A5F;
+defparam \transmissor_UART|Add0~38 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N6
+cycloneive_lcell_comb \transmissor_UART|Selector13~0 (
+// Equation(s):
+// \transmissor_UART|Selector13~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~38_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [19])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [19])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [19]),
+	.datad(\transmissor_UART|Add0~38_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector13~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector13~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector13~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y6_N7
+dffeas \transmissor_UART|pos[19] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector13~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [19]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[19] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[19] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N8
+cycloneive_lcell_comb \transmissor_UART|Add0~40 (
+// Equation(s):
+// \transmissor_UART|Add0~40_combout  = (\transmissor_UART|pos [20] & (\transmissor_UART|Add0~39  $ (GND))) # (!\transmissor_UART|pos [20] & (!\transmissor_UART|Add0~39  & VCC))
+// \transmissor_UART|Add0~41  = CARRY((\transmissor_UART|pos [20] & !\transmissor_UART|Add0~39 ))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [20]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~39 ),
+	.combout(\transmissor_UART|Add0~40_combout ),
+	.cout(\transmissor_UART|Add0~41 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~40 .lut_mask = 16'hC30C;
+defparam \transmissor_UART|Add0~40 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N22
+cycloneive_lcell_comb \transmissor_UART|Selector12~0 (
+// Equation(s):
+// \transmissor_UART|Selector12~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~40_combout ) # ((\transmissor_UART|pos [20] & \transmissor_UART|Selector31~0_combout )))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (((\transmissor_UART|pos [20] & \transmissor_UART|Selector31~0_combout ))))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Add0~40_combout ),
+	.datac(\transmissor_UART|pos [20]),
+	.datad(\transmissor_UART|Selector31~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector12~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector12~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector12~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X62_Y6_N23
+dffeas \transmissor_UART|pos[20] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector12~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [20]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[20] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[20] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N10
+cycloneive_lcell_comb \transmissor_UART|Add0~42 (
+// Equation(s):
+// \transmissor_UART|Add0~42_combout  = (\transmissor_UART|pos [21] & (!\transmissor_UART|Add0~41 )) # (!\transmissor_UART|pos [21] & ((\transmissor_UART|Add0~41 ) # (GND)))
+// \transmissor_UART|Add0~43  = CARRY((!\transmissor_UART|Add0~41 ) # (!\transmissor_UART|pos [21]))
+
+	.dataa(\transmissor_UART|pos [21]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~41 ),
+	.combout(\transmissor_UART|Add0~42_combout ),
+	.cout(\transmissor_UART|Add0~43 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~42 .lut_mask = 16'h5A5F;
+defparam \transmissor_UART|Add0~42 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N16
+cycloneive_lcell_comb \transmissor_UART|Selector11~0 (
+// Equation(s):
+// \transmissor_UART|Selector11~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~42_combout ) # ((\transmissor_UART|pos [21] & \transmissor_UART|Selector31~0_combout )))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (((\transmissor_UART|pos [21] & \transmissor_UART|Selector31~0_combout ))))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Add0~42_combout ),
+	.datac(\transmissor_UART|pos [21]),
+	.datad(\transmissor_UART|Selector31~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector11~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector11~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector11~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X62_Y6_N17
+dffeas \transmissor_UART|pos[21] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector11~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [21]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[21] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[21] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N12
+cycloneive_lcell_comb \transmissor_UART|Add0~44 (
+// Equation(s):
+// \transmissor_UART|Add0~44_combout  = (\transmissor_UART|pos [22] & (\transmissor_UART|Add0~43  $ (GND))) # (!\transmissor_UART|pos [22] & (!\transmissor_UART|Add0~43  & VCC))
+// \transmissor_UART|Add0~45  = CARRY((\transmissor_UART|pos [22] & !\transmissor_UART|Add0~43 ))
+
+	.dataa(\transmissor_UART|pos [22]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~43 ),
+	.combout(\transmissor_UART|Add0~44_combout ),
+	.cout(\transmissor_UART|Add0~45 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~44 .lut_mask = 16'hA50A;
+defparam \transmissor_UART|Add0~44 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N26
+cycloneive_lcell_comb \transmissor_UART|Selector10~0 (
+// Equation(s):
+// \transmissor_UART|Selector10~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~44_combout ) # ((\transmissor_UART|pos [22] & \transmissor_UART|Selector31~0_combout )))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (((\transmissor_UART|pos [22] & \transmissor_UART|Selector31~0_combout ))))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Add0~44_combout ),
+	.datac(\transmissor_UART|pos [22]),
+	.datad(\transmissor_UART|Selector31~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector10~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector10~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector10~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X62_Y6_N27
+dffeas \transmissor_UART|pos[22] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector10~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [22]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[22] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[22] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N14
+cycloneive_lcell_comb \transmissor_UART|Add0~46 (
+// Equation(s):
+// \transmissor_UART|Add0~46_combout  = (\transmissor_UART|pos [23] & (!\transmissor_UART|Add0~45 )) # (!\transmissor_UART|pos [23] & ((\transmissor_UART|Add0~45 ) # (GND)))
+// \transmissor_UART|Add0~47  = CARRY((!\transmissor_UART|Add0~45 ) # (!\transmissor_UART|pos [23]))
+
+	.dataa(\transmissor_UART|pos [23]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~45 ),
+	.combout(\transmissor_UART|Add0~46_combout ),
+	.cout(\transmissor_UART|Add0~47 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~46 .lut_mask = 16'h5A5F;
+defparam \transmissor_UART|Add0~46 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N12
+cycloneive_lcell_comb \transmissor_UART|Selector9~0 (
+// Equation(s):
+// \transmissor_UART|Selector9~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~46_combout ) # ((\transmissor_UART|pos [23] & \transmissor_UART|Selector31~0_combout )))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (((\transmissor_UART|pos [23] & \transmissor_UART|Selector31~0_combout ))))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Add0~46_combout ),
+	.datac(\transmissor_UART|pos [23]),
+	.datad(\transmissor_UART|Selector31~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector9~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector9~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector9~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X62_Y6_N13
+dffeas \transmissor_UART|pos[23] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector9~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [23]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[23] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[23] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N16
+cycloneive_lcell_comb \transmissor_UART|Add0~48 (
+// Equation(s):
+// \transmissor_UART|Add0~48_combout  = (\transmissor_UART|pos [24] & (\transmissor_UART|Add0~47  $ (GND))) # (!\transmissor_UART|pos [24] & (!\transmissor_UART|Add0~47  & VCC))
+// \transmissor_UART|Add0~49  = CARRY((\transmissor_UART|pos [24] & !\transmissor_UART|Add0~47 ))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [24]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~47 ),
+	.combout(\transmissor_UART|Add0~48_combout ),
+	.cout(\transmissor_UART|Add0~49 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~48 .lut_mask = 16'hC30C;
+defparam \transmissor_UART|Add0~48 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N16
+cycloneive_lcell_comb \transmissor_UART|Selector8~0 (
+// Equation(s):
+// \transmissor_UART|Selector8~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~48_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [24])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [24])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [24]),
+	.datad(\transmissor_UART|Add0~48_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector8~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector8~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector8~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y6_N17
+dffeas \transmissor_UART|pos[24] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector8~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [24]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[24] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[24] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N18
+cycloneive_lcell_comb \transmissor_UART|Add0~50 (
+// Equation(s):
+// \transmissor_UART|Add0~50_combout  = (\transmissor_UART|pos [25] & (!\transmissor_UART|Add0~49 )) # (!\transmissor_UART|pos [25] & ((\transmissor_UART|Add0~49 ) # (GND)))
+// \transmissor_UART|Add0~51  = CARRY((!\transmissor_UART|Add0~49 ) # (!\transmissor_UART|pos [25]))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [25]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~49 ),
+	.combout(\transmissor_UART|Add0~50_combout ),
+	.cout(\transmissor_UART|Add0~51 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~50 .lut_mask = 16'h3C3F;
+defparam \transmissor_UART|Add0~50 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N14
+cycloneive_lcell_comb \transmissor_UART|Selector7~0 (
+// Equation(s):
+// \transmissor_UART|Selector7~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~50_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [25])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [25])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [25]),
+	.datad(\transmissor_UART|Add0~50_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector7~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector7~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector7~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y6_N15
+dffeas \transmissor_UART|pos[25] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector7~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [25]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[25] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[25] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N20
+cycloneive_lcell_comb \transmissor_UART|Add0~52 (
+// Equation(s):
+// \transmissor_UART|Add0~52_combout  = (\transmissor_UART|pos [26] & (\transmissor_UART|Add0~51  $ (GND))) # (!\transmissor_UART|pos [26] & (!\transmissor_UART|Add0~51  & VCC))
+// \transmissor_UART|Add0~53  = CARRY((\transmissor_UART|pos [26] & !\transmissor_UART|Add0~51 ))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [26]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~51 ),
+	.combout(\transmissor_UART|Add0~52_combout ),
+	.cout(\transmissor_UART|Add0~53 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~52 .lut_mask = 16'hC30C;
+defparam \transmissor_UART|Add0~52 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N8
+cycloneive_lcell_comb \transmissor_UART|Selector6~0 (
+// Equation(s):
+// \transmissor_UART|Selector6~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~52_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [26])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [26])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [26]),
+	.datad(\transmissor_UART|Add0~52_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector6~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector6~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector6~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y6_N9
+dffeas \transmissor_UART|pos[26] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector6~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [26]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[26] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[26] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N22
+cycloneive_lcell_comb \transmissor_UART|Add0~54 (
+// Equation(s):
+// \transmissor_UART|Add0~54_combout  = (\transmissor_UART|pos [27] & (!\transmissor_UART|Add0~53 )) # (!\transmissor_UART|pos [27] & ((\transmissor_UART|Add0~53 ) # (GND)))
+// \transmissor_UART|Add0~55  = CARRY((!\transmissor_UART|Add0~53 ) # (!\transmissor_UART|pos [27]))
+
+	.dataa(\transmissor_UART|pos [27]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~53 ),
+	.combout(\transmissor_UART|Add0~54_combout ),
+	.cout(\transmissor_UART|Add0~55 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~54 .lut_mask = 16'h5A5F;
+defparam \transmissor_UART|Add0~54 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N14
+cycloneive_lcell_comb \transmissor_UART|Selector5~0 (
+// Equation(s):
+// \transmissor_UART|Selector5~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~54_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [27])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [27])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [27]),
+	.datad(\transmissor_UART|Add0~54_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector5~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector5~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector5~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X62_Y6_N15
+dffeas \transmissor_UART|pos[27] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector5~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [27]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[27] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[27] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N24
+cycloneive_lcell_comb \transmissor_UART|Add0~56 (
+// Equation(s):
+// \transmissor_UART|Add0~56_combout  = (\transmissor_UART|pos [28] & (\transmissor_UART|Add0~55  $ (GND))) # (!\transmissor_UART|pos [28] & (!\transmissor_UART|Add0~55  & VCC))
+// \transmissor_UART|Add0~57  = CARRY((\transmissor_UART|pos [28] & !\transmissor_UART|Add0~55 ))
+
+	.dataa(gnd),
+	.datab(\transmissor_UART|pos [28]),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~55 ),
+	.combout(\transmissor_UART|Add0~56_combout ),
+	.cout(\transmissor_UART|Add0~57 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~56 .lut_mask = 16'hC30C;
+defparam \transmissor_UART|Add0~56 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N22
+cycloneive_lcell_comb \transmissor_UART|Selector4~0 (
+// Equation(s):
+// \transmissor_UART|Selector4~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~56_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [28])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [28])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [28]),
+	.datad(\transmissor_UART|Add0~56_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector4~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector4~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector4~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y6_N23
+dffeas \transmissor_UART|pos[28] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector4~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [28]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[28] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[28] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N26
+cycloneive_lcell_comb \transmissor_UART|Add0~58 (
+// Equation(s):
+// \transmissor_UART|Add0~58_combout  = (\transmissor_UART|pos [29] & (!\transmissor_UART|Add0~57 )) # (!\transmissor_UART|pos [29] & ((\transmissor_UART|Add0~57 ) # (GND)))
+// \transmissor_UART|Add0~59  = CARRY((!\transmissor_UART|Add0~57 ) # (!\transmissor_UART|pos [29]))
+
+	.dataa(\transmissor_UART|pos [29]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~57 ),
+	.combout(\transmissor_UART|Add0~58_combout ),
+	.cout(\transmissor_UART|Add0~59 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~58 .lut_mask = 16'h5A5F;
+defparam \transmissor_UART|Add0~58 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N4
+cycloneive_lcell_comb \transmissor_UART|Selector3~0 (
+// Equation(s):
+// \transmissor_UART|Selector3~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~58_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [29])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [29])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [29]),
+	.datad(\transmissor_UART|Add0~58_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector3~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector3~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector3~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y6_N5
+dffeas \transmissor_UART|pos[29] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector3~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [29]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[29] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[29] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N28
+cycloneive_lcell_comb \transmissor_UART|Add0~60 (
+// Equation(s):
+// \transmissor_UART|Add0~60_combout  = (\transmissor_UART|pos [30] & (\transmissor_UART|Add0~59  $ (GND))) # (!\transmissor_UART|pos [30] & (!\transmissor_UART|Add0~59  & VCC))
+// \transmissor_UART|Add0~61  = CARRY((\transmissor_UART|pos [30] & !\transmissor_UART|Add0~59 ))
+
+	.dataa(\transmissor_UART|pos [30]),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(vcc),
+	.cin(\transmissor_UART|Add0~59 ),
+	.combout(\transmissor_UART|Add0~60_combout ),
+	.cout(\transmissor_UART|Add0~61 ));
+// synopsys translate_off
+defparam \transmissor_UART|Add0~60 .lut_mask = 16'hA50A;
+defparam \transmissor_UART|Add0~60 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N2
+cycloneive_lcell_comb \transmissor_UART|Selector2~0 (
+// Equation(s):
+// \transmissor_UART|Selector2~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~60_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [30])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [30])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [30]),
+	.datad(\transmissor_UART|Add0~60_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector2~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector2~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector2~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y6_N3
+dffeas \transmissor_UART|pos[30] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector2~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [30]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[30] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[30] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X63_Y6_N30
+cycloneive_lcell_comb \transmissor_UART|Add0~62 (
+// Equation(s):
+// \transmissor_UART|Add0~62_combout  = \transmissor_UART|Add0~61  $ (\transmissor_UART|pos [31])
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\transmissor_UART|pos [31]),
+	.cin(\transmissor_UART|Add0~61 ),
+	.combout(\transmissor_UART|Add0~62_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Add0~62 .lut_mask = 16'h0FF0;
+defparam \transmissor_UART|Add0~62 .sum_lutc_input = "cin";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N24
+cycloneive_lcell_comb \transmissor_UART|Selector1~0 (
+// Equation(s):
+// \transmissor_UART|Selector1~0_combout  = (\transmissor_UART|Selector36~0_combout  & ((\transmissor_UART|Add0~62_combout ) # ((\transmissor_UART|Selector31~0_combout  & \transmissor_UART|pos [31])))) # (!\transmissor_UART|Selector36~0_combout  & 
+// (\transmissor_UART|Selector31~0_combout  & (\transmissor_UART|pos [31])))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|pos [31]),
+	.datad(\transmissor_UART|Add0~62_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector1~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector1~0 .lut_mask = 16'hEAC0;
+defparam \transmissor_UART|Selector1~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y6_N25
+dffeas \transmissor_UART|pos[31] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector1~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [31]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[31] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[31] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N10
+cycloneive_lcell_comb \transmissor_UART|Selector35~9 (
+// Equation(s):
+// \transmissor_UART|Selector35~9_combout  = (!\transmissor_UART|pos [28] & (!\transmissor_UART|pos [31] & (!\transmissor_UART|pos [29] & !\transmissor_UART|pos [30])))
+
+	.dataa(\transmissor_UART|pos [28]),
+	.datab(\transmissor_UART|pos [31]),
+	.datac(\transmissor_UART|pos [29]),
+	.datad(\transmissor_UART|pos [30]),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~9_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~9 .lut_mask = 16'h0001;
+defparam \transmissor_UART|Selector35~9 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N28
+cycloneive_lcell_comb \transmissor_UART|Selector35~8 (
+// Equation(s):
+// \transmissor_UART|Selector35~8_combout  = (!\transmissor_UART|pos [27] & (!\transmissor_UART|pos [26] & (!\transmissor_UART|pos [25] & !\transmissor_UART|pos [24])))
+
+	.dataa(\transmissor_UART|pos [27]),
+	.datab(\transmissor_UART|pos [26]),
+	.datac(\transmissor_UART|pos [25]),
+	.datad(\transmissor_UART|pos [24]),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~8_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~8 .lut_mask = 16'h0001;
+defparam \transmissor_UART|Selector35~8 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N6
+cycloneive_lcell_comb \transmissor_UART|Selector35~7 (
+// Equation(s):
+// \transmissor_UART|Selector35~7_combout  = (!\transmissor_UART|pos [22] & (!\transmissor_UART|pos [21] & (!\transmissor_UART|pos [20] & !\transmissor_UART|pos [23])))
+
+	.dataa(\transmissor_UART|pos [22]),
+	.datab(\transmissor_UART|pos [21]),
+	.datac(\transmissor_UART|pos [20]),
+	.datad(\transmissor_UART|pos [23]),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~7_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~7 .lut_mask = 16'h0001;
+defparam \transmissor_UART|Selector35~7 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N18
+cycloneive_lcell_comb \transmissor_UART|Selector35~6 (
+// Equation(s):
+// \transmissor_UART|Selector35~6_combout  = (!\transmissor_UART|pos [18] & (!\transmissor_UART|pos [16] & (!\transmissor_UART|pos [17] & !\transmissor_UART|pos [19])))
+
+	.dataa(\transmissor_UART|pos [18]),
+	.datab(\transmissor_UART|pos [16]),
+	.datac(\transmissor_UART|pos [17]),
+	.datad(\transmissor_UART|pos [19]),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~6_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~6 .lut_mask = 16'h0001;
+defparam \transmissor_UART|Selector35~6 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y6_N0
+cycloneive_lcell_comb \transmissor_UART|Selector35~10 (
+// Equation(s):
+// \transmissor_UART|Selector35~10_combout  = (\transmissor_UART|Selector35~9_combout  & (\transmissor_UART|Selector35~8_combout  & (\transmissor_UART|Selector35~7_combout  & \transmissor_UART|Selector35~6_combout )))
+
+	.dataa(\transmissor_UART|Selector35~9_combout ),
+	.datab(\transmissor_UART|Selector35~8_combout ),
+	.datac(\transmissor_UART|Selector35~7_combout ),
+	.datad(\transmissor_UART|Selector35~6_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~10_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~10 .lut_mask = 16'h8000;
+defparam \transmissor_UART|Selector35~10 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N28
+cycloneive_lcell_comb \transmissor_UART|Selector34~0 (
+// Equation(s):
+// \transmissor_UART|Selector34~0_combout  = (\transmissor_UART|state.STOP~q  & (((\transmissor_UART|Selector35~5_combout  & \transmissor_UART|Selector35~10_combout )))) # (!\transmissor_UART|state.STOP~q  & (\ch1~input_o ))
+
+	.dataa(\transmissor_UART|state.STOP~q ),
+	.datab(\ch1~input_o ),
+	.datac(\transmissor_UART|Selector35~5_combout ),
+	.datad(\transmissor_UART|Selector35~10_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector34~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector34~0 .lut_mask = 16'hE444;
+defparam \transmissor_UART|Selector34~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X62_Y7_N29
+dffeas \transmissor_UART|state.IDLE (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector34~0_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|state.IDLE~q ),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|state.IDLE .is_wysiwyg = "true";
+defparam \transmissor_UART|state.IDLE .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N30
+cycloneive_lcell_comb \transmissor_UART|Selector35~0 (
+// Equation(s):
+// \transmissor_UART|Selector35~0_combout  = (\ch1~input_o  & !\transmissor_UART|state.IDLE~q )
+
+	.dataa(gnd),
+	.datab(\ch1~input_o ),
+	.datac(gnd),
+	.datad(\transmissor_UART|state.IDLE~q ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~0 .lut_mask = 16'h00CC;
+defparam \transmissor_UART|Selector35~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N24
+cycloneive_lcell_comb \transmissor_UART|Selector35~11 (
+// Equation(s):
+// \transmissor_UART|Selector35~11_combout  = (\transmissor_UART|Selector35~0_combout ) # ((\transmissor_UART|state.STOP~q  & (\transmissor_UART|Selector35~5_combout  & \transmissor_UART|Selector35~10_combout )))
+
+	.dataa(\transmissor_UART|state.STOP~q ),
+	.datab(\transmissor_UART|Selector35~5_combout ),
+	.datac(\transmissor_UART|Selector35~0_combout ),
+	.datad(\transmissor_UART|Selector35~10_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector35~11_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector35~11 .lut_mask = 16'hF8F0;
+defparam \transmissor_UART|Selector35~11 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X62_Y7_N25
+dffeas \transmissor_UART|state.START (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector35~11_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|state.START~q ),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|state.START .is_wysiwyg = "true";
+defparam \transmissor_UART|state.START .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X65_Y7_N28
+cycloneive_lcell_comb \transmissor_UART|Selector36~1 (
+// Equation(s):
+// \transmissor_UART|Selector36~1_combout  = (\transmissor_UART|state.START~q  & \ch1~input_o )
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(\transmissor_UART|state.START~q ),
+	.datad(\ch1~input_o ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector36~1_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector36~1 .lut_mask = 16'hF000;
+defparam \transmissor_UART|Selector36~1 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N12
+cycloneive_lcell_comb \transmissor_UART|state~12 (
+// Equation(s):
+// \transmissor_UART|state~12_combout  = (!\transmissor_UART|Add0~16_combout  & (!\transmissor_UART|Add0~22_combout  & (!\transmissor_UART|Add0~20_combout  & !\transmissor_UART|Add0~18_combout )))
+
+	.dataa(\transmissor_UART|Add0~16_combout ),
+	.datab(\transmissor_UART|Add0~22_combout ),
+	.datac(\transmissor_UART|Add0~20_combout ),
+	.datad(\transmissor_UART|Add0~18_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|state~12_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|state~12 .lut_mask = 16'h0001;
+defparam \transmissor_UART|state~12 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N30
+cycloneive_lcell_comb \transmissor_UART|state~10 (
+// Equation(s):
+// \transmissor_UART|state~10_combout  = (!\transmissor_UART|Add0~0_combout  & (!\transmissor_UART|Add0~2_combout  & (\transmissor_UART|Add0~8_combout  $ (\transmissor_UART|Add0~6_combout ))))
+
+	.dataa(\transmissor_UART|Add0~8_combout ),
+	.datab(\transmissor_UART|Add0~6_combout ),
+	.datac(\transmissor_UART|Add0~0_combout ),
+	.datad(\transmissor_UART|Add0~2_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|state~10_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|state~10 .lut_mask = 16'h0006;
+defparam \transmissor_UART|state~10 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N4
+cycloneive_lcell_comb \transmissor_UART|state~11 (
+// Equation(s):
+// \transmissor_UART|state~11_combout  = (!\transmissor_UART|Add0~10_combout  & (!\transmissor_UART|Add0~4_combout  & (!\transmissor_UART|Add0~14_combout  & !\transmissor_UART|Add0~12_combout )))
+
+	.dataa(\transmissor_UART|Add0~10_combout ),
+	.datab(\transmissor_UART|Add0~4_combout ),
+	.datac(\transmissor_UART|Add0~14_combout ),
+	.datad(\transmissor_UART|Add0~12_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|state~11_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|state~11 .lut_mask = 16'h0001;
+defparam \transmissor_UART|state~11 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N18
+cycloneive_lcell_comb \transmissor_UART|state~13 (
+// Equation(s):
+// \transmissor_UART|state~13_combout  = (!\transmissor_UART|Add0~28_combout  & (!\transmissor_UART|Add0~24_combout  & (!\transmissor_UART|Add0~30_combout  & !\transmissor_UART|Add0~26_combout )))
+
+	.dataa(\transmissor_UART|Add0~28_combout ),
+	.datab(\transmissor_UART|Add0~24_combout ),
+	.datac(\transmissor_UART|Add0~30_combout ),
+	.datad(\transmissor_UART|Add0~26_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|state~13_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|state~13 .lut_mask = 16'h0001;
+defparam \transmissor_UART|state~13 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N4
+cycloneive_lcell_comb \transmissor_UART|state~14 (
+// Equation(s):
+// \transmissor_UART|state~14_combout  = (\transmissor_UART|state~12_combout  & (\transmissor_UART|state~10_combout  & (\transmissor_UART|state~11_combout  & \transmissor_UART|state~13_combout )))
+
+	.dataa(\transmissor_UART|state~12_combout ),
+	.datab(\transmissor_UART|state~10_combout ),
+	.datac(\transmissor_UART|state~11_combout ),
+	.datad(\transmissor_UART|state~13_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|state~14_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|state~14 .lut_mask = 16'h8000;
+defparam \transmissor_UART|state~14 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N28
+cycloneive_lcell_comb \transmissor_UART|state~15 (
+// Equation(s):
+// \transmissor_UART|state~15_combout  = (!\transmissor_UART|Add0~34_combout  & (!\transmissor_UART|Add0~32_combout  & (!\transmissor_UART|Add0~36_combout  & !\transmissor_UART|Add0~38_combout )))
+
+	.dataa(\transmissor_UART|Add0~34_combout ),
+	.datab(\transmissor_UART|Add0~32_combout ),
+	.datac(\transmissor_UART|Add0~36_combout ),
+	.datad(\transmissor_UART|Add0~38_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|state~15_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|state~15 .lut_mask = 16'h0001;
+defparam \transmissor_UART|state~15 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N10
+cycloneive_lcell_comb \transmissor_UART|state~16 (
+// Equation(s):
+// \transmissor_UART|state~16_combout  = (!\transmissor_UART|Add0~44_combout  & (!\transmissor_UART|Add0~42_combout  & (!\transmissor_UART|Add0~40_combout  & \transmissor_UART|state~15_combout )))
+
+	.dataa(\transmissor_UART|Add0~44_combout ),
+	.datab(\transmissor_UART|Add0~42_combout ),
+	.datac(\transmissor_UART|Add0~40_combout ),
+	.datad(\transmissor_UART|state~15_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|state~16_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|state~16 .lut_mask = 16'h0100;
+defparam \transmissor_UART|state~16 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N20
+cycloneive_lcell_comb \transmissor_UART|state~17 (
+// Equation(s):
+// \transmissor_UART|state~17_combout  = (!\transmissor_UART|Add0~48_combout  & (!\transmissor_UART|Add0~50_combout  & (!\transmissor_UART|Add0~46_combout  & \transmissor_UART|state~16_combout )))
+
+	.dataa(\transmissor_UART|Add0~48_combout ),
+	.datab(\transmissor_UART|Add0~50_combout ),
+	.datac(\transmissor_UART|Add0~46_combout ),
+	.datad(\transmissor_UART|state~16_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|state~17_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|state~17 .lut_mask = 16'h0100;
+defparam \transmissor_UART|state~17 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N2
+cycloneive_lcell_comb \transmissor_UART|state~18 (
+// Equation(s):
+// \transmissor_UART|state~18_combout  = (!\transmissor_UART|Add0~56_combout  & (!\transmissor_UART|Add0~54_combout  & (!\transmissor_UART|Add0~52_combout  & \transmissor_UART|state~17_combout )))
+
+	.dataa(\transmissor_UART|Add0~56_combout ),
+	.datab(\transmissor_UART|Add0~54_combout ),
+	.datac(\transmissor_UART|Add0~52_combout ),
+	.datad(\transmissor_UART|state~17_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|state~18_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|state~18 .lut_mask = 16'h0100;
+defparam \transmissor_UART|state~18 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N0
+cycloneive_lcell_comb \transmissor_UART|state~19 (
+// Equation(s):
+// \transmissor_UART|state~19_combout  = (!\transmissor_UART|Add0~58_combout  & (!\transmissor_UART|Add0~60_combout  & (!\transmissor_UART|Add0~62_combout  & \transmissor_UART|state~18_combout )))
+
+	.dataa(\transmissor_UART|Add0~58_combout ),
+	.datab(\transmissor_UART|Add0~60_combout ),
+	.datac(\transmissor_UART|Add0~62_combout ),
+	.datad(\transmissor_UART|state~18_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|state~19_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|state~19 .lut_mask = 16'h0100;
+defparam \transmissor_UART|state~19 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N8
+cycloneive_lcell_comb \transmissor_UART|Selector36~2 (
+// Equation(s):
+// \transmissor_UART|Selector36~2_combout  = (\transmissor_UART|Selector36~1_combout ) # ((\transmissor_UART|Selector36~0_combout  & ((!\transmissor_UART|state~19_combout ) # (!\transmissor_UART|state~14_combout ))))
+
+	.dataa(\transmissor_UART|Selector36~0_combout ),
+	.datab(\transmissor_UART|Selector36~1_combout ),
+	.datac(\transmissor_UART|state~14_combout ),
+	.datad(\transmissor_UART|state~19_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector36~2_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector36~2 .lut_mask = 16'hCEEE;
+defparam \transmissor_UART|Selector36~2 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X62_Y6_N9
+dffeas \transmissor_UART|state.DATA (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector36~2_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|state.DATA~q ),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|state.DATA .is_wysiwyg = "true";
+defparam \transmissor_UART|state.DATA .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y6_N24
+cycloneive_lcell_comb \transmissor_UART|state~20 (
+// Equation(s):
+// \transmissor_UART|state~20_combout  = (\transmissor_UART|state.DATA~q  & (\ch1~input_o  & (\transmissor_UART|state~14_combout  & \transmissor_UART|state~19_combout )))
+
+	.dataa(\transmissor_UART|state.DATA~q ),
+	.datab(\ch1~input_o ),
+	.datac(\transmissor_UART|state~14_combout ),
+	.datad(\transmissor_UART|state~19_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|state~20_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|state~20 .lut_mask = 16'h8000;
+defparam \transmissor_UART|state~20 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X62_Y6_N25
+dffeas \transmissor_UART|state.STOP (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|state~20_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|state.STOP~q ),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|state.STOP .is_wysiwyg = "true";
+defparam \transmissor_UART|state.STOP .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X62_Y7_N2
+cycloneive_lcell_comb \transmissor_UART|Selector31~0 (
+// Equation(s):
+// \transmissor_UART|Selector31~0_combout  = (\transmissor_UART|state.STOP~q ) # ((\transmissor_UART|state.START~q ) # ((\transmissor_UART|state.DATA~q  & !\ch1~input_o )))
+
+	.dataa(\transmissor_UART|state.STOP~q ),
+	.datab(\transmissor_UART|state.DATA~q ),
+	.datac(\ch1~input_o ),
+	.datad(\transmissor_UART|state.START~q ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector31~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector31~0 .lut_mask = 16'hFFAE;
+defparam \transmissor_UART|Selector31~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N10
+cycloneive_lcell_comb \transmissor_UART|Selector32~0 (
+// Equation(s):
+// \transmissor_UART|Selector32~0_combout  = (\transmissor_UART|pos [0] & ((\transmissor_UART|Selector31~0_combout ) # ((\transmissor_UART|Add0~0_combout  & \transmissor_UART|Selector36~0_combout )))) # (!\transmissor_UART|pos [0] & 
+// (((\transmissor_UART|Add0~0_combout  & \transmissor_UART|Selector36~0_combout ))))
+
+	.dataa(\transmissor_UART|pos [0]),
+	.datab(\transmissor_UART|Selector31~0_combout ),
+	.datac(\transmissor_UART|Add0~0_combout ),
+	.datad(\transmissor_UART|Selector36~0_combout ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector32~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector32~0 .lut_mask = 16'hF888;
+defparam \transmissor_UART|Selector32~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X63_Y7_N27
+dffeas \transmissor_UART|pos[0] (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(gnd),
+	.asdata(\transmissor_UART|Selector32~0_combout ),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(vcc),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|pos [0]),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|pos[0] .is_wysiwyg = "true";
+defparam \transmissor_UART|pos[0] .power_up = "low";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N22
+cycloneive_lcell_comb \transmissor_UART|Mux0~0 (
+// Equation(s):
+// \transmissor_UART|Mux0~0_combout  = (\transmissor_UART|pos [0] & ((\transmissor_UART|pos [1] & ((\transmissor_UART|pos [2]))) # (!\transmissor_UART|pos [1] & (\transmissor_UART|pos [3] & !\transmissor_UART|pos [2])))) # (!\transmissor_UART|pos [0] & 
+// (\transmissor_UART|pos [3] & ((\transmissor_UART|pos [2]))))
+
+	.dataa(\transmissor_UART|pos [0]),
+	.datab(\transmissor_UART|pos [3]),
+	.datac(\transmissor_UART|pos [1]),
+	.datad(\transmissor_UART|pos [2]),
+	.cin(gnd),
+	.combout(\transmissor_UART|Mux0~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Mux0~0 .lut_mask = 16'hE408;
+defparam \transmissor_UART|Mux0~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N28
+cycloneive_lcell_comb \transmissor_UART|Selector33~0 (
+// Equation(s):
+// \transmissor_UART|Selector33~0_combout  = (!\transmissor_UART|state.START~q  & (((!\transmissor_UART|Mux0~0_combout  & \ch1~input_o )) # (!\transmissor_UART|state.DATA~q )))
+
+	.dataa(\transmissor_UART|Mux0~0_combout ),
+	.datab(\transmissor_UART|state.DATA~q ),
+	.datac(\ch1~input_o ),
+	.datad(\transmissor_UART|state.START~q ),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector33~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector33~0 .lut_mask = 16'h0073;
+defparam \transmissor_UART|Selector33~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: LCCOMB_X64_Y7_N16
+cycloneive_lcell_comb \transmissor_UART|Selector33~1 (
+// Equation(s):
+// \transmissor_UART|Selector33~1_combout  = (!\transmissor_UART|Selector33~0_combout  & ((\ch1~input_o ) # (\transmissor_UART|tx~q )))
+
+	.dataa(\ch1~input_o ),
+	.datab(\transmissor_UART|Selector33~0_combout ),
+	.datac(\transmissor_UART|tx~q ),
+	.datad(gnd),
+	.cin(gnd),
+	.combout(\transmissor_UART|Selector33~1_combout ),
+	.cout());
+// synopsys translate_off
+defparam \transmissor_UART|Selector33~1 .lut_mask = 16'h3232;
+defparam \transmissor_UART|Selector33~1 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: FF_X64_Y7_N17
+dffeas \transmissor_UART|tx (
+	.clk(\gerador|Equal0~clkctrl_outclk ),
+	.d(\transmissor_UART|Selector33~1_combout ),
+	.asdata(vcc),
+	.clrn(vcc),
+	.aload(gnd),
+	.sclr(gnd),
+	.sload(gnd),
+	.ena(vcc),
+	.devclrn(devclrn),
+	.devpor(devpor),
+	.q(\transmissor_UART|tx~q ),
+	.prn(vcc));
+// synopsys translate_off
+defparam \transmissor_UART|tx .is_wysiwyg = "true";
+defparam \transmissor_UART|tx .power_up = "low";
+// synopsys translate_on
+
+// Location: IOIBUF_X65_Y43_N22
+cycloneive_io_ibuf \rx~input (
+	.i(rx),
+	.ibar(gnd),
+	.o(\rx~input_o ));
+// synopsys translate_off
+defparam \rx~input .bus_hold = "false";
+defparam \rx~input .simulate_z_as = "z";
+// synopsys translate_on
+
+assign tx = \tx~output_o ;
+
+endmodule
+
+module hard_block (
+
+	devpor,
+	devclrn,
+	devoe);
+
+// Design Ports Information
+// ~ALTERA_ASDO_DATA1~	=>  Location: PIN_D1,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_FLASH_nCE_nCSO~	=>  Location: PIN_E2,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_DCLK~	=>  Location: PIN_K2,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_DATA0~	=>  Location: PIN_K1,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// ~ALTERA_nCEO~	=>  Location: PIN_K22,	 I/O Standard: 2.5 V,	 Current Strength: 8mA
+
+input 	devpor;
+input 	devclrn;
+input 	devoe;
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+wire \~ALTERA_ASDO_DATA1~~padout ;
+wire \~ALTERA_FLASH_nCE_nCSO~~padout ;
+wire \~ALTERA_DATA0~~padout ;
+wire \~ALTERA_ASDO_DATA1~~ibuf_o ;
+wire \~ALTERA_FLASH_nCE_nCSO~~ibuf_o ;
+wire \~ALTERA_DATA0~~ibuf_o ;
+
+
+endmodule
