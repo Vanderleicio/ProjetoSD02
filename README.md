@@ -108,8 +108,8 @@ Ao todo existem 7 comandos:
 - Comando 6 | Posição 0110: Desativa o sensoriamento continuo de unmidade.
 
 Para enviar um comando, são necessarios dois passos:
-+ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
-+ 2: Posiconar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok. 
++ 1: Acessar a tela de comandos, pressionando o botão "comando", e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão "seguir".
++ 2: Posiconar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão "seguir". 
 
 
 ## Testes
