@@ -43,21 +43,24 @@ A Orange PI PC PLUS possui o processador AllWinner H3, baseado na arquitetura AR
 </div>
 
 
+----------
 
 ## Características da Solução
-----------
 <div style="text-align: justify">
     Este desafio encontra sua solução em três blocos principais: o bloco UART, o bloco de exibição (Display) e o mapeamento. A UART estabelece a comunicação entre a Orange Pi e a FPGA, enquanto o Display LCD apresenta as informações solicitadas. Além disso, o mapeamento possibilita o acesso aos recursos por meio dos pinos correspondentes. A exploração detalhada dessas seções será realizada ao longo deste relatório para uma compreensão mais abrangente.
 </div>
 
-
-### Materiais utilizados
 ----------
 
-[FPGA]
+### Materiais utilizados
 
-[ORANGE PI]
-gpuio
+- `FPGA Cyclone IV EP4C30F23C7`
+- `Orange PI PC PLUS`
+- `Linguagem de programação Assembly`
+- `Linguagem de descrição de hardware Verilog`
+
+
+------------
 
 ### Arquitetura do Computador
 
@@ -68,12 +71,11 @@ Allwinner H3
 arquitetura ARMv7
 
 
+
+
 ----------
-
-
 
 ### Mapeamento
-----------
 
 <div style="text-align: justify">
 A Orange PI apresenta uma série de pinos de entrada e saída controláveis, além dos pinos específicos na SBC, como os pinos UART_TX e UART_RX, cada um com finalidades definidas. No contexto da nossa interface, o controle preciso da pinagem é crucial, pois a manipulação e transmissão de dados são essenciais para a funcionalidade principal da interface. 
@@ -95,9 +97,9 @@ Os dados que são utilizados no R0, R1 e R5 são passados na seção .data. Toda
 
 
 
+----------
 
 ### Pinagem
-----------
 
 <div style="text-align: justify">
     A partir do mapeamento de memória é possivel acessar o endereço virtual dos pinos. A Figura 1, mostra em detalhes como é a organização dos pinos GPIO da Orange PI PC Plus.
@@ -124,20 +126,29 @@ Os dados que são utilizados no R0, R1 e R5 são passados na seção .data. Toda
 
 
 
-
-
+----------
 ### Display
+
+
+
+.
+
 --------------
-
-
 ### Uart
+
+UART é um acrônimo para Universal Asynchronous Receiver/Transmitter, 
+
 --------------
 
 ## Como Executar
---------------
+
 
 ### Comandos
---------------
+Para enviar um comando, são necessarios dois passos:
++ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
++ 2: Posiconar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok. 
+Veja abaixo uma lista com os comandos
+
 Ao todo existem 7 comandos:
 - Comando 0 | Posição 0000: Solicita a situação atual do sensor.
 - Comando 1 | Posição 0001: Solicita a medidade de temperatura atual do sensor.
@@ -147,15 +158,13 @@ Ao todo existem 7 comandos:
 - Comando 5 | Posição 0101: Desativa sensoriamento continuo de temperatura.
 - Comando 6 | Posição 0110: Desativa o sensoriamento continuo de unmidade.
 
-Para enviar um comando, são necessarios dois passos:
-+ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
-+ 2: Posiconar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok. 
-
-
-## Testes
 --------------
 
+## Testes
 
+
+
+--------------
 ## Conclusões
 
 
