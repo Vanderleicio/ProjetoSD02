@@ -64,11 +64,16 @@ A Orange PI PC PLUS possui o processador AllWinner H3, baseado na arquitetura AR
 
 ### Arquitetura do Computador
 
-A Orange PI PC plus.
-Allwinner H3 
-- CPU: quad-core  ARM Cortex A7
 
-arquitetura ARMv7
+| CPU | H3 Quad-core Cortex-A7 H.265/HEVC 4K   |
+|:--- |                                   ---: |
+| GPU |     Mali400MP2 GPU @600MHz             |
+| Memória (SDRAM) |  1GB DDR3 (shared with GPU)|
+| Armazenamento interno | Cartão MicroSD (32 GB); 8GB eMMC Flash|
+| Rede embarcada | 10/100 Ethernet RJ45        |
+| Fonte de alimentação | Entrada DC,<br>entradas USB e OTG não servem como fonte de alimentação | 
+| Portas USB | 3 Portas USB 2.0, uma porta OTG USB 2.0 |
+| Periféricos de baixo nível | 40 pinos        |
 
 
 
@@ -162,6 +167,15 @@ Ao todo existem 7 comandos:
 
 ## Testes
 
+<img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/sensor_ok.jpg" alt="teste sensor ok" width="400"/>
+.
+<img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/tela_temperatura.jpg" alt="teste temperatura" width="400"/>
+.
+<img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/tela_umidade.jpg" alt="teste umidade" width="400"/>
+.
+<img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/temperaturac_off.jpg" alt="teste temp off" width="400"/>
+
+.<img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/umidadec_off.jpg" alt="teste umidade off" width="400"/>
 
 
 --------------
