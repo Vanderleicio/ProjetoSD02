@@ -106,7 +106,7 @@ Os dados que são utilizados no R0, R1 e R5 são passados na seção .data. Toda
 
 <figure style = "text-align: center">
 
-<img src="Imagens/pinagem.png" alt="Pinos GPIO Orange Pi" width="400"/>
+<img src="[Imagens/pinagem.png](https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/pinagem.png)" alt="Pinos GPIO Orange Pi" width="400"/>
 <figcaption> <small> <b>Figura 1:</b> Descrição da pinagem  </small></figcaption>
 
 </figure>
