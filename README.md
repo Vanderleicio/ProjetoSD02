@@ -61,7 +61,7 @@ O Display, por sua vez, está vinculado aos GPIO da Orange PI. Ele exibe telas d
 O mapeamento desempenha um papel crucial, permitindo a manipulação dos pinos utilizados nos GPIO. Este processo facilita a configuração e o controle preciso dos dispositivos conectados.
 Ao longo deste relatório, detalharemos minuciosamente como cada bloco funciona em conjunto para criar uma solução completa.
 
-
+----------
 ### Materiais utilizados
 
 - `FPGA Cyclone IV EP4C30F23C7`
