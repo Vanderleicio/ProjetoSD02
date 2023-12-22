@@ -102,15 +102,17 @@ Os dados que são utilizados no R0, R1 e R5 são passados na seção .data. Toda
 A partir do mapeamento de memória é possível acessar o endereço virtual dos pinos. A Figura 1, mostra em detalhes como é a organização dos pinos GPIO da Orange PI PC Plus.
 
 
-<figure style = "text-align: center;">
+
+
 <p align="center">
 <img src="Imagens/pinagem.png" alt="Pinos GPIO Orange Pi" width="400"/>
-<figcaption> <small> <b>Figura 1:</b> Descrição da pinagem  </small></figcaption>
+<span style="text-align: center; font-size: 14px"><b>Figura 1:</b> Descrição da pinagem  </span>
 </p>
-</figure>
 
 
-<div style="text-align: justify;">
+
+
+<div style="text-align: justify">
     Para manipular os pinos, algumas etapas são necessárias no processo:
     <ul>
     <li>  Na nossa abordagem, adicionamos o valor padrão do <i>Offset</i> (0x800) do GPIO a um registrador específico.</li>
