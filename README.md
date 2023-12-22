@@ -243,7 +243,7 @@ Uma escrita típica envolve colocar os dados nos pinos DB4-DB7, seguido pela con
 
 ### Comandos
 --------------
-<p align="justify">
+
 Para enviar um comando, são necessários dois passos:
 + 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
 + 2: Posicionar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok.
