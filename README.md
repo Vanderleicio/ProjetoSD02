@@ -148,15 +148,19 @@ Para visualizar as informações recebidas, é essencial definir previamente um 
 
 
 
-
+<p align="justify">
 A inicialização do display com o controlador HD447780U, delineada no DataSheet, é essencial para configurar corretamente o dispositivo. Este fluxo estabelece as instruções fundamentais para o início do funcionamento do display. Em nossa solução, além de seguir esse padrão, incorporamos funcionalidades adicionais.
 
+<p align="justify">
 Antes de detalharmos as instruções, é importante destacar a conexão dos pinos que são utilizados para realizar a comunicação entre o SBC e o display. O pino RS desempenha o papel crucial de informar ao display o tipo de comando enviado, enquanto o pino Enable é responsável por enviar os dados dos pinos de dados (DB7 a DB4) para o display.
 
+<p align="justify">
 Nossa implementação emprega o modo de comunicação de 4 bits, otimizando o uso de pinos GPIO. Isso significa que o envio de dados ocorre duas vezes para transmitir os 8 bits necessários para operação do display, utilizando os pinos DB4 a DB7.
 
-O processo de inicialização do display segue uma sequência específica, embora nossa implementação tenha algumas distinções em relação à ordem convencional. No início, são enviadas quatro instruções consecutivas do "Function Set". As três primeiras configuram o modo de operação com 8 bits, enquanto a última estabelece o display no modo de operação de 4 bits, definindo assim as características do modo de exibição. Cada instrução possui um tempo de espera determinado. Após a última instrução do "Function Set", é enviada uma outra instrução para manter a configuração de 4 bits e determinar o tamanho da fonte desejado.
 
+<p align="justify">
+O processo de inicialização do display segue uma sequência específica, embora nossa implementação tenha algumas distinções em relação à ordem convencional. No início, são enviadas quatro instruções consecutivas do "Function Set". As três primeiras configuram o modo de operação com 8 bits, enquanto a última estabelece o display no modo de operação de 4 bits, definindo assim as características do modo de exibição. Cada instrução possui um tempo de espera determinado. Após a última instrução do "Function Set", é enviada uma outra instrução para manter a configuração de 4 bits e determinar o tamanho da fonte desejado.
+<p align="justify">
 Na sequência, as instruções "Display Off" e "Clear Display" são enviadas para desligar e limpar o display, respectivamente. Em seguida, é transmitida uma instrução do "Entry Mode Set" com as configurações de deslocamento específicas que desejamos. Após esse processo, o display é inicializado e se torna pronto para receber informações a serem escritas no LCD. É importante ressaltar que as instruções são encaminhadas do microcontrolador para o LCD através dos pinos de dados, de db0 a db7. Este processo detalhado de configuração e inicialização garante o correto funcionamento do display e prepara o ambiente para a exibição de informações. Abaixo podemos ver uma breve descrição das instruções.
 
 - Configuração dos pinos de controle:
@@ -209,10 +213,10 @@ Na sequência, as instruções "Display Off" e "Clear Display" são enviadas par
 
 
 #### Exibição no Display
-
+<p align="justify">
 Com o display inicializado, torna-se possível a exibição de dados e interação com o display. Inicialmente construímos instruções que auxiliam na montagem da tela especifica, A função WriteCharLCD permite escrever caracteres individuais na tela, enquanto WriteNumberLCD é útil para exibir números. Além disso, funções como o deslocamento do cursor para a direita e a manipulação dos valores (como separar a dezena da unidade) são cruciais para o tratamento dos dados do sensor e para apresentar esses valores de forma compreensível no display.
 Essas instruções simplificam a construção das interfaces de interação com o usuário, facilitando a exibição de dados e a interação com o display. Com elas, é possível estruturar telas específicas para diferentes propósitos, tornando a experiência do usuário mais intuitiva e amigável.
-
+<p align="justify">
 Para enviar dados ou comandos para o display, os valores correspondentes aos bits são colocados nos pinos DB4-DB7, com os primeiros 4 bits representando os bits mais significativos e os 4 seguintes representando os bits menos significativos. Isso é parte do processo de comunicação serial. Além disso, a escrita no HD44780U segue um diagrama temporal para sincronizar os tempos de envio dos dados ou comandos. O HD44780U requer uma sequência de sinais de controle (como o sinal de enable, o sinal de R/S) em tempos específicos para que os dados sejam interpretados corretamente.
 Uma escrita típica envolve colocar os dados nos pinos DB4-DB7, seguido pela configuração de outros pinos de controle, como RS (Register Select) para indicar se os dados são comandos ou caracteres a serem exibidos, e o pulso de habilitação (E) para indicar quando os dados estão prontos para serem lidos pelo display.
  
@@ -239,6 +243,7 @@ Uma escrita típica envolve colocar os dados nos pinos DB4-DB7, seguido pela con
 
 ### Comandos
 --------------
+<p align="justify">
 Para enviar um comando, são necessários dois passos:
 + 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
 + 2: Posicionar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok.
