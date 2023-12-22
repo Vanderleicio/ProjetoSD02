@@ -34,8 +34,8 @@
 
 # Diagrama de sistema
 <div style="text-align: center;">
- <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/diagrama_fluxo.jpg" alt="Fluxo do sistema" width="400"/>
-    <div style="text-align: center; font-size: 10px;">
+ <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/diagrama_fluxo.png" alt="Fluxo do sistema" width="400"/>
+    <div style="text-align: center; font-size: 10;">
         <b>Figura 1: </b> Fluxo do projeto
     </div>
 </div>
@@ -122,7 +122,7 @@ A partir do mapeamento de memória é possível acessar o endereço virtual dos 
 
 <div style="text-align: center;">
     <img src="Imagens/pinagem.png" alt="Pinos GPIO Orange Pi" width="400"/>
-    <div style="text-align: center; font-size: 10px;">
+    <div style="text-align: center; font-size: 10;">
         <b>Figura 2:</b> Descrição da pinagem
     </div>
 </div>
@@ -154,7 +154,7 @@ Para visualizar as informações recebidas, é essencial definir previamente um 
 
 <div style="text-align: center;">
     <img src="Imagens/fluxo_display.png" alt="Pinos GPIO Orange Pi" width="400"/>
-    <div style="text-align: center; font-size: 10px;">
+    <div style="text-align: center; font-size: 10;">
         <b>Figura 3:</b> Fluxo de inicialização do display 
     </div>
 </div>
@@ -276,7 +276,7 @@ Para enviar um comando, são necessários dois passos:
 
 <div style="text-align: center;">
     <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/sensor_ok.jpg" alt="Situação Sensor" width="400"/>
-    <div style="text-align: center; font-size: 10px;">
+    <div style="text-align: center; font-size: 10;">
         <b>Figura 4:</b> Posição das chaves 0000, esse comando solicita a situação atual do sensor. Nesse caso a resposta foi positiva, o sensor está ativo e funcional.  
     </div>
 </div>
@@ -284,7 +284,7 @@ Para enviar um comando, são necessários dois passos:
 
 <div style="text-align: center;">
     <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/tela_temperatura.jpg" alt="Tela temperatura" width="400"/>
-    <div style="text-align: center; font-size: 10px;">
+    <div style="text-align: center; font-size: 10;">
         <b>Figura 5:</b> Posição das chaves 0001, comando solicita a medida de temperatura atual do sensor específico 
     </div>
 </div>
@@ -292,7 +292,7 @@ Para enviar um comando, são necessários dois passos:
 
 <div style="text-align: center;">
   <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/tela_umidade.jpg" alt="Tela Umidade" width="400"/>
-    <div style="text-align: center; font-size: 10px;">
+    <div style="text-align: center; font-size: 10;">
         <b>Figura 6:</b> Posição das chaves 0010, comando solicita a medida de temperatura atual do sensor
     </div>
 </div>
@@ -300,7 +300,7 @@ Para enviar um comando, são necessários dois passos:
 
 <div style="text-align: center;">
  <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/temperaturac_off.jpg" alt="Temperatura Continua Desligada" width="400"/>
-    <div style="text-align: center; font-size: 10px;">
+    <div style="text-align: center; font-size: 10;">
         <b>Figura 7: </b> Posição das chaves 0101, comando desliga o sensoriamento continuo de temperatura
     </div>
 </div>
@@ -308,7 +308,7 @@ Para enviar um comando, são necessários dois passos:
 
 <div style="text-align: center;">
 <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/umidadec_off.jpg" alt="Umidade Continua Desligada" width="400"/>
-    <div style="text-align: center; font-size: 10px;">
+    <div style="text-align: center; font-size: 10;">
        <b>Figura 8: </b> Posição das chaves 0110, comando desliga o sensoriamento continuo de umidade 
     </div>
 </div>
