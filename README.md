@@ -106,7 +106,7 @@ A partir do mapeamento de memória é possível acessar o endereço virtual dos 
 
 <div style="text-align: center;">
     <img src="Imagens/pinagem.png" alt="Pinos GPIO Orange Pi" width="400"/>
-    <div style="text-align: center; font-size: 14px;">
+    <div style="text-align: center; font-size: 10;">
         <b>Figura 1:</b> Descrição da pinagem
     </div>
 </div>
