@@ -106,23 +106,21 @@ A partir do mapeamento de memória é possível acessar o endereço virtual dos 
 
 <div style="text-align: center;">
     <img src="Imagens/pinagem.png" alt="Pinos GPIO Orange Pi" width="400"/>
-    <div style="text-align: center; font-size: 10;">
+    <div style="text-align: center; font-size: 10px;">
         <b>Figura 1:</b> Descrição da pinagem
     </div>
 </div>
 
 
 
+Para manipular os pinos, algumas etapas são necessárias no processo:
+    
+    - Na nossa abordagem, adicionamos o valor padrão do <i>Offset</i> (0x800) do GPIO a um registrador específico.
+    - Acessamos os registradores GPIO utilizando um deslocamento baseado no *Offset*
+    - Ao passar o *Offset* do registrador de dados do pino, é possível carregar as informações contidas nessa posição de memória para um registrador. Essas informações representam representar o estado atual do pino
 
-<div style="text-align: justify">
-    Para manipular os pinos, algumas etapas são necessárias no processo:
-    <ul>
-    <li>  Na nossa abordagem, adicionamos o valor padrão do <i>Offset</i> (0x800) do GPIO a um registrador específico.</li>
-    <li>Acessamos os registradores GPIO utilizando um deslocamento baseado no <i>Offset</i></li>
-   <li> Ao passar o <i>Offset</i> do registrador de dados do pino, é possível carregar as informações contidas nessa posição de memória para um registrador. Essas informações representam representar o estado atual do pino.</li>
-    </ul>
-    A partir desse ponto, uma vez que as informações do registrador foram carregadas para um registrador específico, é possível executar operações desejadas relacionadas ao pino. Isso pode incluir configurações adicionais, como definir a direção do pino, alterar o estado do pino, entre outras operações específicas para os GPIO.
-</div>
+
+A partir desse ponto, uma vez que as informações do registrador foram carregadas para um registrador específico, é possível executar operações desejadas relacionadas ao pino. Isso pode incluir configurações adicionais, como definir a direção do pino, alterar o estado do pino, entre outras operações específicas para os GPIO.
 
 
 
@@ -136,13 +134,13 @@ Conectado à porta GPIO está o Display LCD 16x2, dedicado a apresentar uma inte
 
 Para visualizar as informações recebidas, é essencial definir previamente um conjunto de funcionalidades, incluindo configurações de comunicação entre os dados recebidos da FPGA e o display, protocolos adequados, inicialização do display e formatação dos dados para exibição precisa no LCD. Cada passo é crucial para garantir uma correta exibição das informações na tela. Utilizamos uma macro para realizar a inicialização do display, A Figura 2 exibe o fluxo de inicialização do display.
 
-<figure style = "text-align: center;">
+
 <p align="center">
 <img src="Imagens/fluxo_display.png" alt="Fluxo de inicialização do display" width="400"/>
-<figcaption> <small> <b>Figura 2:</b> Fluxo de inicialização do display  </small></figcaption>
+<figcaption style="text-align: center; font-size: 10">  <b>Figura 2:</b> Fluxo de inicialização do display <figcaption>
 </p>
 
-</figure>
+
 
 
 A inicialização do display com o controlador HD447780U, delineada no DataSheet, é essencial para configurar corretamente o dispositivo. Este fluxo estabelece as instruções fundamentais para o início do funcionamento do display. Em nossa solução, além de seguir esse padrão, incorporamos funcionalidades adicionais.
