@@ -248,7 +248,7 @@ Para enviar um comando, são necessários dois passos:
 --------------
 
 <figure style = "text-align: center;">
-<p aling="center">
+<p align="center">
 <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/sensor_ok.jpg" alt="Situação Sensor" width="400"/>
 <figcaption> <small> <b>Figura 3:</b> Posição das chaves 0000, esse comando solicita a situação atual do sensor. Nesse caso a resposta foi positiva, o sensor está ativo e funcional.  </small></figcaption>
 </p>
