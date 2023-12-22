@@ -152,7 +152,6 @@ Na sequência, as instruções "Display Off" e "Clear Display" são enviadas par
 
 - Configuração dos pinos de controle:
     - Pino RS: Seleciona se os dados enviados que serão enviados ao display, vão ser encaminhados para o registrador de dados (caso seja um dado a ser exibido) ou uma instrução.0 
-         - Descrição Nível Lógico: 
             - Nível Lógico Baixo:  Registrador de Instrução
             - Nível Lógico Alto: Registrador de Dados
 
@@ -162,24 +161,24 @@ Na sequência, as instruções "Display Off" e "Clear Display" são enviadas par
 
 - Function Set (4 Bits):
     -  Determina algumas características chaves do funcionamento do display.
-    -  Pino 1:
-        - Tamanho da interface de comunicação
-            - Nível Lógico Baixo: Comunicação utilizando 4 bits
-            - Nível Lógico Alto: Comunicação utilizando 8 bits
-    - Pino 2 e 3: 
-        - Configuram o tamanho da fonte que estamos utilizando, de acordo com combinações de bits.
+      -  Pino 1:
+          - Tamanho da interface de comunicação
+              - Nível Lógico Baixo: Comunicação utilizando 4 bits
+              - Nível Lógico Alto: Comunicação utilizando 8 bits
+      - Pino 2 e 3: 
+          - Configuram o tamanho da fonte que estamos utilizando, de acordo com combinações de bits.
 
 - Display On/Off:
     - Controla alguns aspectos do display
-    - Pin 1:
-        - Nível Lógico Baixo: Display desligado, não vemos nenhum caractere. Mas os caracteres que estavam escritos não são apagados.
-        - Nível Lógico Alto: Display Liga novamente
-    - Pin 2: Controla o cursor
-        - Nível Lógico Baixo: Cursor desligado
-        - Nível Lógico Alto: Cursor Ligado
-    - Pin 3:
-        - Nível Lógico Baixo: Cursor não pisca
-        - Nível Lógico Alto: Cursor pisca
+      - Pin 1:
+          - Nível Lógico Baixo: Display desligado, não vemos nenhum caractere. Mas os caracteres que estavam escritos não são apagados.
+          - Nível Lógico Alto: Display Liga novamente
+      - Pin 2: Controla o cursor
+          - Nível Lógico Baixo: Cursor desligado
+          - Nível Lógico Alto: Cursor Ligado
+      - Pin 3:
+          - Nível Lógico Baixo: Cursor não pisca
+          - Nível Lógico Alto: Cursor pisca
 
 - Clear Display:
     - Usado para limpar qualquer comando que esteja escrito na tela.
