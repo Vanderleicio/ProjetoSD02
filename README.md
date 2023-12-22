@@ -34,7 +34,7 @@
 
 # Diagrama de sistema
 <div style="text-align: center;">
- <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/diagrama_fluxo.png" alt="Fluxo do sistema" width="400"/>
+ <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/diagrama_fluxo.png" alt="Fluxo do sistema" width="700"/>
     <div style="text-align: center; font-size: 10;">
         <b>Figura 1: </b> Fluxo do projeto
     </div>
@@ -137,6 +137,7 @@ Para manipular os pinos, algumas etapas são necessárias no processo:
 
 
 A partir desse ponto, uma vez que as informações do registrador foram carregadas para um registrador específico, é possível executar operações desejadas relacionadas ao pino. Isso pode incluir configurações adicionais, como definir a direção do pino, alterar o estado do pino, entre outras operações específicas para os GPIO.
+
 ----------
 
 
@@ -231,27 +232,31 @@ Essas instruções simplificam a construção das interfaces de interação com 
 
 Para enviar dados ou comandos para o display, os valores correspondentes aos bits são colocados nos pinos DB4-DB7, com os primeiros 4 bits representando os bits mais significativos e os 4 seguintes representando os bits menos significativos. Isso é parte do processo de comunicação serial. Além disso, a escrita no HD44780U segue um diagrama temporal para sincronizar os tempos de envio dos dados ou comandos. O HD44780U requer uma sequência de sinais de controle (como o sinal de enable, o sinal de R/S) em tempos específicos para que os dados sejam interpretados corretamente.
 Uma escrita típica envolve colocar os dados nos pinos DB4-DB7, seguido pela configuração de outros pinos de controle, como RS (Register Select) para indicar se os dados são comandos ou caracteres a serem exibidos, e o pulso de habilitação (E) para indicar quando os dados estão prontos para serem lidos pelo display.
+
 ----------
-
-
-
-
-
-
-
-
 
 
 
 
 ### Uart
 --------------
+Para ativar a UART da Orange PI PC PLUS,
 
+
+--------------
 ## Como Executar
+
+
+
 --------------
 
 ### Comandos
 --------------
+
+Para enviar um comando, são necessários dois passos:
++ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
++ 2: Posicionar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok.
+
 Ao todo existem 7 comandos:
 
 | Código | Descrição  do comando   |
@@ -269,6 +274,7 @@ Para enviar um comando, são necessários dois passos:
 + 2: Posicionar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok. 
 
 
+--------------
 ## Testes
 --------------
 
@@ -322,8 +328,7 @@ Para enviar um comando, são necessários dois passos:
 ## Conclusões
 
 
-Concluímos que todos os requisitos estabelecidos foram atendidos, desenvolvendo uma Interface Homem-Máquina em um display LCD, 
-
+Concluimos que todas as demandas e requisitos estabelecidos foram plenamente atendidos. O projeto concluído consiste na criação de uma Interface Homem-Máquina apresentada em um display LCD, com a interação facilitada por meio de chaves e botões. Destaca-se que essa solução foi elaborada de modo a satisfazer as necessidades e expectativas do usuário, cumprindo eficientemente com o propósito estabelecido.
 
 --------------
 ## Referências
