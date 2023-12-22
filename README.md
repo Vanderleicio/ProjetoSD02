@@ -53,22 +53,28 @@ O Display, por sua vez, está vinculado aos GPIO da Orange PI. Ele exibe telas d
 O mapeamento desempenha um papel crucial, permitindo a manipulação dos pinos utilizados nos GPIO. Este processo facilita a configuração e o controle preciso dos dispositivos conectados.
 Ao longo deste relatório, detalharemos minuciosamente como cada bloco funciona em conjunto para criar uma solução completa.
 
-
-### Materiais utilizados
 ----------
+### Materiais utilizados
 
-[FPGA]
+- `FPGA Cyclone IV EP4C30F23C7`
+- `Orange PI PC PLUS`
+- `Linguagem de programação Assembly`
+- `Linguagem de descrição de hardware Verilog`
 
-[ORANGE PI]
-gpuio
-
+---------------
 ### Arquitetura do Computador
 
-A Orange PI PC plus.
-Allwinner H3 
-- CPU: quad-core  ARM Cortex A7
+Especificações técnicas:
 
-arquitetura ARMv7
+| CPU | H3 Quad-core Cortex-A7 H.265/HEVC 4K   |
+|:--- |                                   ---: |
+| GPU |     Mali400MP2 GPU @600MHz             |
+| Memória (SDRAM) |  1GB DDR3 (shared with GPU)|
+| Armazenamento interno | Cartão MicroSD (32 GB); 8GB eMMC Flash|
+| Rede embarcada | 10/100 Ethernet RJ45        |
+| Fonte de alimentação | Entrada DC,<br>entradas USB e OTG não servem como fonte de alimentação | 
+| Portas USB | 3 Portas USB 2.0, uma porta OTG USB 2.0 |
+| Periféricos de baixo nível | 40 pinos        |
 
 
 ----------
@@ -222,14 +228,20 @@ Uma escrita típica envolve colocar os dados nos pinos DB4-DB7, seguido pela con
 
 
 
-### Uart
 --------------
+### Uart
 
+
+
+----
 ## Como Executar
 --------------
 
 ### Comandos
 --------------
+Para enviar um comando, são necessários dois passos:
++ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
++ 2: Posicionar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok.
 Ao todo existem 7 comandos:
 
 | Código | Descrição  do comando   |
@@ -241,10 +253,6 @@ Ao todo existem 7 comandos:
 | 0101 |Desativa sensoriamento continuo de temperatura. |
 | 0110 |Desativa o sensoriamento continuo de umidade. |
 
-
-Para enviar um comando, são necessários dois passos:
-+ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
-+ 2: Posicionar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok. 
 
 
 ## Testes
