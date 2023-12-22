@@ -32,7 +32,15 @@
 
 -------
 
-# O sistema
+# Diagrama de sistema
+<div style="text-align: center;">
+ <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/diagrama_fluxo.jpg" alt="Fluxo do sistema" width="400"/>
+    <div style="text-align: center; font-size: 10px;">
+        <b>Figura 1: </b> Fluxo do projeto
+    </div>
+</div>
+
+
 ## Introdução
 
 <div style="text-align: justify;">
@@ -53,7 +61,7 @@ O Display, por sua vez, está vinculado aos GPIO da Orange PI. Ele exibe telas d
 O mapeamento desempenha um papel crucial, permitindo a manipulação dos pinos utilizados nos GPIO. Este processo facilita a configuração e o controle preciso dos dispositivos conectados.
 Ao longo deste relatório, detalharemos minuciosamente como cada bloco funciona em conjunto para criar uma solução completa.
 
-----------
+
 ### Materiais utilizados
 
 - `FPGA Cyclone IV EP4C30F23C7`
@@ -61,7 +69,9 @@ Ao longo deste relatório, detalharemos minuciosamente como cada bloco funciona 
 - `Linguagem de programação Assembly`
 - `Linguagem de descrição de hardware Verilog`
 
----------------
+----------
+
+
 ### Arquitetura do Computador
 
 Especificações técnicas:
@@ -82,7 +92,7 @@ Especificações técnicas:
 
 
 ### Mapeamento
-----------
+
 
 A Orange PI apresenta uma série de pinos de entrada e saída controláveis, além dos pinos específicos na SBC, como os pinos UART_TX e UART_RX, cada um com finalidades definidas. No contexto da nossa interface, o controle preciso da pinagem é crucial, pois a manipulação e transmissão de dados são essenciais para a funcionalidade principal da interface. 
 
@@ -98,12 +108,12 @@ Para realizar a chamada do mmpa2, é importante que alguns registradores que sã
 
 Os dados que são utilizados no R0, R1 e R5 são passados na seção .data. Todas as funcionalidades que necessitam acessar pinos da SBC, utilizam o método de mapeamento, como o caso do mapeamento das gpio e da UART, o que muda entre elas é o valor do endereço base dos registradores.
 
-
+----------
 
 
 
 ### Pinagem
-----------
+
 
 A partir do mapeamento de memória é possível acessar o endereço virtual dos pinos. A Figura 1, mostra em detalhes como é a organização dos pinos GPIO da Orange PI PC Plus.
 
@@ -113,7 +123,7 @@ A partir do mapeamento de memória é possível acessar o endereço virtual dos 
 <div style="text-align: center;">
     <img src="Imagens/pinagem.png" alt="Pinos GPIO Orange Pi" width="400"/>
     <div style="text-align: center; font-size: 10px;">
-        <b>Figura 1:</b> Descrição da pinagem
+        <b>Figura 2:</b> Descrição da pinagem
     </div>
 </div>
 
@@ -121,47 +131,46 @@ A partir do mapeamento de memória é possível acessar o endereço virtual dos 
 
 Para manipular os pinos, algumas etapas são necessárias no processo:
     
-    - Na nossa abordagem, adicionamos o valor padrão do <i>Offset</i> (0x800) do GPIO a um registrador específico.
-    - Acessamos os registradores GPIO utilizando um deslocamento baseado no *Offset*
-    - Ao passar o *Offset* do registrador de dados do pino, é possível carregar as informações contidas nessa posição de memória para um registrador. Essas informações representam representar o estado atual do pino
+- Em nossa abordagem, adicionamos o valor padrão do <i>Offset</i> (0x800) do GPIO a um registrador específico.
+- Acessamos os registradores GPIO utilizando um deslocamento baseado no *Offset*
+- Ao passar o *Offset* do registrador de dados do pino, é possível carregar as informações contidas nessa posição de memória para um registrador. Essas informações representam representar o estado atual do pino
 
 
 A partir desse ponto, uma vez que as informações do registrador foram carregadas para um registrador específico, é possível executar operações desejadas relacionadas ao pino. Isso pode incluir configurações adicionais, como definir a direção do pino, alterar o estado do pino, entre outras operações específicas para os GPIO.
-
+----------
 
 
 
 
 ### Display
---------------
+
    
 Conectado à porta GPIO está o Display LCD 16x2, dedicado a apresentar uma interface ao usuário. Equipado com o controlador HD44780U da Hamachi, é capaz de exibir caracteres alfanuméricos e símbolos. 
 
 
-Para visualizar as informações recebidas, é essencial definir previamente um conjunto de funcionalidades, incluindo configurações de comunicação entre os dados recebidos da FPGA e o display, protocolos adequados, inicialização do display e formatação dos dados para exibição precisa no LCD. Cada passo é crucial para garantir uma correta exibição das informações na tela. Utilizamos uma macro para realizar a inicialização do display, A Figura 2 exibe o fluxo de inicialização do display.
-
-
-<p align="center">
-<img src="Imagens/fluxo_display.png" alt="Fluxo de inicialização do display" width="400"/>
-<figcaption style="text-align: center; font-size: 10">  <b>Figura 2:</b> Fluxo de inicialização do display <figcaption>
-</p>
+Para visualizar as informações recebidas, é essencial definir previamente um conjunto de funcionalidades, incluindo configurações de comunicação entre os dados recebidos da FPGA e o display, protocolos adequados, inicialização do display e formatação dos dados para exibição precisa no LCD. Cada passo é crucial para garantir uma correta exibição das informações na tela. Utilizamos uma macro para realizar a inicialização do display, A Figura 3 exibe o fluxo de inicialização do display.
 
 
 
-<p align="justify">
+<div style="text-align: center;">
+    <img src="Imagens/fluxo_display.png" alt="Pinos GPIO Orange Pi" width="400"/>
+    <div style="text-align: center; font-size: 10px;">
+        <b>Figura 3:</b> Fluxo de inicialização do display 
+    </div>
+</div>
+
+
+
 A inicialização do display com o controlador HD447780U, delineada no DataSheet, é essencial para configurar corretamente o dispositivo. Este fluxo estabelece as instruções fundamentais para o início do funcionamento do display. Em nossa solução, além de seguir esse padrão, incorporamos funcionalidades adicionais.
 
-<p align="justify">
 Antes de detalharmos as instruções, é importante destacar a conexão dos pinos que são utilizados para realizar a comunicação entre o SBC e o display. O pino RS desempenha o papel crucial de informar ao display o tipo de comando enviado, enquanto o pino Enable é responsável por enviar os dados dos pinos de dados (DB7 a DB4) para o display.
 
-<p align="justify">
 Nossa implementação emprega o modo de comunicação de 4 bits, otimizando o uso de pinos GPIO. Isso significa que o envio de dados ocorre duas vezes para transmitir os 8 bits necessários para operação do display, utilizando os pinos DB4 a DB7.
 
-
-<p align="justify">
 O processo de inicialização do display segue uma sequência específica, embora nossa implementação tenha algumas distinções em relação à ordem convencional. No início, são enviadas quatro instruções consecutivas do "Function Set". As três primeiras configuram o modo de operação com 8 bits, enquanto a última estabelece o display no modo de operação de 4 bits, definindo assim as características do modo de exibição. Cada instrução possui um tempo de espera determinado. Após a última instrução do "Function Set", é enviada uma outra instrução para manter a configuração de 4 bits e determinar o tamanho da fonte desejado.
-<p align="justify">
+
 Na sequência, as instruções "Display Off" e "Clear Display" são enviadas para desligar e limpar o display, respectivamente. Em seguida, é transmitida uma instrução do "Entry Mode Set" com as configurações de deslocamento específicas que desejamos. Após esse processo, o display é inicializado e se torna pronto para receber informações a serem escritas no LCD. É importante ressaltar que as instruções são encaminhadas do microcontrolador para o LCD através dos pinos de dados, de db0 a db7. Este processo detalhado de configuração e inicialização garante o correto funcionamento do display e prepara o ambiente para a exibição de informações. Abaixo podemos ver uma breve descrição das instruções.
+
 
 - Configuração dos pinos de controle:
     - Pino RS: Seleciona se os dados enviados que serão enviados ao display, vão ser encaminhados para o registrador de dados (caso seja um dado a ser exibido) ou uma instrução.0 
@@ -173,6 +182,7 @@ Na sequência, as instruções "Display Off" e "Clear Display" são enviadas par
         - Enviar os dados:Alterando do nível alto pro baixo
         - Estado de espera: Nível baixo
 
+
 - Function Set (4 Bits):
     -  Determina algumas características chaves do funcionamento do display.
     -  Pino 1:
@@ -181,6 +191,7 @@ Na sequência, as instruções "Display Off" e "Clear Display" são enviadas par
             - Nível Lógico Alto: Comunicação utilizando 8 bits
     - Pino 2 e 3: 
         - Configuram o tamanho da fonte que estamos utilizando, de acordo com combinações de bits.
+
 
 - Display On/Off:
     - Controla alguns aspectos do display
@@ -193,6 +204,7 @@ Na sequência, as instruções "Display Off" e "Clear Display" são enviadas par
     - Pin 3:
         - Nível Lógico Baixo: Cursor não pisca
         - Nível Lógico Alto: Cursor pisca
+
 
 - Clear Display:
     - Usado para limpar qualquer comando que esteja escrito na tela.
@@ -209,17 +221,17 @@ Na sequência, as instruções "Display Off" e "Clear Display" são enviadas par
             - Nível Lógico Alto:    Display inteiro é deslocado para a direção selecionado no pino 1.
 
 
-
+----------
 
 
 #### Exibição no Display
-<p align="justify">
+
 Com o display inicializado, torna-se possível a exibição de dados e interação com o display. Inicialmente construímos instruções que auxiliam na montagem da tela especifica, A função WriteCharLCD permite escrever caracteres individuais na tela, enquanto WriteNumberLCD é útil para exibir números. Além disso, funções como o deslocamento do cursor para a direita e a manipulação dos valores (como separar a dezena da unidade) são cruciais para o tratamento dos dados do sensor e para apresentar esses valores de forma compreensível no display.
 Essas instruções simplificam a construção das interfaces de interação com o usuário, facilitando a exibição de dados e a interação com o display. Com elas, é possível estruturar telas específicas para diferentes propósitos, tornando a experiência do usuário mais intuitiva e amigável.
-<p align="justify">
+
 Para enviar dados ou comandos para o display, os valores correspondentes aos bits são colocados nos pinos DB4-DB7, com os primeiros 4 bits representando os bits mais significativos e os 4 seguintes representando os bits menos significativos. Isso é parte do processo de comunicação serial. Além disso, a escrita no HD44780U segue um diagrama temporal para sincronizar os tempos de envio dos dados ou comandos. O HD44780U requer uma sequência de sinais de controle (como o sinal de enable, o sinal de R/S) em tempos específicos para que os dados sejam interpretados corretamente.
 Uma escrita típica envolve colocar os dados nos pinos DB4-DB7, seguido pela configuração de outros pinos de controle, como RS (Register Select) para indicar se os dados são comandos ou caracteres a serem exibidos, e o pulso de habilitação (E) para indicar quando os dados estão prontos para serem lidos pelo display.
- 
+----------
 
 
 
@@ -232,21 +244,14 @@ Uma escrita típica envolve colocar os dados nos pinos DB4-DB7, seguido pela con
 
 
 
---------------
 ### Uart
+--------------
 
-
-
-----
 ## Como Executar
 --------------
 
 ### Comandos
 --------------
-
-Para enviar um comando, são necessários dois passos:
-+ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
-+ 2: Posicionar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok.
 Ao todo existem 7 comandos:
 
 | Código | Descrição  do comando   |
@@ -259,47 +264,57 @@ Ao todo existem 7 comandos:
 | 0110 |Desativa o sensoriamento continuo de umidade. |
 
 
+Para enviar um comando, são necessários dois passos:
++ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
++ 2: Posicionar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok. 
+
 
 ## Testes
 --------------
 
-<figure style = "text-align: center;">
-<p align="center">
-<img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/sensor_ok.jpg" alt="Situação Sensor" width="400"/>
-<figcaption> <small> <b>Figura 3:</b> Posição das chaves 0000, esse comando solicita a situação atual do sensor. Nesse caso a resposta foi positiva, o sensor está ativo e funcional.  </small></figcaption>
-</p>
-</figure>
 
-<figure style = "text-align: center;">
-<p align="center">
-<img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/tela_temperatura.jpg" alt="Tela temperatura" width="400"/>
-<figcaption> <small> <b>Figura 4:</b> Posição das chaves 0001, comando solicita a medida de temperatura atual do sensor específico </small></figcaption>
-</p>
 
-</figure>
+<div style="text-align: center;">
+    <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/sensor_ok.jpg" alt="Situação Sensor" width="400"/>
+    <div style="text-align: center; font-size: 10px;">
+        <b>Figura 4:</b> Posição das chaves 0000, esse comando solicita a situação atual do sensor. Nesse caso a resposta foi positiva, o sensor está ativo e funcional.  
+    </div>
+</div>
 
-<figure style = "text-align: center;">
-<p align="center">
-<img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/tela_umidade.jpg" alt="Tela Umidade" width="400"/>
-<figcaption> <small> <b>Figura 5:</b> Posição das chaves 0010, comando solicita a medida de temperatura atual do sensor</small></figcaption>
-</p>
 
-</figure>
+<div style="text-align: center;">
+    <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/tela_temperatura.jpg" alt="Tela temperatura" width="400"/>
+    <div style="text-align: center; font-size: 10px;">
+        <b>Figura 5:</b> Posição das chaves 0001, comando solicita a medida de temperatura atual do sensor específico 
+    </div>
+</div>
 
-<figure style = "text-align: center;">
-<p align="center">
-<img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/temperaturac_off.jpg" alt="Temperatura Continua Desligada" width="400"/>
-<figcaption> <small> <b>Figura 6: </b> Posição das chaves 0101, comando desliga o sensoriamento continuo de temperatura</small></figcaption>
-</p>
 
-</figure>
+<div style="text-align: center;">
+  <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/tela_umidade.jpg" alt="Tela Umidade" width="400"/>
+    <div style="text-align: center; font-size: 10px;">
+        <b>Figura 6:</b> Posição das chaves 0010, comando solicita a medida de temperatura atual do sensor
+    </div>
+</div>
 
-<figure style = "text-align: center;">
-<p align="center">
+
+<div style="text-align: center;">
+ <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/temperaturac_off.jpg" alt="Temperatura Continua Desligada" width="400"/>
+    <div style="text-align: center; font-size: 10px;">
+        <b>Figura 7: </b> Posição das chaves 0101, comando desliga o sensoriamento continuo de temperatura
+    </div>
+</div>
+
+
+<div style="text-align: center;">
 <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/umidadec_off.jpg" alt="Umidade Continua Desligada" width="400"/>
-<figcaption> <small> <b>Figura 6: </b> Posição das chaves 0110, comando desliga o sensoriamento continuo de umidade </small></figcaption>
-</p>
-</figure>
+    <div style="text-align: center; font-size: 10px;">
+       <b>Figura 8: </b> Posição das chaves 0110, comando desliga o sensoriamento continuo de umidade 
+    </div>
+</div>
+
+
+
 
 
 
