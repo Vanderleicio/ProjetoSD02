@@ -45,7 +45,7 @@
 
 <div style="text-align: justify;">
   Este documento descreve a continuação do desenvolvimento de um sistema digital para controle de ambientes. O projeto está dividido em duas etapas, o leitor pode encontrar a descrição da implementação da primeira etapa 
-  <a href="https://github.com/Vanderleicio/ProjetoSD01">Clicando aqui (Primeira Etapa)</a>. A segunda etapa, visa desenvolver uma interface homem-máquina que, receba comandos, se comunique com a FPGA, receba respostas e exiba essas respostas no Display LCD. Essa interface, deve substitituir a implementada na primeira etapa utilizando a linguagem de programação C, atendendo os mesmos requisitos. Desta vez o prótotipo será embutido em um computador de placa única (SBC) a Orange Pi PC Plus. Uma das restrições do projeto, é que seja a solução seja escrita em Assembly, linguagem que corresponde ao conjunto de instruções de uma arquitetura específica.
+  <a href="https://github.com/Vanderleicio/ProjetoSD01">Clicando aqui (Primeira Etapa)</a>. A segunda etapa, visa desenvolver uma interface homem-máquina que, receba comandos, se comunique com a FPGA, receba respostas e exiba essas respostas no Display LCD. Essa interface, deve substituir a implementada na primeira etapa utilizando a linguagem de programação C, atendendo os mesmos requisitos. Desta vez o protótipo será embutido em um computador de placa única (SBC) a Orange Pi PC Plus. Uma das restrições do projeto, é que seja a solução seja escrita em Assembly, linguagem que corresponde ao conjunto de instruções de uma arquitetura específica.
 
   A Orange PI PC PLUS possui o processador AllWinner H3, baseado na arquitetura ARM Cortex-A7, parte da família ARMv7. Essa arquitetura, presente em dispositivos como smartphones, tablets e IoT, suporta instruções de 32 bits. Esse tamanho das instruções permite ao processador lidar com uma ampla gama de operações, desde cálculos aritméticos até manipulação de memória. Nesse sentido, toda a construção da solução foi fundamentada nas instruções do ARMv7. As instruções específicas utilizadas serão melhor detalhadas nas próximas seções, oferecendo uma visão mais aprofundada do papel crucial dessas instruções na funcionalidade da solução.
 </div>
@@ -73,7 +73,6 @@ Ao longo deste relatório, detalharemos minuciosamente como cada bloco funciona 
 
 
 ### Arquitetura do Computador
-
 Especificações técnicas:
 
 | CPU | H3 Quad-core Cortex-A7 H.265/HEVC 4K   |
@@ -239,23 +238,48 @@ Uma escrita típica envolve colocar os dados nos pinos DB4-DB7, seguido pela con
 
 
 ### Uart
---------------
-Para ativar a UART da Orange PI PC PLUS,
+O modulo UART é responsável pela comunicação entre a placa FPGA, que coleta as informações dos sensores, e a Orange PI, responsável por receber as entradas do usuário e exibir as informações requeridas.
+Para utilizar a UART da Orange PI PC PLUS, é necessário os seguintes passos:
+
+- Inicialização no início do fluxo das configurações referentes a UART.
+Macro responsável pela configuração e mapeamento da memoria da Uart
+
+        .macro MemoryMapUart
+            LDR R0, =devmem @ R0 = nome do arquivo
+            MOV R1, #2 @ O_RDWR (permissão de leitura e escrita pra arquivo)
+            MOV R7, #5 @ sys_open
+            SVC 0
+            MOV R4, R0 @ salva o descritor do arquivo.
+
+            @sys_mmap2
+            MOV R0, #0 @ NULL (SO escolhe o endereco)
+            LDR R1, =pagelen
+            LDR R1, [R1] @ tamanho da pagina de memoria
+            MOV R2, #3 @ protecao leitura ou escrita
+            MOV R3, #1 @ memoria compartilhada
+            LDR R5, =uartaddr @ endereco uart / 4096
+            LDR R5, [R5]
+            MOV R7, #192 @sys_mmap2
+            SVC 0
+            MOV R9, R0
+        .endm
+
+- Sequência: 
+Resetar a UART -> Habilitar a saída do clock -> Configurar fonte do clock -> Liberar o gating do clock para a UART -> Configurações da UART.
+
+- Características da UART utilizada: 9600 bps de baudrate, 8 bits de dados, 1 bit de início e 1 bit de fim;
+- Para envio e para o recebimento de dados, basta escrever e ler nos registradores correspondentes;
 
 
 --------------
 ## Como Executar
 
-
-
---------------
-
 ### Comandos
---------------
+
 
 Para enviar um comando, são necessários dois passos:
-+ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
-+ 2: Posicionar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok.
++ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binário) ao sensor a ser enviado e pressionar o botão de ok.
++ 2: Posicionar as chaves o valor do comando (em binário) a ser enviado e pressionar o botão de ok.
 
 Ao todo existem 7 comandos:
 
@@ -268,10 +292,6 @@ Ao todo existem 7 comandos:
 | 0101 |Desativa sensoriamento continuo de temperatura. |
 | 0110 |Desativa o sensoriamento continuo de umidade. |
 
-
-Para enviar um comando, são necessários dois passos:
-+ 1: Acessar a tela de comandos e posicionar as chaves ao numero relativo (em binario) ao sensor a ser enviado e pressionar o botão de ok.
-+ 2: Posicionar as chaves o valor do comando (em binario) a ser enviado e pressionar o botão de ok. 
 
 
 --------------
@@ -328,7 +348,7 @@ Para enviar um comando, são necessários dois passos:
 ## Conclusões
 
 
-Concluimos que todas as demandas e requisitos estabelecidos foram plenamente atendidos. O projeto concluído consiste na criação de uma Interface Homem-Máquina apresentada em um display LCD, com a interação facilitada por meio de chaves e botões. Destaca-se que essa solução foi elaborada de modo a satisfazer as necessidades e expectativas do usuário, cumprindo eficientemente com o propósito estabelecido.
+Concluímos que todas as demandas e requisitos estabelecidos foram plenamente atendidos. O projeto concluído consiste na criação de uma Interface Homem-Máquina apresentada em um display LCD, com a interação facilitada por meio de chaves e botões. Destaca-se que essa solução foi elaborada de modo a satisfazer as necessidades e expectativas do usuário, cumprindo eficientemente com o propósito estabelecido.
 
 --------------
 ## Referências
