@@ -103,10 +103,10 @@ A partir do mapeamento de memória é possível acessar o endereço virtual dos 
 
 
 <figure style = "text-align: center;">
-
+<p align="center">
 <img src="Imagens/pinagem.png" alt="Pinos GPIO Orange Pi" width="400"/>
 <figcaption> <small> <b>Figura 1:</b> Descrição da pinagem  </small></figcaption>
-
+</p>
 </figure>
 
 
@@ -133,9 +133,10 @@ Conectado à porta GPIO está o Display LCD 16x2, dedicado a apresentar uma inte
 Para visualizar as informações recebidas, é essencial definir previamente um conjunto de funcionalidades, incluindo configurações de comunicação entre os dados recebidos da FPGA e o display, protocolos adequados, inicialização do display e formatação dos dados para exibição precisa no LCD. Cada passo é crucial para garantir uma correta exibição das informações na tela. Utilizamos uma macro para realizar a inicialização do display, A Figura 2 exibe o fluxo de inicialização do display.
 
 <figure style = "text-align: center;">
-
+<p align="center">
 <img src="Imagens/fluxo_display.png" alt="Fluxo de inicialização do display" width="400"/>
 <figcaption> <small> <b>Figura 2:</b> Fluxo de inicialização do display  </small></figcaption>
+</p>
 
 </figure>
 
@@ -246,31 +247,43 @@ Para enviar um comando, são necessários dois passos:
 
 ## Testes
 --------------
-<div style= "text-align: center"> 
-    <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/sensor_ok.jpg" alt="Situação Sensor" width="400"/>
-<h5> <small> <b>Figura 3:</b> Posição das chaves 0000, esse comando solicita a situação atual do sensor. Nesse caso a resposta foi positiva, o sensor está ativo e funcional.  </small></h5>
-</div>
-
-
 
 <figure style = "text-align: center;">
+<p align="center">
+<img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/sensor_ok.jpg" alt="Situação Sensor" width="400"/>
+<figcaption> <small> <b>Figura 3:</b> Posição das chaves 0000, esse comando solicita a situação atual do sensor. Nesse caso a resposta foi positiva, o sensor está ativo e funcional.  </small></figcaption>
+</p>
+</figure>
+
+<figure style = "text-align: center;">
+<p align="center">
 <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/tela_temperatura.jpg" alt="Tela temperatura" width="400"/>
 <figcaption> <small> <b>Figura 4:</b> Posição das chaves 0001, comando solicita a medida de temperatura atual do sensor específico </small></figcaption>
+</p>
+
 </figure>
 
 <figure style = "text-align: center;">
+<p align="center">
 <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/tela_umidade.jpg" alt="Tela Umidade" width="400"/>
 <figcaption> <small> <b>Figura 5:</b> Posição das chaves 0010, comando solicita a medida de temperatura atual do sensor</small></figcaption>
+</p>
+
 </figure>
 
 <figure style = "text-align: center;">
+<p align="center">
 <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/temperaturac_off.jpg" alt="Temperatura Continua Desligada" width="400"/>
 <figcaption> <small> <b>Figura 6: </b> Posição das chaves 0101, comando desliga o sensoriamento continuo de temperatura</small></figcaption>
+</p>
+
 </figure>
 
 <figure style = "text-align: center;">
+<p align="center">
 <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/umidadec_off.jpg" alt="Umidade Continua Desligada" width="400"/>
 <figcaption> <small> <b>Figura 6: </b> Posição das chaves 0110, comando desliga o sensoriamento continuo de umidade </small></figcaption>
+</p>
 </figure>
 
 
