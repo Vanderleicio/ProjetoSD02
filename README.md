@@ -45,7 +45,7 @@
 
 <div style="text-align: justify;">
   Este documento descreve a continuação do desenvolvimento de um sistema digital para controle de ambientes. O projeto está dividido em duas etapas, o leitor pode encontrar a descrição da implementação da primeira etapa 
-  <a href="https://github.com/Vanderleicio/ProjetoSD01">Clicando aqui (Primeira Etapa)</a>. A segunda etapa, visa desenvolver uma interface homem-máquina que, receba comandos, se comunique com a FPGA, receba respostas e exiba essas respostas no Display LCD. Essa interface, deve substituir a implementada na primeira etapa utilizando a linguagem de programação C, atendendo os mesmos requisitos. Desta vez o protótipo será embutido em um computador de placa única (SBC) a Orange Pi PC Plus. Uma das restrições do projeto, é que seja a solução seja escrita em Assembly, linguagem que corresponde ao conjunto de instruções de uma arquitetura específica.
+  <a href="https://github.com/Vanderleicio/ProjetoSD01">Clicando aqui (Primeira Etapa)</a>. A segunda etapa, visa desenvolver uma interface homem-máquina que, receba comandos, se comunique com a FPGA, receba respostas e exiba essas respostas no Display LCD. Essa interface, deve substituir a implementada na primeira etapa utilizando a linguagem de programação C, atendendo os mesmos requisitos. Desta vez o protótipo será embutido em um computador de placa única (SBC) a Orange Pi PC Plus. Uma das restrições do projeto, é que a solução seja escrita em Assembly, linguagem que corresponde ao conjunto de instruções de uma arquitetura específica.
 
   A Orange PI PC PLUS possui o processador AllWinner H3, baseado na arquitetura ARM Cortex-A7, parte da família ARMv7. Essa arquitetura, presente em dispositivos como smartphones, tablets e IoT, suporta instruções de 32 bits. Esse tamanho das instruções permite ao processador lidar com uma ampla gama de operações, desde cálculos aritméticos até manipulação de memória. Nesse sentido, toda a construção da solução foi fundamentada nas instruções do ARMv7. As instruções específicas utilizadas serão melhor detalhadas nas próximas seções, oferecendo uma visão mais aprofundada do papel crucial dessas instruções na funcionalidade da solução.
 </div>
@@ -57,7 +57,7 @@
 
 Este desafio pode ser resolvido por meio de três blocos principais: o bloco UART, o bloco de exibição (Display) e o mapeamento.
 A comunicação serial ocorre através da UART, que conecta o FPGA à SBC Orange PI. Essa conexão permite a troca de informações específicas do sensor, tanto no envio quanto no recebimento de dados. Os dados provenientes da UART são armazenados em um registrador para posterior tratamento. Este tratamento é crucial para a correta disposição das respostas no display LCD, garantindo que cada informação seja exibida na posição correta da tela.
-O Display, por sua vez, está vinculado aos GPIO da Orange PI. Ele exibe telas distintas conforme a interação do usuário. As informações sobre o sensor e os comandos desejados são inseridos pelo usuário utilizando chaves e botões que também estão conectados aos GPIO.
+O Display, por sua vez, está vinculado aos GPIO da Orange PI. Ele exibe telas distintas conforme a interação do usuário. As informações sobre o sensor e os comandos desejados são inseridos pelo usuário utilizando chaves e botões que também estão conectados ao GPIO.
 O mapeamento desempenha um papel crucial, permitindo a manipulação dos pinos utilizados nos GPIO. Este processo facilita a configuração e o controle preciso dos dispositivos conectados.
 Ao longo deste relatório, detalharemos minuciosamente como cada bloco funciona em conjunto para criar uma solução completa.
 
@@ -95,7 +95,7 @@ Especificações técnicas:
 
 A Orange PI apresenta uma série de pinos de entrada e saída controláveis, além dos pinos específicos na SBC, como os pinos UART_TX e UART_RX, cada um com finalidades definidas. No contexto da nossa interface, o controle preciso da pinagem é crucial, pois a manipulação e transmissão de dados são essenciais para a funcionalidade principal da interface. 
 
-No entanto, as instruções do ARMv7 não têm conhecimento direto dos pinos GPIO. Portanto, para interagir com esses pinos no assembly, é necessário acessar diretamente os registradores associados a eles, realizando leituras e escritas em locais específicos na memória. No ambiente Linux, o arquivo */dev/mem*, fornece um ponteiro que permite acessar diretamente a memória. Para realizar esse mapeamento de memória, são utilizadas chamadas de sistema, as chamadas syscall, que permitem aos programas solicitar serviços ao kernel. Nesse contexto, a syscall utilizada é a mmpa2, responsável por mapear os endereços do GPIO ou pinos específicos no espaço de memória.
+No entanto, as instruções do ARMv7 não têm conhecimento direto dos pinos GPIO. Portanto, para interagir com esses pinos no assembly, é necessário acessar diretamente os registradores associados a eles, realizando leituras e escritas em locais específicos na memória. No ambiente Linux, o arquivo */dev/mem*, fornece um ponteiro que permite acessar diretamente a memória. Para realizar esse mapeamento de memória, são utilizadas chamadas de sistema, as chamadas syscall, que permitem aos programas solicitar serviços ao sistema operacional. Nesse contexto, a syscall utilizada é a mmpa2, responsável por mapear os endereços dos registradores internos da placa correspondente às configurações necessárias, em um endereço de memória virtual.
 
 Para realizar a chamada do mmpa2, é importante que alguns registradores que são utilizados como parâmetros estejam preenchidos, são eles:
 - `R0`: Dica para o endereço virtual que será utilizado, caso seja nulo, o linux escolherá
@@ -132,7 +132,7 @@ Para manipular os pinos, algumas etapas são necessárias no processo:
     
 - Em nossa abordagem, adicionamos o valor padrão do <i>Offset</i> (0x800) do GPIO a um registrador específico.
 - Acessamos os registradores GPIO utilizando um deslocamento baseado no *Offset*
-- Ao passar o *Offset* do registrador de dados do pino, é possível carregar as informações contidas nessa posição de memória para um registrador. Essas informações representam representar o estado atual do pino
+- Ao passar o *Offset* do registrador de dados do pino, é possível carregar as informações contidas nessa posição de memória para um registrador. Essas informações representam o estado atual do pino.
 
 
 A partir desse ponto, uma vez que as informações do registrador foram carregadas para um registrador específico, é possível executar operações desejadas relacionadas ao pino. Isso pode incluir configurações adicionais, como definir a direção do pino, alterar o estado do pino, entre outras operações específicas para os GPIO.
@@ -148,7 +148,7 @@ A partir desse ponto, uma vez que as informações do registrador foram carregad
 Conectado à porta GPIO está o Display LCD 16x2, dedicado a apresentar uma interface ao usuário. Equipado com o controlador HD44780U da Hamachi, é capaz de exibir caracteres alfanuméricos e símbolos. 
 
 
-Para visualizar as informações recebidas, é essencial definir previamente um conjunto de funcionalidades, incluindo configurações de comunicação entre os dados recebidos da FPGA e o display, protocolos adequados, inicialização do display e formatação dos dados para exibição precisa no LCD. Cada passo é crucial para garantir uma correta exibição das informações na tela. Utilizamos uma macro para realizar a inicialização do display, A Figura 3 exibe o fluxo de inicialização do display.
+Para visualizar as informações recebidas, é essencial definir previamente um conjunto de funcionalidades, incluindo configurações de comunicação entre os dados recebidos da FPGA e o display, protocolos adequados, inicialização do display e formatação dos dados para exibição precisa no LCD. Cada passo é crucial para garantir uma correta exibição das informações na tela. Utilizamos uma macro para realizar a inicialização do display, a Figura 3 exibe o fluxo de inicialização do display.
 
 
 
@@ -173,7 +173,7 @@ Na sequência, as instruções "Display Off" e "Clear Display" são enviadas par
 
 
 - Configuração dos pinos de controle:
-    - Pino RS: Seleciona se os dados enviados que serão enviados ao display, vão ser encaminhados para o registrador de dados (caso seja um dado a ser exibido) ou uma instrução.0 
+    - Pino RS: Seleciona se os dados enviados que serão enviados ao display, vão ser encaminhados para o registrador de dados (caso seja um dado a ser exibido) ou uma instrução. 
          - Descrição Nível Lógico: 
             - Nível Lógico Baixo:  Registrador de Instrução
             - Nível Lógico Alto: Registrador de Dados
@@ -226,7 +226,7 @@ Na sequência, as instruções "Display Off" e "Clear Display" são enviadas par
 
 #### Exibição no Display
 
-Com o display inicializado, torna-se possível a exibição de dados e interação com o display. Inicialmente construímos instruções que auxiliam na montagem da tela especifica, A função WriteCharLCD permite escrever caracteres individuais na tela, enquanto WriteNumberLCD é útil para exibir números. Além disso, funções como o deslocamento do cursor para a direita e a manipulação dos valores (como separar a dezena da unidade) são cruciais para o tratamento dos dados do sensor e para apresentar esses valores de forma compreensível no display.
+Com o display inicializado, torna-se possível a exibição de dados e interação com o display. Inicialmente construímos instruções que auxiliam na montagem da tela especifica. A função WriteCharLCD permite escrever caracteres individuais na tela, enquanto WriteNumberLCD é útil para exibir números. Além disso, funções como o deslocamento do cursor para a direita e a manipulação dos valores (como separar a dezena da unidade) são cruciais para o tratamento dos dados do sensor e para apresentar esses valores de forma compreensível no display.
 Essas instruções simplificam a construção das interfaces de interação com o usuário, facilitando a exibição de dados e a interação com o display. Com elas, é possível estruturar telas específicas para diferentes propósitos, tornando a experiência do usuário mais intuitiva e amigável.
 
 Para enviar dados ou comandos para o display, os valores correspondentes aos bits são colocados nos pinos DB4-DB7, com os primeiros 4 bits representando os bits mais significativos e os 4 seguintes representando os bits menos significativos. Isso é parte do processo de comunicação serial. Além disso, a escrita no HD44780U segue um diagrama temporal para sincronizar os tempos de envio dos dados ou comandos. O HD44780U requer uma sequência de sinais de controle (como o sinal de enable, o sinal de R/S) em tempos específicos para que os dados sejam interpretados corretamente.
@@ -241,33 +241,13 @@ Uma escrita típica envolve colocar os dados nos pinos DB4-DB7, seguido pela con
 O modulo UART é responsável pela comunicação entre a placa FPGA, que coleta as informações dos sensores, e a Orange PI, responsável por receber as entradas do usuário e exibir as informações requeridas.
 Para utilizar a UART da Orange PI PC PLUS, é necessário os seguintes passos:
 
-- Inicialização no início do fluxo das configurações referentes a UART.
-Macro responsável pela configuração e mapeamento da memoria da Uart
-
-        .macro MemoryMapUart
-            LDR R0, =devmem @ R0 = nome do arquivo
-            MOV R1, #2 @ O_RDWR (permissão de leitura e escrita pra arquivo)
-            MOV R7, #5 @ sys_open
-            SVC 0
-            MOV R4, R0 @ salva o descritor do arquivo.
-
-            @sys_mmap2
-            MOV R0, #0 @ NULL (SO escolhe o endereco)
-            LDR R1, =pagelen
-            LDR R1, [R1] @ tamanho da pagina de memoria
-            MOV R2, #3 @ protecao leitura ou escrita
-            MOV R3, #1 @ memoria compartilhada
-            LDR R5, =uartaddr @ endereco uart / 4096
-            LDR R5, [R5]
-            MOV R7, #192 @sys_mmap2
-            SVC 0
-            MOV R9, R0
-        .endm
+- Inicializar, no início do fluxo, as configurações referentes a UART.
 
 - Sequência: 
 Resetar a UART -> Habilitar a saída do clock -> Configurar fonte do clock -> Liberar o gating do clock para a UART -> Configurações da UART.
 
 - Características da UART utilizada: 9600 bps de baudrate, 8 bits de dados, 1 bit de início e 1 bit de fim;
+  
 - Para envio e para o recebimento de dados, basta escrever e ler nos registradores correspondentes;
 
 
@@ -319,7 +299,7 @@ Ao todo existem 7 comandos:
 <div style="text-align: center;">
   <img src="https://github.com/Vanderleicio/ProjetoSD02/blob/readme/Imagens/tela_umidade.jpg" alt="Tela Umidade" width="400"/>
     <div style="text-align: center; font-size: 10;">
-        <b>Figura 6:</b> Posição das chaves 0010, comando solicita a medida de temperatura atual do sensor
+        <b>Figura 6:</b> Posição das chaves 0010, comando solicita a medida de umidade atual do sensor
     </div>
 </div>
 
